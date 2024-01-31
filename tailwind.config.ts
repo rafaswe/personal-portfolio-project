@@ -31,7 +31,7 @@ const config: Config = {
 
         secondary: "#24292e",
         quaternary: "#049D70",
-        tertiary: "#F7BA16",
+        tertiary: "#f9826c",
         disabled: "#C1C1C1",
         background: "#FAFAFA",
         "price-bg": "#EFDBFF",
