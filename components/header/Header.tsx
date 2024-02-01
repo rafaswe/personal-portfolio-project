@@ -11,10 +11,11 @@ const Header = () => {
       <div className="flex-1 ">
         <div className="flex bg-secondary items-center gap-1 w-1/2 mx-auto justify-center py-0.5 rounded-lg">
           <Image
-            src="/images/searchIcon.svg"
+            src="/images/searchIcon-selected.svg"
             alt="search Icon"
             width={16}
             height={16}
+            className="mt-1 "
           />
           <p>Mahiya Rahman Rafa</p>
         </div>

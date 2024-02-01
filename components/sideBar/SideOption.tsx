@@ -3,39 +3,52 @@ import { cn } from "@/functions/cn";
 import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
-
-const buttonProperties = [
-  { id: 0, image: "file", altText: "File" },
-  { id: 1, image: "searchIcon", altText: "Search in Scocial Media" },
-  { id: 2, image: "github", altText: "Github preview" },
-  { id: 3, image: "merge", altText: "Combined projects(Office/partnership)" },
-  { id: 4, image: "code", altText: "Personal Code" },
-  { id: 5, image: "github", altText: "Github preview" },
-  { id: 6, image: "blog", altText: "Blogs written by me" },
-  { id: 7, image: "contact", altText: "contact information" },
-];
+import { menueProperties, personalInfoProperties } from "../constant/enum";
 
 const SideOption = ({ className }: { className?: string }) => {
-  const [selectedId, setSelectedId] = useState<number>(0);
+  const [menueSelectedId, setMenueSelectedId] = useState<number | null>(0);
+  const [pISelectedId, setPISelectedId] = useState<number | null>(0); // PI= personal Information
 
-  const handleClick = (id: number) => {
-    setSelectedId(id);
+  const handleMenueClick = (id: number) => {
+    setMenueSelectedId(id);
+    setPISelectedId(null);
+  };
+  const handlePersonalInfoClick = (id: number) => {
+    setMenueSelectedId(null);
+    setPISelectedId(id);
   };
 
   return (
-    <div className={cn(className)}>
-      <div className="flex gap-y-4 flex-col">
-        {buttonProperties.map((btn) => (
+    <div className={cn("flex flex-col justify-between", className)}>
+      <div className="flex flex-col">
+        {menueProperties?.map((btn) => (
           <button
-            className={clsx("pr-3 pl-2.5 py-2 border-l-4", {
-              "border-tertiary": selectedId === btn.id,
-              "border-transparent": selectedId !== btn.id,
+            className={clsx("pr-3 pl-2.5 py-3 border-l-2 hover:bg-[#3b4252]", {
+              "border-tertiary": menueSelectedId === btn.id,
+              "border-transparent": menueSelectedId !== btn.id,
             })}
             key={btn.id}
-            onClick={() => handleClick(btn.id)}>
+            onClick={() => handleMenueClick(btn.id)}>
             <Image
               src={`/images/${btn.image}-${
-                selectedId === btn.id ? "selected" : "unselected"
+                menueSelectedId === btn.id ? "selected" : "unselected"
+              }.svg`}
+              alt={btn.altText}
+              width={24}
+              height={24}
+            />
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-col">
+        {personalInfoProperties?.map((btn) => (
+          <button
+            className="pr-3 pl-2.5 py-3 border-l-2 border-transparent hover:bg-[#3b4252]"
+            key={btn.id}
+            onClick={() => handlePersonalInfoClick(btn.id)}>
+            <Image
+              src={`/images/${btn.image}-${
+                pISelectedId === btn.id ? "selected" : "unselected"
               }.svg`}
               alt={btn.altText}
               width={24}

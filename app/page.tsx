@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="flex h-full">
       <Sidebar />
-      <ShowSection className="bg-secondary w-[80%]" />
+      <ShowSection className="bg-secondary flex-1" />
     </div>
   );
 }
