@@ -24,3 +24,16 @@ export const sideMenuProperties = [
   { id: 6, icon: "json", text: "blogs.json" },
   { id: 7, icon: "md", text: "gitHub.md" },
 ];
+
+export const skillName = [
+  { id: 0, name: "HTML" },
+  { id: 1, name: "CSS" },
+  { id: 2, name: "Bootstrap" },
+  { id: 3, name: "Tailwind" },
+  { id: 4, name: "Antd" },
+  { id: 5, name: "JavaScript" },
+  { id: 6, name: "ES6" },
+  { id: 7, name: "ReactJS" },
+  { id: 8, name: "Next Js" },
+  { id: 9, name: "Fundamental Java" },
+];

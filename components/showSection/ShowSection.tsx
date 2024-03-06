@@ -1,11 +1,12 @@
 import { cn } from "@/functions/cn";
-import Home from "./home/Home";
+import AboutMe from "./about/AboutMe";
 
 const ShowSection = ({ className }: { className?: string }) => {
   return (
     <div className={cn(className)}>
       ShowSection
-      <Home />
+      {/* <HomeComponent /> */}
+      <AboutMe />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import SideDesign from "./SideDesign";
 //I transform visions into code.
 
-const Home = () => {
+const HomeComponent = () => {
   const controls = useAnimation();
 
   const handleAnimation = async () => {
@@ -55,4 +55,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeComponent;
