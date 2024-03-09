@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
-import { sideMenuProperties } from "../constant/enum";
+import { MenuProperties } from "../constant/enum";
 
 const SideMenu = ({ className }: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -51,7 +51,7 @@ const SideMenu = ({ className }: { className?: string }) => {
               }}
               transition={{ duration: 0.3 }}>
               <div className="flex flex-col ">
-                {sideMenuProperties.map((menue) => (
+                {MenuProperties.map((menue) => (
                   <button
                     key={menue.id}
                     className="flex gap-2.5 py-0.5 items-cente w-full hover:bg-[#24292e] rounded-sm"
@@ -61,7 +61,7 @@ const SideMenu = ({ className }: { className?: string }) => {
                       alt={menue.text}
                       height={15}
                       width={15}
-                      className="mt-1"
+                      className="mt-1 w-[15px] h-[15px]"
                     />
                     <p>{menue.text}</p>
                   </button>

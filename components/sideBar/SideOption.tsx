@@ -3,7 +3,7 @@ import { cn } from "@/functions/cn";
 import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
-import { menueProperties, personalInfoProperties } from "../constant/enum";
+import { menueProperties, PersonalInfoProperties } from "../constant/enum";
 
 const SideOption = ({ className }: { className?: string }) => {
   const [menueSelectedId, setMenueSelectedId] = useState<number | null>(0);
@@ -19,7 +19,7 @@ const SideOption = ({ className }: { className?: string }) => {
   };
 
   return (
-    <div className={cn("flex flex-col justify-between", className)}>
+    <div className={cn("flex flex-col w-18 justify-between", className)}>
       <div className="flex flex-col">
         {menueProperties?.map((btn) => (
           <button
@@ -36,12 +36,13 @@ const SideOption = ({ className }: { className?: string }) => {
               alt={btn.altText}
               width={24}
               height={24}
+              className="h-6 w-6"
             />
           </button>
         ))}
       </div>
       <div className="flex flex-col">
-        {personalInfoProperties?.map((btn) => (
+        {PersonalInfoProperties?.map((btn) => (
           <button
             className="pr-3 pl-2.5 py-3 border-l-2 border-transparent hover:bg-[#3b4252]"
             key={btn.id}
@@ -53,6 +54,7 @@ const SideOption = ({ className }: { className?: string }) => {
               alt={btn.altText}
               width={24}
               height={24}
+              className="h-6 w-6"
             />
           </button>
         ))}

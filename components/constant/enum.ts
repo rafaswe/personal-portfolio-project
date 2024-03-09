@@ -9,12 +9,12 @@ export const menueProperties = [
   { id: 6, image: "contact", altText: "contact information" },
 ];
 
-export const personalInfoProperties = [
+export const PersonalInfoProperties = [
   { id: 0, image: "profile", altText: "profileInfo" },
   { id: 1, image: "settings", altText: "Settings section" },
 ];
 
-export const sideMenuProperties = [
+export const MenuProperties = [
   { id: 0, icon: "JS", text: "home.js" },
   { id: 1, icon: "TS", text: "search.ts" },
   { id: 2, icon: "html", text: "about.html" },
