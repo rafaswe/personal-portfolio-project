@@ -1,12 +1,13 @@
 import { cn } from "@/functions/cn";
-import AboutMe from "./about/AboutMe";
+import Search from "./search/Search.container";
 
 const ShowSection = ({ className }: { className?: string }) => {
   return (
     <div className={cn(className)}>
-      ShowSection
+      {/* ShowSection */}
       {/* <HomeComponent /> */}
-      <AboutMe />
+      {/* <AboutMe /> */}
+      <Search />
     </div>
   );
 };

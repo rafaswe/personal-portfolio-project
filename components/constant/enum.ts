@@ -37,3 +37,38 @@ export const skillName = [
   { id: 8, name: "Next Js" },
   { id: 9, name: "Fundamental Java" },
 ];
+
+export const OnlinePresenceList = [
+  {
+    id: 0,
+    imageURL: "/images/onlinePresence/1.png",
+    title: "ড্যাফোডিল ১০ম সমাবর্তন",
+    description:
+      'One of the leading newspapers of Bangladesh- "প্রথম আলো" published news about DIU 10th convocation.',
+    url: "",
+  },
+  {
+    id: 1,
+    imageURL: "/images/onlinePresence/0.jpeg",
+    title: "DIU 10th Convocation 2023",
+    description:
+      "I was honored with the President's Gold Medal by Education Minister Dr. Dipu Moni at the DIU 10th Convocation in 2023, fueling my commitment to academic excellence.",
+    url: "https://dsa.daffodilvarsity.edu.bd/newsletter/march-2023/",
+  },
+  {
+    id: 2,
+    imageURL: "/images/onlinePresence/3.jpeg",
+    title: "ড্যাফোডিল ইউনিভার্সিটির গ্র্যাজুয়েট স্বর্ণপদক পেলেন রাফা",
+    description:
+      'My reception of the President\'s Gold Medal from Education Minister Dr. Dipu Moni at the DIU 10th Convocation in 2023, highlighted in an online newspaper-"The Rising BD", reaffirms my dedication to academic excellence.',
+    url: "https://www.risingbd.com/%E0%A6%A1%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%AB%E0%A7%8B%E0%A6%A1%E0%A6%BF%E0%A6%B2-%E0%A6%87%E0%A6%89%E0%A6%A8%E0%A6%BF%E0%A6%AD%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%B8%E0%A6%BF%E0%A6%9F%E0%A6%BF%E0%A6%B0-%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%9C%E0%A7%81%E0%A7%9F%E0%A7%87%E0%A6%9F-%E0%A6%B8%E0%A7%8D%E0%A6%AC%E0%A6%B0%E0%A7%8D%E0%A6%A3%E0%A6%AA%E0%A6%A6%E0%A6%95-%E0%A6%AA%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%A8-%E0%A6%B0%E0%A6%BE%E0%A6%AB%E0%A6%BE/492979",
+  },
+  {
+    id: 3,
+    imageURL: "/images/onlinePresence/2.jpeg",
+    title: "'গ্র্যাজুয়েট স্বর্ণপদক' পেলো মাহিয়া রহমান রাফা",
+    description:
+      'On 20 September 2023, "The Public" news portal Published about my achievements.',
+    url: "https://publicreaction.net/",
+  },
+];
