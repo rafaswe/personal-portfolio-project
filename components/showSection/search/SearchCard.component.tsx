@@ -45,7 +45,7 @@ const SearchCard = ({
             target="_blank"
             rel="noreferrer"
             passHref
-            className="flex items-center gap-1 justify-end font-medium text-sm">
+            className="flex items-center gap-1 w-fit ml-auto font-medium text-sm">
             <p>Know More</p>
             <Image src={linkArrow} alt="Link arrow" width={14} height={14} />
           </Link>
