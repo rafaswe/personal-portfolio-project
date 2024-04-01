@@ -1,5 +1,5 @@
 import { cn } from "@/functions/cn";
-import Search from "./search/Search.container";
+import { ContactContainer } from "./contact/Contact.container";
 
 const ShowSection = ({ className }: { className?: string }) => {
   return (
@@ -7,7 +7,8 @@ const ShowSection = ({ className }: { className?: string }) => {
       {/* ShowSection */}
       {/* <HomeComponent /> */}
       {/* <AboutMe /> */}
-      <Search />
+      {/* <Search /> */}
+      <ContactContainer />
     </div>
   );
 };
