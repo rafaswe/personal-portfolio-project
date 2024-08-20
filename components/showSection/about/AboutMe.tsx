@@ -1,9 +1,9 @@
-import { skillName } from "@/components/constant/enum";
-import ComponentLayout from "../ShowSectionComponent.layout";
+import { skillName } from '@/components/constant/enum';
+import ComponentLayout from '../ShowSectionComponent.layout';
 
 const AboutMe = () => {
   return (
-    <ComponentLayout title="About me" className="w-full">
+    <ComponentLayout title="About me" className="w-full bg-secondary">
       <div className="flex flex-col gap-4">
         <div className="font-medium">
           <p>{`Hello, I'm Mahiya Rahman Rafa, a frontend Developer enamored with
@@ -17,7 +17,7 @@ const AboutMe = () => {
         </div>
         <div className="pl-12">
           <ul>
-            {skillName.map((skill) => (
+            {skillName.map(skill => (
               <li key={skill.id} className="list-disc">
                 {skill.name}
               </li>
