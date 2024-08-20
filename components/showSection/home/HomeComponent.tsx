@@ -1,24 +1,11 @@
-"use client";
-import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
-import SideDesign from "./SideDesign";
+'use client';
+import { motion } from 'framer-motion';
+import SideDesign from './SideDesign';
 //I transform visions into code.
 
 const HomeComponent = () => {
-  const controls = useAnimation();
-
-  const handleAnimation = async () => {
-    await controls.start({ width: 0, transition: { duration: 4 } }); // Increase duration to slow down the animation
-    await controls.start({ width: "100%", transition: { duration: 4 } }); // Increase duration to slow down the animation
-    handleAnimation();
-  };
-
-  useEffect(() => {
-    handleAnimation();
-  }, [controls]);
-
   return (
-    <div className="px-4  h-full  relative  ">
+    <div className="px-4  h-full w-full  relative  ">
       <div className="text-[152px] font-bold h-full flex items-center leading-[172px]">
         I transform <br /> visions into
         <br /> code.
@@ -32,18 +19,27 @@ const HomeComponent = () => {
                 <div className="flex gap-1">
                   <p></p>
                   <p className=" text-4xl">Frontend Developer</p>
-                  <p>{"  "}</p>
+                  <p>{'  '}</p>
                 </div>
                 <motion.div
                   className="absolute border-l-4 border-[#f9826c] h-full top-0 -right-1 bg-secondary"
-                  initial={{ width: "100%" }}
-                  animate={controls}></motion.div>
+                  initial={{ width: '100%' }}
+                  animate={{
+                    width: ['100%', '0%', '100%'], // Keyframes
+                    transition: {
+                      duration: 8, // Total duration for one complete cycle
+                      ease: 'easeInOut',
+                      repeat: Infinity, // Repeat indefinitely
+                    },
+                  }}
+                ></motion.div>
               </div>
               <motion.p
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 3, duration: 1 }}
-                className="text-lg pl-1">
+                className="text-lg pl-1"
+              >
                 ReactJs/Next Js Developer
               </motion.p>
             </div>

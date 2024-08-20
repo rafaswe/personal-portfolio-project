@@ -1,12 +1,12 @@
-import Footer from "@/components/footer/Footer";
-import Header from "@/components/header/Header";
-import "./globals.css";
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import Footer from '@/components/footer/Footer';
+import Header from '@/components/header/Header';
+import Sidebar from '@/components/sideBar/Sidebar';
+import { ReactNode } from 'react';
+import './globals.css';
+type RootLayoutProps = {
+  children: ReactNode;
+};
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -15,7 +15,10 @@ export default function RootLayout({
       </head>
       <body className="h-screen flex flex-col justify-between">
         <Header />
-        {children}
+        <div className="flex h-full">
+          <Sidebar />
+          {children}
+        </div>
         <Footer />
       </body>
     </html>

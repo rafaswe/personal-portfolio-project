@@ -1,11 +1,9 @@
-import ShowSection from "@/components/showSection/ShowSection";
-import Sidebar from "@/components/sideBar/Sidebar";
+import HomeComponent from '@/components/showSection/home/HomeComponent';
 
 export default function Home() {
   return (
-    <div className="flex h-full">
-      <Sidebar />
-      <ShowSection className="bg-secondary flex-1" />
+    <div className="flex h-full w-full">
+      <HomeComponent />
     </div>
   );
 }
