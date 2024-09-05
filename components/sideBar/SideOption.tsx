@@ -2,12 +2,18 @@
 import { cn } from "@/functions/cn";
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { menueProperties, personalInfoProperties } from "../constant/enum";
+import { menueProperties } from "../constant/enum";
 
 const SideOption = ({ className }: { className?: string }) => {
   const [menueSelectedId, setMenueSelectedId] = useState<number | null>(0);
-  const [pISelectedId, setPISelectedId] = useState<number | null>(0); // PI= personal Information
+  const [pISelectedId, setPISelectedId] = useState<number | null>(0);
+
+  const sideMenu = menueProperties.slice(0, menueProperties.length - 2);
+  const personalInfoProperties = menueProperties.slice(-2);
+  const pathName = usePathname();
 
   const handleMenueClick = (id: number) => {
     setMenueSelectedId(id);
@@ -21,40 +27,55 @@ const SideOption = ({ className }: { className?: string }) => {
   return (
     <div className={cn("flex flex-col justify-between", className)}>
       <div className="flex flex-col">
-        {menueProperties?.map((btn) => (
-          <button
-            className={clsx("pr-3 pl-2.5 py-3 border-l-2 hover:bg-[#3b4252]", {
-              "border-tertiary": menueSelectedId === btn.id,
-              "border-transparent": menueSelectedId !== btn.id,
-            })}
-            key={btn.id}
-            onClick={() => handleMenueClick(btn.id)}>
+        {sideMenu?.map((singleProperty) => (
+          <Link
+            href={singleProperty.link}
+            className={clsx(
+              "pr-3 pl-2.5 py-3 border-l-2 hover:bg-[#3b4252]",
+              {
+                "border-tertiary": pathName === singleProperty.link,
+                "border-transparent": pathName !== singleProperty.link,
+              },
+              { "cursor-not-allowed": !singleProperty?.link }
+            )}
+            key={singleProperty.id}
+            onClick={() => handleMenueClick(singleProperty.id)}>
             <Image
-              src={`/images/${btn.image}-${
-                menueSelectedId === btn.id ? "selected" : "unselected"
+              src={`/images/${singleProperty.image}-${
+                menueSelectedId === singleProperty.id
+                  ? "selected"
+                  : "unselected"
               }.svg`}
-              alt={btn.altText}
+              alt={singleProperty.altText}
               width={24}
               height={24}
             />
-          </button>
+          </Link>
         ))}
       </div>
       <div className="flex flex-col">
-        {personalInfoProperties?.map((btn) => (
-          <button
-            className="pr-3 pl-2.5 py-3 border-l-2 border-transparent hover:bg-[#3b4252]"
-            key={btn.id}
-            onClick={() => handlePersonalInfoClick(btn.id)}>
+        {personalInfoProperties?.map((singleProperty) => (
+          <Link
+            href={singleProperty?.link}
+            className={clsx(
+              "pr-3 pl-2.5 py-3 border-l-2 hover:bg-[#3b4252]",
+              {
+                "border-tertiary": pathName === singleProperty.link,
+                "border-transparent": pathName !== singleProperty.link,
+              },
+              { "cursor-not-allowed": !singleProperty?.link }
+            )}
+            key={singleProperty?.id}
+            onClick={() => handlePersonalInfoClick(singleProperty?.id)}>
             <Image
-              src={`/images/${btn.image}-${
-                pISelectedId === btn.id ? "selected" : "unselected"
+              src={`/images/${singleProperty.image}-${
+                pISelectedId === singleProperty.id ? "selected" : "unselected"
               }.svg`}
-              alt={btn.altText}
+              alt={singleProperty?.altText}
               width={24}
               height={24}
             />
-          </button>
+          </Link>
         ))}
       </div>
     </div>

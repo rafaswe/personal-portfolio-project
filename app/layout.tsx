@@ -17,7 +17,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Header />
         <div className="flex h-full">
           <Sidebar />
-          <div className="w-full bg-secondary">{children}</div>
+          <div className="w-full bg-secondary">
+            <div></div>
+            {children}
+          </div>
         </div>
         <Footer />
       </body>
