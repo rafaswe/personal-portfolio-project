@@ -1,8 +1,9 @@
-import Footer from '@/components/footer/Footer';
-import Header from '@/components/header/Header';
-import Sidebar from '@/components/sideBar/Sidebar';
-import { ReactNode } from 'react';
-import './globals.css';
+import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
+import Navbar from "@/components/sideBar/navbar.component";
+import Sidebar from "@/components/sideBar/Sidebar";
+import { ReactNode } from "react";
+import "./globals.css";
 type RootLayoutProps = {
   children: ReactNode;
 };
@@ -17,9 +18,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Header />
         <div className="flex h-full">
           <Sidebar />
-          <div className="w-full bg-secondary">
-            <div></div>
-            {children}
+          <div className="w-full flex flex-col bg-secondary">
+            <Navbar />
+            <div className="flex-1 h-full">{children}</div>
           </div>
         </div>
         <Footer />
