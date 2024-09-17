@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const ContactInfo = () => {
   return (
-    <div className="w-1/2 text-xl">
+    <div className="w-full text-xl ">
       <p>
         <span className="text-tertiary">.socials </span>
         <span>{"{ "} </span>

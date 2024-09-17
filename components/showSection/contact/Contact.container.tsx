@@ -4,11 +4,15 @@ import ContactInfo from "./ContactInfo.component";
 
 export const ContactContainer = () => {
   return (
-    <ComponentLayout title="Reach Out Via Socials">
-      <div className="w-full flex">
+    <div className="flex items-start ">
+      <ComponentLayout title="Reach Out Via Socials" className="w-1/2 pr-0">
         <ContactInfo />
+      </ComponentLayout>
+      <ComponentLayout
+        title="Or Fill Out The Form"
+        className="w-1/2 pr-0 border-l-2 border-tertiary">
         <ContactForm />
-      </div>
-    </ComponentLayout>
+      </ComponentLayout>
+    </div>
   );
 };
