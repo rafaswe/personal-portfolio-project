@@ -4,7 +4,7 @@ const ContactInfo = () => {
   return (
     <div className="w-full text-xl">
       <p>
-        <span className="text-tertiary">.socials </span>
+        <span className="text-tertiary">.connections </span>
         <span>{"{ "} </span>
       </p>
       <InfoDetails
@@ -28,6 +28,7 @@ const ContactInfo = () => {
         link="https://github.com/rafaswe"
         linkTitle="rafaswe"
       />
+      <span>{"} "} </span>
     </div>
   );
 };

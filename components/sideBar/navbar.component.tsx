@@ -12,7 +12,7 @@ const Navbar = () => {
         <Link
           href={menubar?.pageLink}
           key={menubar.id}
-          className={`flex gap-2.5 py-0.5 w-fit items-center px-4 border-l border-secondary ${
+          className={`flex gap-2.5 py-2.5 w-fit items-center px-4 border-r-2 border-secondary ${
             pathName === menubar?.pageLink ? "bg-secondary" : "bg-primary"
           }`}>
           <Image
