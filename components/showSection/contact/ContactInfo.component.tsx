@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const ContactInfo = () => {
   return (
-    <div className="w-full text-xl ">
+    <div className="w-full text-xl">
       <p>
         <span className="text-tertiary">.socials </span>
         <span>{"{ "} </span>
@@ -17,6 +17,11 @@ const ContactInfo = () => {
         title="Skype"
         link="https://join.skype.com/invite/rRNY8afs4x7B"
         linkTitle="mahiyarahman1997"
+      />
+      <InfoDetails
+        title="Whatsapp"
+        link="https://wa.me/1631907601"
+        linkTitle="Mahiya Rahman Rafa"
       />
       <InfoDetails
         title="Github"
@@ -43,7 +48,9 @@ const InfoDetails = ({
         {title} :{" "}
         <Link
           href={link}
-          className="text-tertiary font-medium hover:underline hover:cursor-pointer">
+          className="text-tertiary font-medium hover:underline hover:cursor-pointer"
+          target="_black"
+          rel="noreferrer">
           {linkTitle}
         </Link>
         <span> ;</span>
