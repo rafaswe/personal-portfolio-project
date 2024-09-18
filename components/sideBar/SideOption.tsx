@@ -4,25 +4,12 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { menueProperties } from "../constant/enum";
 
 const SideOption = ({ className }: { className?: string }) => {
-  const [menueSelectedId, setMenueSelectedId] = useState<number | null>(0);
-  const [pISelectedId, setPISelectedId] = useState<number | null>(0);
-
   const sideMenu = menueProperties.slice(0, menueProperties.length - 2);
   const personalInfoProperties = menueProperties.slice(-2);
   const pathName = usePathname();
-
-  const handleMenueClick = (id: number) => {
-    setMenueSelectedId(id);
-    setPISelectedId(null);
-  };
-  const handlePersonalInfoClick = (id: number) => {
-    setMenueSelectedId(null);
-    setPISelectedId(id);
-  };
 
   return (
     <div className={cn("flex flex-col justify-between", className)}>
@@ -38,17 +25,15 @@ const SideOption = ({ className }: { className?: string }) => {
               },
               { "cursor-not-allowed": !singleProperty?.link }
             )}
-            key={singleProperty.id}
-            onClick={() => handleMenueClick(singleProperty.id)}>
+            key={singleProperty.id}>
             <Image
-              src={`/images/${singleProperty.image}-${
-                menueSelectedId === singleProperty.id
-                  ? "selected"
-                  : "unselected"
-              }.svg`}
+              src={`/images/${singleProperty.image}.svg`}
               alt={singleProperty.altText}
               width={24}
               height={24}
+              className={
+                pathName === singleProperty.link ? "opcaity-100" : "opacity-20"
+              }
             />
           </Link>
         ))}
@@ -65,15 +50,15 @@ const SideOption = ({ className }: { className?: string }) => {
               },
               { "cursor-not-allowed": !singleProperty?.link }
             )}
-            key={singleProperty?.id}
-            onClick={() => handlePersonalInfoClick(singleProperty?.id)}>
+            key={singleProperty?.id}>
             <Image
-              src={`/images/${singleProperty.image}-${
-                pISelectedId === singleProperty.id ? "selected" : "unselected"
-              }.svg`}
+              src={`/images/${singleProperty.image}.svg`}
               alt={singleProperty?.altText}
               width={24}
               height={24}
+              className={
+                pathName === singleProperty.link ? "opcaity-100" : "opacity-20"
+              }
             />
           </Link>
         ))}
