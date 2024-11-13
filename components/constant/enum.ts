@@ -38,10 +38,11 @@ export const skillName = [
   { id: 3, name: "Tailwind" },
   { id: 4, name: "Antd" },
   { id: 5, name: "JavaScript" },
-  { id: 6, name: "ES6" },
-  { id: 7, name: "ReactJS" },
-  { id: 8, name: "Next Js" },
-  { id: 9, name: "Fundamental Java" },
+  { id: 6, name: "TypeScript" },
+  { id: 7, name: "ES6" },
+  { id: 8, name: "ReactJS" },
+  { id: 9, name: "Next Js" },
+  { id: 10, name: "Fundamental Java" },
 ];
 
 export const OnlinePresenceList = [
