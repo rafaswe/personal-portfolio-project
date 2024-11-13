@@ -1,11 +1,13 @@
-import ShowSection from "@/components/showSection/ShowSection";
-import Sidebar from "@/components/sideBar/Sidebar";
+import HomeComponent from "@/components/showSection/home/HomeComponent";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Mahiya Rahman Rafa | Home",
+};
 export default function Home() {
   return (
-    <div className="flex h-full">
-      <Sidebar />
-      <ShowSection className="bg-secondary flex-1" />
+    <div className="flex h-full w-full">
+      <HomeComponent />
     </div>
   );
 }

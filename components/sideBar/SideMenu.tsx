@@ -3,23 +3,26 @@ import { cn } from "@/functions/cn";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { MenuProperties } from "../constant/enum";
+import { sideMenuProperties } from "../constant/enum";
 
 const SideMenu = ({ className }: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const pathName = usePathname();
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
-  const handleClick = (id: number) => {};
+
   return (
-    <div className={cn("text-[#efefef] py-2 pl-4 text-sm", className)}>
+    <div className={cn("text-[#efefef] py-2 text-sm", className)}>
       <h1 className="font-bold">EXPLORER</h1>
-      <div>
+      <div className="w-full">
         <button
           onClick={toggleDropdown}
-          className="my-2 flex items-center gap-1">
+          className="my-2 pl-4  w-full flex items-center gap-1">
           <Image
             src="/images/arrow.svg"
             alt="down Arrow"
@@ -51,11 +54,13 @@ const SideMenu = ({ className }: { className?: string }) => {
               }}
               transition={{ duration: 0.3 }}>
               <div className="flex flex-col ">
-                {MenuProperties.map((menue) => (
-                  <button
+                {sideMenuProperties.map((menue) => (
+                  <Link
+                    href={menue?.pageLink}
                     key={menue.id}
-                    className="flex gap-2.5 py-0.5 items-cente w-full hover:bg-[#24292e] rounded-sm"
-                    onClick={() => handleClick(menue.id)}>
+                    className={`flex gap-2.5 pl-4  py-0.5 items-cente w-full hover:bg-[#24292e] rounded-sm ${
+                      pathName === menue?.pageLink && "bg-[#24292e]"
+                    }`}>
                     <Image
                       src={`/images/${menue.icon}.svg`}
                       alt={menue.text}
@@ -64,7 +69,7 @@ const SideMenu = ({ className }: { className?: string }) => {
                       className="mt-1 w-[15px] h-[15px]"
                     />
                     <p>{menue.text}</p>
-                  </button>
+                  </Link>
                 ))}
               </div>
             </motion.div>

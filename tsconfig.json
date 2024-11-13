@@ -5,10 +5,11 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -20,8 +21,17 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "noImplicitAny": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/image-crop/page.tsx",
+    "app/flight-booking/old",
+    "components/visa/packagesView/packagesBodySection/packageList/singlePackage/imageSection"
+  ],
   "exclude": ["node_modules"]
 }
