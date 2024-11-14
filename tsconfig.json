@@ -14,6 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["node"],
     "plugins": [
       {
         "name": "next"
@@ -31,7 +32,8 @@
     ".next/types/**/*.ts",
     "app/image-crop/page.tsx",
     "app/flight-booking/old",
-    "components/visa/packagesView/packagesBodySection/packageList/singlePackage/imageSection"
-, "components/common/FloatingIcons"  ],
+    "components/visa/packagesView/packagesBodySection/packageList/singlePackage/imageSection",
+    "components/common/FloatingIcons"
+  ],
   "exclude": ["node_modules"]
 }

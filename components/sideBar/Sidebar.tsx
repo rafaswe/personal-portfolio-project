@@ -4,7 +4,7 @@ import SideOption from "./SideOption";
 
 const Sidebar = ({ className }: { className?: string }) => {
   return (
-    <div className={cn("w-[300px] flex", className)}>
+    <div className={cn("w-[300px] flex ", className)}>
       <SideOption className="bg-secondary" />
       <SideMenu className="bg-primary flex-1" />
     </div>

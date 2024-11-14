@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <title>Mahiya Rahman Rafa</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       </head>
-      <body className="h-screen flex flex-col justify-between">
+      <body className="h-screen flex flex-col hidden-scrollbar justify-between">
         <Header />
         <div className="flex h-full">
           <Sidebar />

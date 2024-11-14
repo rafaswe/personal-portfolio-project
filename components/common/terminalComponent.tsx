@@ -6,20 +6,13 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { sideMenuProperties } from "../constant/enum";
-
-const ListOfTerminalMenu = [
-  "PROBLEMS",
-  "OUTPUT",
-  "DEBUG CONSOLE",
-  "TERMINAL",
-  "GITLENS",
-];
+import { ListOfTerminalMenu, sideMenuProperties } from "../constant/enum";
 
 const TerminalComponent = () => {
   const [inputValue, setInputValue] = useState("");
   const [hasError, setHasError] = useState(false);
   const { isTerminalClicked, toggleTerminal } = useTerminalStore();
+  const terminalRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
@@ -63,7 +56,8 @@ const TerminalComponent = () => {
           inputRef.current.focus();
         }
       }}
-      className="absolute bottom-0 z-50 left-0 right-0 h-1/2 bg-primary border-r-2 border text-white shadow-lg">
+      className="absolute bottom-0 z-50 left-0 right-0 h-1/2 bg-primary border-r-2 border text-white shadow-lg"
+      ref={terminalRef}>
       <div className="text-xs ">
         <div className="px-3 py-1.5 flex items-center justify-between">
           <div className="flex items-center gap-2.5">

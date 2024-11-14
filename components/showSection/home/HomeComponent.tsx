@@ -1,6 +1,7 @@
 "use client";
+import { SkillIconList } from "@/components/constant/enum";
 import { motion } from "framer-motion";
-import SideDesign from "./SideDesign";
+import FloatingImages from "../../common/Scene";
 //I transform visions into code.
 
 const HomeComponent = () => {
@@ -42,7 +43,10 @@ const HomeComponent = () => {
               </motion.p>
             </div>
           </div>
-          <SideDesign />
+          <FloatingImages
+            icons={SkillIconList}
+            centralImage="/images/personalPhoto.png"
+          />
         </div>
       </div>
     </div>

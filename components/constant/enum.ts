@@ -1,3 +1,5 @@
+import { ExperienceSectionType } from "./interface";
+
 export const FAQ_HIGHEST_LIMIT = 3 as number;
 export const menueProperties = [
   { id: 0, image: "file", altText: "File", link: "/" },
@@ -117,5 +119,51 @@ export const BlogsInfo = [
     likeCount: 1,
     commentCount: 0,
     link: "https://medium.com/@rahmanmahiya99/some-suggestions-for-newbie-cse-or-swe-students-e4a0ae871b83",
+  },
+];
+
+export const ListOfTerminalMenu = [
+  "PROBLEMS",
+  "OUTPUT",
+  "DEBUG CONSOLE",
+  "TERMINAL",
+  "GITLENS",
+];
+
+export const SkillIconList = [
+  "/images/html.svg",
+  "/images/css.svg",
+  "images/bootstrap.svg",
+  "images/tailwind.svg",
+  "images/ant.svg",
+  "images/js.svg",
+  "images/typescript.svg",
+  "images/es6.svg",
+  "images/react.svg",
+  "images/next.svg",
+  "images/redux.svg",
+  "images/zustand.svg",
+];
+
+export const ExperienceSectionList: ExperienceSectionType[] = [
+  {
+    componayInfo: {
+      companyLogo: "/images/technoNextLogo.webp",
+      companyName: "TechnoNext",
+    },
+    positionInfo: [
+      {
+        positionName: "Junior Software Engineer",
+        joiningDate: "November 2023",
+        leavingDate: "",
+        address: "Dhaka, Bangladesh",
+      },
+      {
+        positionName: "Software Developer Trainee",
+        joiningDate: "May 2023",
+        leavingDate: "October 2023",
+        address: "Dhaka, Bangladesh",
+      },
+    ],
   },
 ];

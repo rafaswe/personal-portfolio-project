@@ -15,7 +15,25 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+@keyframes growLine {
+  from {
+    width: 0;
+  }
+  to {
+    width: 60%;
+  }
+}
+.line-animation {
+  width: 0;
+  animation: growLine 0.7s ease-out forwards;
+}
+.hidden-scrollbar::-webkit-scrollbar-thumb {
+  display: none;
+}
 
+.hidden-scrollbar {
+  scrollbar-width: none; /* Firefox */
+}
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
