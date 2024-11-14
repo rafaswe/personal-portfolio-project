@@ -1,3 +1,4 @@
+import TerminalComponent from "@/components/common/terminalComponent";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import Navbar from "@/components/sideBar/navbar.component";
@@ -20,7 +21,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Sidebar />
           <div className="w-full flex flex-col gap-y-8 bg-secondary">
             <Navbar />
-            <div className="flex-1 h-full">{children}</div>
+            <div className="flex-1 h-full w-full overflow-hidden relative">
+              {children}
+              <TerminalComponent />
+            </div>
           </div>
         </div>
         <Footer />

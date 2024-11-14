@@ -1,3 +1,4 @@
+import TerminalComponent from "@/components/common/terminalComponent";
 import HomeComponent from "@/components/showSection/home/HomeComponent";
 import { Metadata } from "next";
 
@@ -6,7 +7,7 @@ export const metadata: Metadata = {
 };
 export default function Home() {
   return (
-    <div className="flex h-full w-full">
+    <div className="flex h-full  w-full">
       <HomeComponent />
     </div>
   );

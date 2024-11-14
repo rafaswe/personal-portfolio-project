@@ -15,6 +15,22 @@ export const menueProperties = [
   { id: 7, image: "profile", altText: "profileInfo", link: "/about" },
   { id: 8, image: "settings", altText: "Settings section", link: "" },
 ];
+
+export const PersonalInfoProperties = [
+  { id: 0, image: "profile", altText: "profileInfo" },
+  { id: 1, image: "settings", altText: "Settings section" },
+];
+
+export const MenuProperties = [
+  { id: 0, icon: "JS", text: "home.js" },
+  { id: 1, icon: "TS", text: "search.ts" },
+  { id: 2, icon: "html", text: "about.html" },
+  { id: 3, icon: "css", text: "contact.css" },
+  { id: 4, icon: "tsx", text: "projects.tsx" },
+  { id: 5, icon: "react", text: "personalProjects.jsx" },
+  { id: 6, icon: "json", text: "blogs.json" },
+  { id: 7, icon: "md", text: "gitHub.md" },
+];
 export const sideMenuProperties = [
   { id: 0, icon: "JS", text: "home.js", pageLink: "/" },
   { id: 1, icon: "TS", text: "search.ts", pageLink: "/search" },

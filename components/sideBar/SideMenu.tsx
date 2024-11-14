@@ -66,7 +66,7 @@ const SideMenu = ({ className }: { className?: string }) => {
                       alt={menue.text}
                       height={15}
                       width={15}
-                      className="mt-1"
+                      className="mt-1 w-[15px] h-[15px]"
                     />
                     <p>{menue.text}</p>
                   </Link>
