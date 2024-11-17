@@ -1,8 +1,9 @@
+"use client";
 import { ExperienceSectionList, skillName } from "@/components/constant/enum";
 import { ExperienceSectionType } from "@/components/constant/interface";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SideDesign from "../../common/SideDesign";
 import ComponentLayout from "../ShowSectionComponent.layout";
 
@@ -14,21 +15,25 @@ const AboutMe = () => {
       <div className="relative">
         <div className="w-1/2 flex flex-col gap-4">
           <div className="break-words">
-            <p className="flex flex-col">
-              <span>
-                B.Sc. Software Engineering graduate, passionate about
-                problem-solving and development.{" "}
-              </span>
-              <span>
-                {" "}
-                Specializing in React/Next.js with a focus on front-end
-                technologies.Currently contributing as a
-              </span>{" "}
-              <span>
-                React/Next.js developer while also sharing insights through
-                blogging to benefit the community.
-              </span>
-            </p>
+            <div>
+              <p className="text-[#569CD6]">{`<p>`}</p>
+              <p className="flex flex-col pl-4 text-[#ecad93]">
+                <span>
+                  B.Sc. Software Engineering graduate, passionate about
+                  problem-solving and development.{" "}
+                </span>
+                <span>
+                  {" "}
+                  Specializing in React/Next.js with a focus on front-end
+                  technologies.Currently contributing as a
+                </span>{" "}
+                <span>
+                  React/Next.js developer while also sharing insights through
+                  blogging to benefit the community.
+                </span>
+              </p>
+              <p className="text-[#569CD6] font-medium">{`<p>`}</p>
+            </div>
           </div>
           <SemiLayout title={"Experience"}>
             <ExperienceSection />
@@ -60,12 +65,51 @@ const AboutMe = () => {
     </ComponentLayout>
   );
 };
+const AnimatedText = ({ text }) => {
+  const [displayText, setDisplayText] = useState("");
+  const [isReverse, setIsReverse] = useState(false);
+
+  useEffect(() => {
+    let currentIndex = isReverse ? text.length : 0;
+
+    const animationInterval = setInterval(() => {
+      if (!isReverse) {
+        // Forward animation
+        if (currentIndex <= text.length) {
+          setDisplayText(text.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          setIsReverse(true);
+          currentIndex = text.length;
+        }
+      } else {
+        // Reverse animation
+        if (currentIndex >= 0) {
+          setDisplayText(text.slice(0, currentIndex));
+          currentIndex--;
+        } else {
+          setIsReverse(false);
+          currentIndex = 0;
+        }
+      }
+    }, 300); // Adjust timing here (100ms = 0.1s per letter)
+
+    return () => clearInterval(animationInterval);
+  }, [text, isReverse]);
+
+  return (
+    <span className="inline-block">
+      {displayText}
+      <span className="animate-pulse">💼</span>
+    </span>
+  );
+};
 
 const SemiLayout = ({ title, children }) => {
   return (
-    <div className="flex  px-4 py-3 rounded-md  shadow-inner border border-tertiary  shadow-tertiary flex-col group gap-4">
-      <p className="text-2xl border-b border-tertiary leading-none pb-2">
-        {title}
+    <div className="flex px-4 py-3   flex-col group gap-4">
+      <p className="text-2xl leading-none pb-2 border-b  border-tertiary">
+        <AnimatedText text={title} />
       </p>
       {children}
     </div>
@@ -73,6 +117,11 @@ const SemiLayout = ({ title, children }) => {
 };
 
 const ExperienceSection = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   const formatExperience = (months: number): string => {
     const years = Math.floor(months / 12);
     const remainingMonths = months % 12;
@@ -88,7 +137,7 @@ const ExperienceSection = () => {
     leavingDate?: string
   ): number => {
     const startDate = new Date(joiningDate);
-    const endDate = leavingDate ? new Date(leavingDate) : new Date();
+    const endDate = leavingDate ? new Date(leavingDate) : new Date(Date.now());
     const totalMonths =
       (endDate.getFullYear() - startDate.getFullYear()) * 12 +
       endDate.getMonth() -
@@ -125,7 +174,9 @@ const ExperienceSection = () => {
       return experience;
     });
   }, []);
-
+  if (!isClient) {
+    return null; // or return a loading skeleton
+  }
   return (
     <div className="flex flex-col gap-2">
       {modifiedExperienceList?.map((singleExperience, index) => {

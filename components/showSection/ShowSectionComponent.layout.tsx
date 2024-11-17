@@ -1,5 +1,7 @@
+"use client";
 import { cn } from "@/functions/cn";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
+import { Div } from "../common/elements";
 
 const ComponentLayout = ({
   title,
@@ -12,16 +14,31 @@ const ComponentLayout = ({
   className?: string;
   titleClassName?: string;
 }) => {
+  const validTitle = useMemo(() => {
+    return title?.split(" ").join("_");
+  }, [title]);
   return (
     <div className={cn("p-4 flex flex-col gap-3", className)}>
       {title ? (
-        <div className="relative w-fit">
-          <p className={cn("font-bold text-3xl", titleClassName)}>{title}</p>
-          <div className="line-animation absolute -bottom-2 left-0 h-[3px] bg-tertiary rounded-lg"></div>
+        <div className="w-fit">
+          <p className={cn(" text-3xl text-[#4EC9B0]", titleClassName)}>
+            <span>const</span> {`${validTitle}`} <span>{`= () => (`}</span>
+          </p>
         </div>
       ) : null}
 
-      <div>{children}</div>
+      <Div>{children}</Div>
+
+      {title ? (
+        <div className="w-fit">
+          <p className={cn("text-3xl text-[#4EC9B0]", titleClassName)}>
+            {`);`}
+          </p>
+          <p className={cn("text-3xl text-[#4EC9B0]", titleClassName)}>
+            {`export default ${validTitle};`}
+          </p>
+        </div>
+      ) : null}
     </div>
   );
 };

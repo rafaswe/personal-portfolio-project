@@ -7,12 +7,6 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    // fontFamily: {
-    //   sans: ["Inter", "sans-serif"],
-    //   serif: ["Inter", "sans-serif"],
-    //   poppins: ["Poppins", "sans-serif"],
-    //   mono: ["Share Tech Mono", "monospace"],
-    // },
     fontSize: {
       xxs: "10px",
       xs: "12px",
@@ -50,6 +44,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
+        // Moved colors into extend
         primary: "#1f2428",
         secondary: "#24292e",
         quaternary: "#049D70",
@@ -100,6 +95,5 @@ module.exports = {
       },
     },
   },
-
   plugins: [],
 };

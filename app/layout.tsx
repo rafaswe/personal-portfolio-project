@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Header />
         <div className="flex h-full">
           <Sidebar />
-          <div className="w-full flex flex-col gap-y-8 bg-secondary">
+          <div className="w-full flex flex-col  bg-secondary">
             <Navbar />
             <div className="flex-1 h-full w-full overflow-hidden relative">
               {children}

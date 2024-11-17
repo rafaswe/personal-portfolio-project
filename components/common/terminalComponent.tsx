@@ -97,7 +97,7 @@ const TerminalComponent = () => {
         <div className="flex flex-col gap-1.5">
           <div className="px-3 pt-2">
             <p className="font-medium">
-              <span className="text-green-400">
+              <span className="text-[#38dd51]">
                 mahiyaRafa@Mahiya-Rahman-Rafa
               </span>{" "}
               <span className="text-pink-400">MINGW64</span>

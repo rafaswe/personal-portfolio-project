@@ -1,6 +1,6 @@
 const SideDesign = () => {
   return (
-    <div className="fixed right-0 top-1/2">
+    <div className="fixed right-0 opacity-40 top-1/2">
       <div className="relative ">
         <div className="absolute right-24 -top-[250px] bg-[#d7f484] w-32 h-32 rounded-full"></div>
         <div className="absolute right-72 bg-[#f9826c] -top-[100px]  w-24 h-24 rounded-full"></div>
