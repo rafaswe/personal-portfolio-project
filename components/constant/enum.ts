@@ -167,3 +167,53 @@ export const ExperienceSectionList: ExperienceSectionType[] = [
     ],
   },
 ];
+
+export const PDFLink =
+  "https://drive.google.com/file/d/1rH_FeO7I1HyICVfiioU7iiLZI1rVmDOW/view?usp=sharing&usp=embed_facebook";
+export const fileId = "1rH_FeO7I1HyICVfiioU7iiLZI1rVmDOW";
+export const downloadUrl = `https://drive.google.com/uc?export=download&confirm=t&id=${fileId}`;
+
+export const EducationList = [
+  {
+    logo: "/images/daffodil.webp",
+    institutionName: "Daffodil International University",
+    certificateName: "Bachelor of Science",
+    group: "Computer Software Engineering",
+    gpa: {
+      acquire: "4.00",
+      outOff: "4.00",
+    },
+    session: {
+      startYear: "2019",
+      endYear: "2023",
+    },
+  },
+  {
+    logo: "/images/shamsul.webp",
+    institutionName: "Shamsul Haque Khan School & College",
+    certificateName: "Higher Secondary Certificate",
+    group: "Science",
+    gpa: {
+      acquire: "5.00",
+      outOff: "5.00",
+    },
+    session: {
+      startYear: "2014",
+      endYear: "2016",
+    },
+  },
+  {
+    logo: "/images/bright.webp",
+    institutionName: "Bright School & College",
+    certificateName: "Secondary School Certificate",
+    group: "Science",
+    gpa: {
+      acquire: "5.00",
+      outOff: "5.00",
+    },
+    session: {
+      startYear: "2012",
+      endYear: "2014",
+    },
+  },
+];
