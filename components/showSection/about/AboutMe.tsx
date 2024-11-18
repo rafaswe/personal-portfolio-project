@@ -21,7 +21,7 @@ const AboutMe = () => {
   return (
     <ComponentLayout
       title="About me"
-      className="w-full h-[82vh] overflow-y-auto hidden-scrollbar  bg-secondary">
+      className="w-full h-[88vh] overflow-y-auto hidden-scrollbar  bg-secondary">
       <div className="relative">
         <div className="w-1/2 flex flex-col gap-2">
           <div className="break-words">

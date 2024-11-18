@@ -217,3 +217,34 @@ export const EducationList = [
     },
   },
 ];
+
+export const LicenseCertificationSection = [
+  {
+    logo: "",
+    name: "Agile mastery with SCRUM",
+    organization: "TechnoNext",
+    issueDate: "July 2023",
+  },
+  {
+    logo: "",
+    name: "Chancellor's Gold Medal",
+    organization: "Daffodil International University-DIU",
+    issueDate: "Feb 2023",
+  },
+  {
+    logo: "",
+    name: "Complete Web Development Course With Jhankar Mahbub",
+    organization: "Programming Hero",
+    issueDate: "December 2021",
+    credentialID: "bbeb0920-6a68-41cb-a5c7-b6e2b68fcbca",
+  },
+  {
+    logo: "",
+    name: "Software Architecture",
+    organization: "Coursera",
+    issueDate: "August 2021",
+    credentialID: "MWT5XV9QLPDS",
+    certificateLink:
+      "https://www.coursera.org/account/accomplishments/certificate/MWT5XV9QLPDS?trk=public_profile_see-credential",
+  },
+];
