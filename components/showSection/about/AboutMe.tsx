@@ -1,6 +1,5 @@
 "use client";
 import { CommentSection, Div, H2, P } from "@/components/common/elements";
-
 import {
   downloadUrl,
   EducationList,
@@ -8,8 +7,10 @@ import {
   PDFLink,
   skillName,
 } from "@/components/constant/enum";
+
 import { ExperienceSectionType } from "@/components/constant/interface";
 import { AnimatePresence, motion } from "framer-motion";
+import { Award, Code, Languages, ScrollText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -47,50 +48,16 @@ const AboutMe = () => {
           <SemiLayout title={"Proficiency"}>
             <SkillSet />
           </SemiLayout>
+          <Div>
+            <div className="p-4">
+              <PortfolioSection />
+            </div>
+          </Div>
         </div>
         <SideDesign />
         <CVTooltip />
       </div>
     </ComponentLayout>
-  );
-};
-const AnimatedText = ({ text }) => {
-  const [displayText, setDisplayText] = useState("");
-  const [isReverse, setIsReverse] = useState(false);
-
-  useEffect(() => {
-    let currentIndex = isReverse ? text.length : 0;
-
-    const animationInterval = setInterval(() => {
-      if (!isReverse) {
-        // Forward animation
-        if (currentIndex <= text.length) {
-          setDisplayText(text.slice(0, currentIndex));
-          currentIndex++;
-        } else {
-          setIsReverse(true);
-          currentIndex = text.length;
-        }
-      } else {
-        // Reverse animation
-        if (currentIndex >= 0) {
-          setDisplayText(text.slice(0, currentIndex));
-          currentIndex--;
-        } else {
-          setIsReverse(false);
-          currentIndex = 0;
-        }
-      }
-    }, 300); // Adjust timing here (100ms = 0.1s per letter)
-
-    return () => clearInterval(animationInterval);
-  }, [text, isReverse]);
-
-  return (
-    <span className="inline-block">
-      {displayText}
-      <span className="animate-pulse">💼</span>
-    </span>
   );
 };
 
@@ -407,17 +374,245 @@ const EducationSection = () => (
 );
 
 const SkillSet = () => (
-  <Div>
-    <div className="flex flex-wrap gap-1.5 ml-4">
-      {skillName?.map((skill) => (
-        <p
-          key={skill?.id}
-          className="w-fit font-medium text-sm px-4 py-2 rounded-md bg-[#3c454d]">
-          {skill?.name}
-        </p>
-      ))}
-    </div>
-  </Div>
+  <div className="flex flex-wrap gap-1.5 ml-4">
+    {skillName?.map((skill) => (
+      <p
+        key={skill?.id}
+        className="w-fit font-medium text-sm px-4 py-2 rounded-md bg-[#3c454d]">
+        {skill?.name}
+      </p>
+    ))}
+  </div>
 );
+
+const PortfolioSection = () => {
+  const [activeTab, setActiveTab] = useState("thesis");
+
+  const TabButton = ({ id, icon: Icon, label }) => (
+    <button
+      onClick={() => setActiveTab(id)}
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+        activeTab === id
+          ? "bg-blue-500 text-white"
+          : "hover:bg-gray-700 text-gray-300"
+      }`}>
+      <Icon size={18} />
+      <span>{label}</span>
+    </button>
+  );
+
+  const ContentSection = ({ title, items, className = "" }) => (
+    <div className={`space-y-2 flex flex-col h-full ${className}`}>
+      <h3 className="text-xl font-semibold text-blue-400">{title}</h3>
+      <div className="space-y-2 flex-1">
+        {items.map((item) => (
+          <div
+            key={item.key}
+            className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all cursor-pointer">
+            {item.content}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const thesisContent = (
+    <div className="space-y-2 h-full animate-fadeIn">
+      <h2 className="text-2xl font-bold text-blue-400 ">
+        Automated Invigilation System
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 ">
+        <div className="p-4 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all">
+          <h3 className="text-lg font-semibold mb-2">Technology Stack</h3>
+          <p className="text-gray-300">YOLOv7 Deep Learning Algorithm</p>
+        </div>
+        <div className="p-4 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all">
+          <h3 className="text-lg font-semibold mb-2">Dataset</h3>
+          <p className="text-gray-300">27,000 training images</p>
+        </div>
+        <div className="p-4 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all col-span-full">
+          <h3 className="text-lg font-semibold mb-2">Key Features</h3>
+          <ul className="list-disc list-inside text-gray-300">
+            <li>Head movement detection</li>
+            <li>Neck movement tracking</li>
+            <li>Suspicious note passing detection</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+
+  const honorsContent = (
+    <ContentSection
+      title="Honors & Awards"
+      items={[
+        {
+          key: "gold-medalist",
+          content: (
+            <div className="flex items-start gap-4">
+              <Award className="text-yellow-400 flex-shrink-0" />
+              <div>
+                <h4 className="font-semibold">{`Chancellor's Gold Medalist`}</h4>
+                <p className="text-gray-400">Highest academic achievement</p>
+              </div>
+            </div>
+          ),
+        },
+        {
+          key: "dept-award",
+          content: (
+            <div className="flex items-start gap-4">
+              <Award className="text-blue-400 flex-shrink-0" />
+              <div>
+                <h4 className="font-semibold">
+                  Best Departmental Result Award
+                </h4>
+                <p className="text-gray-400">
+                  Outstanding departmental performance
+                </p>
+              </div>
+            </div>
+          ),
+        },
+        {
+          key: "fee-waiver",
+          content: (
+            <div className="flex items-start gap-4">
+              <Award className="text-purple-400 flex-shrink-0" />
+              <div>
+                <h4 className="font-semibold">100% Tuition Fee Waiver</h4>
+                <p className="text-gray-400">
+                  For exceptional academic results
+                </p>
+              </div>
+            </div>
+          ),
+        },
+      ]}
+    />
+  );
+
+  const certificationsContent = (
+    <ContentSection
+      title="Certifications"
+      items={[
+        {
+          key: "pmi",
+          content: (
+            <div className="flex items-center gap-4">
+              <ScrollText className="text-green-400" />
+              <div>
+                <h4 className="font-semibold">PMI Kick-Off Certification</h4>
+                <p className="text-gray-400">Project Management Institute</p>
+              </div>
+            </div>
+          ),
+        },
+        {
+          key: "agile",
+          content: (
+            <div className="flex items-center gap-4">
+              <ScrollText className="text-blue-400" />
+              <div>
+                <h4 className="font-semibold">Agile Mastery with Scrum</h4>
+                <p className="text-gray-400">
+                  Professional Scrum certification
+                </p>
+              </div>
+            </div>
+          ),
+        },
+        {
+          key: "computer-arch",
+          content: (
+            <div className="flex items-center gap-4">
+              <ScrollText className="text-purple-400" />
+              <div>
+                <h4 className="font-semibold">Computer Architecture</h4>
+                <p className="text-gray-400">
+                  University of Alberta via Coursera
+                </p>
+              </div>
+            </div>
+          ),
+        },
+      ]}
+    />
+  );
+
+  const languagesContent = (
+    <ContentSection
+      title="Languages"
+      items={[
+        {
+          key: "bangla",
+          content: (
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                <span className="text-2xl font-bold">বাং</span>
+              </div>
+              <div>
+                <h4 className="font-semibold">Bangla</h4>
+                <p className="text-gray-400">Native Language</p>
+              </div>
+            </div>
+          ),
+        },
+        {
+          key: "english",
+          content: (
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-10 rounded-full bg-green-500 flex items-center justify-center">
+                <span className="text-2xl font-bold">En</span>
+              </div>
+              <div>
+                <h4 className="font-semibold">English</h4>
+                <p className="text-gray-400">Speaking, Reading, Writing</p>
+              </div>
+            </div>
+          ),
+        },
+        {
+          key: "hindi",
+          content: (
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-10 rounded-full bg-purple-500 flex items-center justify-center">
+                <span className="text-2xl font-bold">हि</span>
+              </div>
+              <div>
+                <h4 className="font-semibold">Hindi</h4>
+                <p className="text-gray-400">Listening</p>
+              </div>
+            </div>
+          ),
+        },
+      ]}
+    />
+  );
+
+  return (
+    <div className="min-h-[370px] shadow-2xl rounded-lg bg-gray-900 text-white p-6">
+      <div className="flex flex-col">
+        <div className="flex gap-4 overflow-x-auto pb-2">
+          <TabButton id="thesis" icon={Code} label="Thesis" />
+          <TabButton id="honors" icon={Award} label="Honors" />
+          <TabButton
+            id="certifications"
+            icon={ScrollText}
+            label="Certifications"
+          />
+          <TabButton id="languages" icon={Languages} label="Languages" />
+        </div>
+
+        <div className="p-4 flex-1 h-full bg-gray-800 rounded-lg">
+          {activeTab === "thesis" && thesisContent}
+          {activeTab === "honors" && honorsContent}
+          {activeTab === "certifications" && certificationsContent}
+          {activeTab === "languages" && languagesContent}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default AboutMe;
