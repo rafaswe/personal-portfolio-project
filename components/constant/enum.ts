@@ -66,20 +66,21 @@ export const skillName = [
 export const OnlinePresenceList = [
   {
     id: 0,
-    imageURL: "/images/onlinePresence/1.png",
-    title: "ড্যাফোডিল ১০ম সমাবর্তন",
-    description:
-      'One of the leading newspapers of Bangladesh- "প্রথম আলো" published news about DIU 10th convocation.',
-    url: "",
+    imageURL: "/images/onlinePresence/0.jpeg",
+    title: "DIU 10th Convocation 2023",
+    description: `The convocation procession moved forward led by the Convocation Marshall of Daffodil International University, Professor Dr AKM Fazlul Haque. His Excellency Mr. Md. Abdul Hamid, the Honorable President of the People’s Republic of Bangladesh has delegated his privilege as the Honorable Chancellor of Daffodil International University to the Honorable Minister of Education, the Government of the People’s Republic of Bangladesh, Dr Dipu Moni, MP, to preside over the convocation ceremony and to confer the degrees upon the graduating students during the period from 10th January 2022 to 8th February 2023. The Honorable Education Minister declared the 10th Convocation Ceremony of Daffodil International University open. Dr Dipu Moni, MP, Honorable Minister, Ministry of Education, Government of the People’s Republic of Bangladesh addressed the distinguished gathering with her wise words. Dr Md. Sabur Khan, the Honorable Chairman of the Board of Trustees handed over a token of gratitude to Dr Dipu Moni, MP, Honorable Minister, Ministry of Education, Government of the People’s Republic of Bangladesh.`,
+    url: "https://dsa.daffodilvarsity.edu.bd/newsletter/march-2023/",
+    src: "E-Newsletter: March 2023, Daffodil International Univeristy",
   },
   {
     id: 1,
-    imageURL: "/images/onlinePresence/0.jpeg",
-    title: "DIU 10th Convocation 2023",
-    description:
-      "I was honored with the President's Gold Medal by Education Minister Dr. Dipu Moni at the DIU 10th Convocation in 2023, fueling my commitment to academic excellence.",
-    url: "https://dsa.daffodilvarsity.edu.bd/newsletter/march-2023/",
+    imageURL: "/images/onlinePresence/1.png",
+    title: "ড্যাফোডিল ১০ম সমাবর্তন",
+    description: `ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির ১০ম সমাবর্তন গতকাল ড্যাফোডিল স্মার্ট সিটিতে... অনুষ্ঠিত হয়। দশম সমাবর্তনে ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির ছয় হাজার ১৬৪ শিক্ষার্থীকে ডিগ্রি প্রদান করা হয়। ঢাকা বিশ্ববিদ্যালয়ের উপাচার্য অধ্যাপক ড. মো. আখতারুজ্জামান বলেন, বাংলাদেশের উন্নয়নের জন্য জ্ঞানভিত্তিক সমাজ গড়ে তুলতে হবে। এজন্য শিক্ষার্থীদের জ্ঞান অর্জনের পাশাপাশি তা প্রয়োগ করতে হবে। গতকাল বৃহস্পতিবার ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির দশম সমাবর্তনে তিনি এ কথা বলেন। সাভারে বিশ্ববিদ্যালয়ের স্থায়ী ক্যাম্পাসে সমাবর্তনের আয়োজন করা হয়। অনুষ্ঠানে শিক্ষামন্ত্রী দীপু মনি সভাপতিত্ব করেন। সমাবর্তনে ৬ হাজার ১৬৪ জন শিক্ষার্থীকে ডিগ্রি প্রদান করা হয়।`,
+    src: "প্রথম আলো",
+    url: "",
   },
+
   {
     id: 2,
     imageURL: "/images/onlinePresence/3.jpeg",

@@ -1,6 +1,7 @@
 "use client";
 import { cn } from "@/functions/cn";
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { useWindowSize } from "usehooks-ts";
 import { Div } from "../common/elements";
 
 interface LineNumberLayoutProps {
@@ -9,6 +10,14 @@ interface LineNumberLayoutProps {
   startingNumber?: number; // Optional prop to start from a different number
   className?: string; // Optional class name for the container
   numberClassName?: string; // Optional class name for the line numbers
+}
+
+interface LineNumberLayoutProps {
+  children: React.ReactNode;
+  lineHeight?: number;
+  startingNumber?: number;
+  className?: string;
+  numberClassName?: string;
 }
 
 const LineNumberLayout: FC<LineNumberLayoutProps> = ({
@@ -21,11 +30,18 @@ const LineNumberLayout: FC<LineNumberLayoutProps> = ({
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [lineNumbers, setLineNumbers] = useState<number[]>([]);
 
+  // Use the useWindowSize hook to get window dimensions
+  const windowSize = useWindowSize();
+
   useEffect(() => {
     const calculateLines = (): void => {
       if (contentRef.current) {
-        const height: number = contentRef.current.offsetHeight;
-        const lineCount = 30;
+        // Use viewport height for calculation
+        const viewportHeight = windowSize.height;
+        // Calculate how many lines would fit in the viewport with 10px gaps
+        const effectiveLineHeight = lineHeight + 10; // Adding 10px gap between lines
+        const lineCount = Math.ceil(viewportHeight / effectiveLineHeight);
+
         setLineNumbers(
           Array.from({ length: lineCount }, (_, i) => i + startingNumber)
         );
@@ -34,7 +50,7 @@ const LineNumberLayout: FC<LineNumberLayoutProps> = ({
 
     calculateLines();
 
-    // Add resize observer to recalculate on content size changes
+    // Add resize observer for content changes
     const resizeObserver = new ResizeObserver(calculateLines);
     if (contentRef.current) {
       resizeObserver.observe(contentRef.current);
@@ -43,16 +59,21 @@ const LineNumberLayout: FC<LineNumberLayoutProps> = ({
     return () => {
       resizeObserver.disconnect();
     };
-  }, [children, lineHeight, startingNumber]);
+  }, [windowSize, lineHeight, startingNumber]);
 
   return (
-    <div className={`flex ${className}`}>
+    <div className={`flex h-[90vh] ${className}`}>
       {/* Line numbers container */}
       <div
-        className={`select-none px-4 border-x border-l-gray-700 border-r-[#569CD6]  flex flex-col items-center justify-center text-gray-500 font-mono ${numberClassName}`}
-        style={{ lineHeight: `${lineHeight}px` }}>
+        className={`select-none px-4 border-x border-l-2 border-l-gray-700 border-r-[#569CD6] flex flex-col items-center text-gray-500 font-mono ${numberClassName}`}>
         {lineNumbers.map((num: number) => (
-          <div key={num} className="leading-6">
+          <div
+            key={num}
+            className="leading-6"
+            style={{
+              height: `${lineHeight}px`,
+              marginBottom: "12px", // Adding 10px gap between line numbers
+            }}>
             {num}
           </div>
         ))}
@@ -61,14 +82,13 @@ const LineNumberLayout: FC<LineNumberLayoutProps> = ({
       {/* Content container */}
       <div
         ref={contentRef}
-        className="flex-1"
+        className="flex-1 overflow-auto"
         style={{ lineHeight: `${lineHeight}px` }}>
         {children}
       </div>
     </div>
   );
 };
-
 const ComponentLayout = ({
   title,
   className,
@@ -88,11 +108,7 @@ const ComponentLayout = ({
       lineHeight={24}
       startingNumber={1}
       numberClassName="text-blue-500">
-      <div
-        className={cn(
-          "px-4 pt-2 flex border-l border-[#569CD6] flex-col gap-2",
-          className
-        )}>
+      <div className={cn("px-4 pt-2 flex  flex-col gap-2", className)}>
         {title ? (
           <div className="w-fit">
             <p className={cn(" text-2xl font-medium", titleClassName)}>
