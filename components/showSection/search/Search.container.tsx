@@ -81,23 +81,26 @@ const SearchHeaderSection = () => {
 const SearchBodySection = () => {
   return (
     <div className="flex flex-col gap-6 ">
-      {OnlinePresenceList?.map((singleItem, index) => (
-        <Tab key={index}>
-          <Tab.Item title="Details" tabClassName="py-4 flex flex-col gap-2.5">
-            {/* Titel section  */}
-            <p className="text-2xl border-b pb-2">{singleItem?.title}</p>
-            <div>
-              <ReadMoreText
-                text={singleItem?.description}
-                url={singleItem?.url}
-              />
-              <p className="text-sm italic pt-2.5">Source: {singleItem?.src}</p>
+      <Tab>
+        <Tab.Item title="Details">
+          {OnlinePresenceList?.map((singleItem, index) => (
+            <div key={index} className="py-4 flex flex-col gap-2.5">
+              <p className="text-2xl border-b pb-2">{singleItem?.title}</p>
+              <div>
+                <ReadMoreText
+                  text={singleItem?.description}
+                  url={singleItem?.url}
+                />
+                <p className="text-sm italic pt-2.5">
+                  Source: {singleItem?.src}
+                </p>
+              </div>
             </div>
-          </Tab.Item>
-          <Tab.Item title="Photos">descrip</Tab.Item>
-          <Tab.Item title="Log">Log</Tab.Item>
-        </Tab>
-      ))}
+          ))}
+        </Tab.Item>
+        <Tab.Item title="Photos">descrip</Tab.Item>
+        <Tab.Item title="Log">Log</Tab.Item>
+      </Tab>
     </div>
   );
 };
