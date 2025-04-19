@@ -1,8 +1,10 @@
 "use client";
 
+import EffectImage from "@/components/common/effectImage";
 import { OnlinePresenceList } from "@/components/constant/enum";
 import ReadMoreText from "@/components/layout/ReadMoreText";
 import Tab from "@/components/layout/Tab";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -90,7 +92,8 @@ const SearchBodySection = () => {
                 {singleItem?.url ? (
                   <Link
                     href={singleItem.url}
-                    className="flex cursor-help items-center gap-2 ">
+                    className="flex cursor-help items-center gap-2 "
+                    target="_blank">
                     <p className="">{singleItem?.title}</p>
                     <Image
                       src={"/images/onlinePresence/linkArrow.svg"}
@@ -112,6 +115,13 @@ const SearchBodySection = () => {
                   Source: {singleItem?.src}
                 </p>
               </div>
+              <EffectImage
+                src={singleItem?.imageURL}
+                alt="Image URL"
+                width={200}
+                height={200}
+                className="w-[200px] h-[200px] rounded object-cover"
+              />
             </div>
           ))}
         </Tab.Item>

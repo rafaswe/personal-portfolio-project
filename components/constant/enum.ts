@@ -66,7 +66,7 @@ export const skillName = [
 export const OnlinePresenceList = [
   {
     id: 0,
-    imageURL: "/images/onlinePresence/0.jpeg",
+    imageURL: "/images/onlinePresence/diu.png",
     title: "DIU 10th Convocation 2023",
     description: `The convocation procession moved forward led by the Convocation Marshall of Daffodil International University, Professor Dr AKM Fazlul Haque. His Excellency Mr. Md. Abdul Hamid, the Honorable President of the People’s Republic of Bangladesh has delegated his privilege as the Honorable Chancellor of Daffodil International University to the Honorable Minister of Education, the Government of the People’s Republic of Bangladesh, Dr Dipu Moni, MP, to preside over the convocation ceremony and to confer the degrees upon the graduating students during the period from 10th January 2022 to 8th February 2023. The Honorable Education Minister declared the 10th Convocation Ceremony of Daffodil International University open. Dr Dipu Moni, MP, Honorable Minister, Ministry of Education, Government of the People’s Republic of Bangladesh addressed the distinguished gathering with her wise words. Dr Md. Sabur Khan, the Honorable Chairman of the Board of Trustees handed over a token of gratitude to Dr Dipu Moni, MP, Honorable Minister, Ministry of Education, Government of the People’s Republic of Bangladesh.`,
     url: "https://dsa.daffodilvarsity.edu.bd/newsletter/march-2023/",
@@ -82,7 +82,7 @@ export const OnlinePresenceList = [
   },
   {
     id: 2,
-    imageURL: "/images/onlinePresence/newsTimes.jpeg",
+    imageURL: "/images/onlinePresence/timesBD.png",
     title: "DIU to hold 10th convocation Programme",
     description: `Daffodil International University (DIU) held its 10th convocation with colorful events on Thursday at Shawdhinata Sommelon Kendro of the university at Daffodil Smart City, Birulia Savar, a press release said Thursday. Delegated by Md. Abdul Hamid, President of the People's Republic of Bangladesh and chancellor of DIU, Dr. Dipu Moni M.P, Minister, Ministry of Education, Government of the People's Republic of Bangladesh presided over the convocation ceremony and conferred the degrees. Professor Atul Khosla, founder and VC of Shoolini University, Himachal Pradesh, India attended the convocation as the convocation Speaker. The programme was also addressed by Dr. Md. Sabur Khan, board of trustees and, professor Dr. M Lutfar Rahman, VC of the university. In the 10 th Convocation a total number 6164 students has been conferred upon graduation and post-graduation degrees and among them 12 best result oriented graduates will be awarded 'Gold Medal' in different categories. Dr. Dipu Moni, MP said, convocation ends your institutional education. Now it's time to use your acquired education for the welfare of the country and the society. At the welcome address DIU chairman, Dr. Md. Sabur Khan said, We are taking all efforts to develop the modern flagship university,remarkably different in its devotion to access and equity; to the quality of its teaching, learning,research and to meeting national and regional socio-economic needs. Convocation speaker professor Atul Khosla said, life doesn't go according to the plans you make for it. Each of you will go through highs and lows, the difficult and the easy, and, regrettably, there may occasionally be too many challenges and not enough smooth sailing.`,
     url: "https://thenewstimesbd.com/education/diu-to-hold-10th-convocation-on-feb-9/",
@@ -90,7 +90,7 @@ export const OnlinePresenceList = [
   },
   {
     id: 3,
-    imageURL: "/images/onlinePresence/businessStandared.jpg",
+    imageURL: "/images/onlinePresence/dhakatribune.png",
     title: "Daffodil International University holds 10th convocation",
     description: `Daffodil International University (DIU) held its 10th convocation with a colourful event on February 9. The convocation was organized at the Shawdhinata Sommelon Kendro of the university at Daffodil Smart City, Birulia Savar, Dhaka. Delegated by Md Abdul Hamid, president of Bangladesh and chancellor of Daffodil International University, Dr Dipu Moni MP, minister, Ministry of Education, presided over the convocation ceremony and conferred the degrees, said a press release. Professor Atul Khosla, founder and vice chancellor of Shoolini University, Himachal Pradesh, India attended the convocation as the convocation speaker.`,
     url: "https://www.dhakatribune.com/bangladesh/education/304811/daffodil-international-university-holds-10th",
@@ -98,7 +98,7 @@ export const OnlinePresenceList = [
   },
   {
     id: 4,
-    imageURL: "/images/onlinePresence/1.png",
+    imageURL: "/images/onlinePresence/prothomAlo.jpg",
     title: "ড্যাফোডিল ১০ম সমাবর্তন",
     description: `ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির ১০ম সমাবর্তন গতকাল ড্যাফোডিল স্মার্ট সিটিতে... অনুষ্ঠিত হয়। দশম সমাবর্তনে ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির ছয় হাজার ১৬৪ শিক্ষার্থীকে ডিগ্রি প্রদান করা হয়। ঢাকা বিশ্ববিদ্যালয়ের উপাচার্য অধ্যাপক ড. মো. আখতারুজ্জামান বলেন, বাংলাদেশের উন্নয়নের জন্য জ্ঞানভিত্তিক সমাজ গড়ে তুলতে হবে। এজন্য শিক্ষার্থীদের জ্ঞান অর্জনের পাশাপাশি তা প্রয়োগ করতে হবে। গতকাল বৃহস্পতিবার ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির দশম সমাবর্তনে তিনি এ কথা বলেন। সাভারে বিশ্ববিদ্যালয়ের স্থায়ী ক্যাম্পাসে সমাবর্তনের আয়োজন করা হয়। অনুষ্ঠানে শিক্ষামন্ত্রী দীপু মনি সভাপতিত্ব করেন। সমাবর্তনে ৬ হাজার ১৬৪ জন শিক্ষার্থীকে ডিগ্রি প্রদান করা হয়।`,
     src: "প্রথম আলো",
