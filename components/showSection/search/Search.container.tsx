@@ -4,6 +4,7 @@ import { OnlinePresenceList } from "@/components/constant/enum";
 import ReadMoreText from "@/components/layout/ReadMoreText";
 import Tab from "@/components/layout/Tab";
 import Image from "next/image";
+import Link from "next/link";
 
 // const Search = () => {
 //   return (
@@ -85,7 +86,23 @@ const SearchBodySection = () => {
         <Tab.Item title="Details">
           {OnlinePresenceList?.map((singleItem, index) => (
             <div key={index} className="py-4 flex flex-col gap-2.5">
-              <p className="text-2xl border-b pb-2">{singleItem?.title}</p>
+              <div className="text-xl italic border-b border-[#717070] ">
+                {singleItem?.url ? (
+                  <Link
+                    href={singleItem.url}
+                    className="flex cursor-help items-center gap-2 ">
+                    <p className="">{singleItem?.title}</p>
+                    <Image
+                      src={"/images/onlinePresence/linkArrow.svg"}
+                      alt="linkArrow"
+                      width={20}
+                      height={20}
+                    />
+                  </Link>
+                ) : (
+                  <p>{singleItem?.title}</p>
+                )}
+              </div>
               <div>
                 <ReadMoreText
                   text={singleItem?.description}

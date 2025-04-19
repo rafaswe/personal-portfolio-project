@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
 interface ReadMoreTextProps {
@@ -29,7 +28,7 @@ const ReadMoreText: React.FC<ReadMoreTextProps> = ({
     <div>
       <div
         ref={textRef}
-        className={`relative ${
+        className={`relative  ${
           !isExpanded ? "max-h-[4.3em] overflow-hidden" : ""
         }`}
         style={{
@@ -37,20 +36,12 @@ const ReadMoreText: React.FC<ReadMoreTextProps> = ({
         }}>
         {text}
 
-        {!isExpanded && isTruncated && !url && (
+        {!isExpanded && isTruncated && (
           <span
             onClick={() => setIsExpanded(true)}
             className="absolute right-0 -bottom-[2px] bg-secondary text-sm pl-1.5  cursor-pointer">
             ...<span className="underline">Read More</span>
           </span>
-        )}
-        {!isExpanded && isTruncated && url && (
-          <Link
-            href={url}
-            target="_blank"
-            className="absolute right-0 -bottom-[2px] bg-secondary text-sm pl-1.5  cursor-pointer">
-            ...<span className="underline">Read More</span>
-          </Link>
         )}
       </div>
 
