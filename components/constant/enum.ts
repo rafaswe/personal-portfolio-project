@@ -273,3 +273,16 @@ export const LicenseCertificationSection = [
       "https://www.coursera.org/account/accomplishments/certificate/MWT5XV9QLPDS?trk=public_profile_see-credential",
   },
 ];
+
+export const ImageGalleryList = [
+  "/images/achievement/Taking Certificate.jpg",
+  "/images/achievement/appreciation.jpeg",
+  "/images/achievement/ICPC.jpeg",
+  "/images/achievement/Enstern-centificate.jpeg",
+  "/images/achievement/Estern-prize.jpeg",
+  "/images/onlinePresence/0.jpeg",
+  "/images/onlinePresence/1.png",
+  "/images/onlinePresence/4.webp",
+  "/images/onlinePresence/5.jpg",
+  "/images/onlinePresence/6.jpg",
+];

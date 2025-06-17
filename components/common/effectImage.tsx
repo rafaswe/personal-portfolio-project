@@ -1,92 +1,101 @@
 "use client";
-import Image, { ImageProps } from "next/image";
+
+import { AnimatePresence, motion } from "framer-motion";
+import Image, { ImageProps, StaticImageData } from "next/image";
 import { useState } from "react";
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
 
-interface EffectImage extends ImageProps {}
+interface EffectImageProps extends ImageProps {}
 
-const EffectImage = (props: EffectImage) => {
+const preloadImage = (src: string) =>
+  new Promise<void>((resolve, reject) => {
+    const img = new window.Image();
+    img.src = src;
+    img.onload = () => resolve();
+    img.onerror = () => reject();
+  });
+
+const EffectImage = (props: EffectImageProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isExpended, setIsExpended] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const imageUrl =
+    typeof props.src === "string"
+      ? props.src
+      : (props.src as StaticImageData).src || "";
+
+  const openLightbox = async () => {
+    setIsLoading(true);
+    try {
+      await preloadImage(imageUrl);
+    } catch {
+      // ignore errors, still open lightbox
+    }
+    setIsLoading(false);
+    setIsExpanded(true);
+  };
+
   return (
-    <div>
-      <div
-        className="relative w-fit cursor-pointer"
+    <div className="relative w-fit">
+      <motion.div
+        className="cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}>
+        onMouseLeave={() => setIsHovered(false)}
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.1 }}>
         <Image {...props} alt="EffectImage" />
-        {isHovered ? (
-          <div className="absolute flex justify-end p-2 top-0 h-8 w-full bg-primary opacity-50">
-            <button onClick={() => setIsExpended(true)}>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            exit={{ opacity: 0 }}
+            className="absolute flex justify-end p-2 top-0 h-8 w-full bg-primary">
+            <button onClick={openLightbox} disabled={isLoading}>
               <Image
-                src={"/images/expand.svg"}
-                alt="Expend"
+                src="/images/expand.svg"
+                alt="Expand"
                 width={16}
                 height={16}
               />
             </button>
-          </div>
-        ) : null}
-      </div>
-      {isExpended ? (
-        <ImageModal imageUrl={props?.src} setIsExpanded={setIsExpended} />
-      ) : null}
-    </div>
-  );
-};
-const ImageModal = ({ imageUrl, setIsExpanded }) => {
-  const [scale, setScale] = useState(1);
+          </motion.div>
+        )}
+      </motion.div>
 
-  const zoomIn = () => setScale((prev) => Math.min(prev + 0.2, 3));
-  const zoomOut = () => setScale((prev) => Math.max(prev - 0.2, 0.5));
-  const resetZoom = () => setScale(1);
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4">
-      <div className="relative w-full text-primary max-h-full overflow-auto hidden-scrollbar rounded-lg  p-2">
-        <button
-          onClick={() => setIsExpanded(false)}
-          className="absolute top-2 right-2 z-10 bg-white px-2 py-1 rounded text-sm hover:bg-gray-200">
-          Close
-        </button>
-
-        {/* Zoom Controls */}
-        <div className="absolute bottom-2 flex flex-col right-2 z-50  gap-2">
-          <button
-            onClick={zoomOut}
-            className="bg-white px-2 py-1 rounded text-sm hover:bg-gray-200">
-            −
-          </button>
-          <button
-            onClick={resetZoom}
-            className="bg-white px-2 py-1 rounded text-sm hover:bg-gray-200">
-            Reset
-          </button>
-          <button
-            onClick={zoomIn}
-            className="bg-white px-2 py-1 rounded text-sm hover:bg-gray-200">
-            +
-          </button>
-        </div>
-
-        <div className="flex justify-center items-center">
-          <div
-            className="transition-transform"
-            style={{
-              transform: `scale(${scale})`,
-              transformOrigin: "center center",
-            }}>
-            <Image
-              src={imageUrl}
-              alt="Expanded Image"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="h-auto w-full max-h-[90vh] object-contain"
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.25 }}>
+            <Lightbox
+              mainSrc={imageUrl}
+              onCloseRequest={() => setIsExpanded(false)}
+              enableZoom={true}
+              imageTitle={props.title || "Image"}
+              reactModalStyle={{
+                content: {
+                  inset: "0px",
+                  padding: "1rem",
+                  backgroundColor: "rgba(0,0,0,0.85)",
+                  overflow: "auto",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                },
+                overlay: {
+                  zIndex: 50,
+                },
+              }}
             />
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
+
 export default EffectImage;

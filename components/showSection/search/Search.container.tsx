@@ -1,7 +1,11 @@
 "use client";
 
 import EffectImage from "@/components/common/effectImage";
-import { OnlinePresenceList } from "@/components/constant/enum";
+import ImageGallery from "@/components/common/ImageGallery";
+import {
+  ImageGalleryList,
+  OnlinePresenceList,
+} from "@/components/constant/enum";
 import ReadMoreText from "@/components/layout/ReadMoreText";
 import Tab from "@/components/layout/Tab";
 
@@ -25,7 +29,6 @@ const Search = () => {
     <div className=" py-8 h-[90vh] overflow-y-auto hidden-scrollbar w-10/12 gap-y-4 flex flex-col mx-auto">
       {/* header section  */}
       <SearchHeaderSection />
-
       <SearchBodySection />
     </div>
   );
@@ -118,6 +121,7 @@ const SearchBodySection = () => {
               <EffectImage
                 src={singleItem?.imageURL}
                 alt="Image URL"
+                title={`"${singleItem?.title}" - ${singleItem?.src}`}
                 width={200}
                 height={200}
                 className="w-[200px] h-[200px] rounded object-cover"
@@ -125,8 +129,9 @@ const SearchBodySection = () => {
             </div>
           ))}
         </Tab.Item>
-        <Tab.Item title="Photos">descrip</Tab.Item>
-        <Tab.Item title="Log">Log</Tab.Item>
+        <Tab.Item title="Photos">
+          <ImageGallery images={ImageGalleryList} />
+        </Tab.Item>
       </Tab>
     </div>
   );

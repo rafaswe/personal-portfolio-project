@@ -39,7 +39,7 @@ const ReadMoreText: React.FC<ReadMoreTextProps> = ({
         {!isExpanded && isTruncated && (
           <span
             onClick={() => setIsExpanded(true)}
-            className="absolute right-0 -bottom-[2px] bg-secondary text-sm pl-1.5  cursor-pointer">
+            className="absolute right-0 -bottom-[5px] text-tertiary bg-secondary text-sm pl-0.5  cursor-pointer">
             ...<span className="underline">Read More</span>
           </span>
         )}
@@ -48,7 +48,7 @@ const ReadMoreText: React.FC<ReadMoreTextProps> = ({
       {isExpanded && (
         <span
           onClick={() => setIsExpanded(false)}
-          className="cursor-pointer text-sm underline">
+          className="cursor-pointer text-sm text-tertiary underline">
           Read Less
         </span>
       )}
