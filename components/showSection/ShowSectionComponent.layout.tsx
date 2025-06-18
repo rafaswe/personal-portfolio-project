@@ -20,7 +20,7 @@ interface LineNumberLayoutProps {
   numberClassName?: string;
 }
 
-const LineNumberLayout: FC<LineNumberLayoutProps> = ({
+export const LineNumberLayout: FC<LineNumberLayoutProps> = ({
   children,
   lineHeight = 24, // Default line height
   startingNumber = 1,
