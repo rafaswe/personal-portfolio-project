@@ -25,8 +25,8 @@ const Projects = () => {
       link: "https://firsttrip.com/",
       icon: <Globe className="w-8 h-8" />,
       gradient: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-500/10",
-      borderColor: "border-blue-500/20",
+      bgColor: "bg-gray-800",
+      borderColor: "border-blue-500/30",
       tech: [
         "React",
         "NextJS",
@@ -45,10 +45,11 @@ const Projects = () => {
         "Worked on both Admin and B2C sections",
       ],
       features: [
-        "Full-Stack Development",
+        "Flight Ticket Booking",
+        "Hotel Reservation",
+        "Holiday Booking",
+        "Hajj Management",
         "Admin Panel",
-        "B2C Interface",
-        "State Management",
       ],
     },
     {
@@ -66,10 +67,10 @@ const Projects = () => {
         "Managed client-side routing and authentication using Next.js",
       ],
       features: [
-        "Responsive Design",
-        "Component Library",
-        "Authentication",
-        "Routing",
+        "Meilisearch",
+        "Vast Hotel List",
+        "Direct Payment",
+        "24/7 available helpline",
       ],
     },
     {
@@ -78,7 +79,7 @@ const Projects = () => {
       subtitle: "System",
       icon: <Plane className="w-8 h-8" />,
       gradient: "from-purple-500 to-pink-500",
-      bgColor: "bg-purple-500/10",
+      bgColor: "bg-transparent",
       borderColor: "border-purple-500/20",
       tech: ["React", "TypeScript", "Ant Design", "Microservices"],
       responsibilities: [
@@ -239,7 +240,7 @@ const Projects = () => {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: respIndex * 0.1 }}>
-                            <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-blue-400 rounded-full mt-2 flex-shrink-0" />
+                            <div className="w-2 h-2 bg-gradient-to-r from-white to-blue-300 rounded-full mt-2 flex-shrink-0"></div>
                             <p className="text-gray-300 text-sm leading-relaxed">
                               {responsibility}
                             </p>
