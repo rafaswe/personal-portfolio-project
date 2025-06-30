@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import {
   Code,
   Database,
-  Globe,
   Hotel,
   Layers,
   Monitor,
@@ -12,6 +11,7 @@ import {
   Smartphone,
   Zap,
 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 const Projects = () => {
@@ -23,10 +23,10 @@ const Projects = () => {
       title: "FirstTrip",
       subtitle: "Travel Platform",
       link: "https://firsttrip.com/",
-      icon: <Globe className="w-8 h-8" />,
-      gradient: "from-blue-500 to-cyan-500",
-      bgColor: "bg-gray-800",
-      borderColor: "border-blue-500/30",
+      icon: <FirsttripLogo />,
+      gradient: "from-green-500 to-emerald-500",
+      bgColor: "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900",
+      borderColor: "border-gray-600",
       tech: [
         "React",
         "NextJS",
@@ -57,9 +57,9 @@ const Projects = () => {
       title: "Hotel Booking",
       subtitle: "Management System",
       icon: <Hotel className="w-8 h-8" />,
-      gradient: "from-green-500 to-emerald-500",
-      bgColor: "bg-green-500/10",
-      borderColor: "border-green-500/20",
+      gradient: "from-blue-500 to-cyan-500",
+      bgColor: "bg-gray-800",
+      borderColor: "border-blue-500/30",
       tech: ["React", "TypeScript", "Next.js", "PrimeReact"],
       responsibilities: [
         "Designed and implemented a responsive user interface using React",
@@ -119,21 +119,21 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-8">
+    <div className="min-h-screen  p-8">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         className="max-w-7xl mx-auto">
         {/* Hero Section */}
-        <motion.div variants={itemVariants} className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 bg-gray-800/50 backdrop-blur-sm px-6 py-3 rounded-full border border-gray-700/50 mb-8">
+        <motion.div variants={itemVariants} className="text-center mb-12">
+          <div className="inline-flex items-center justify-center gap-3 bg-gray-800/50 backdrop-blur-sm px-6 py-3 rounded-full border border-gray-700/50 mb-8">
             <Code className="w-5 h-5 text-blue-400" />
-            <span className="text-gray-300 font-medium">Featured Projects</span>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent ">
+              Featured Projects
+            </h1>
+            <Code className="w-5 h-5 text-blue-400" />
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4">
-            Development Portfolio
-          </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Showcasing modern web applications built with cutting-edge
             technologies
@@ -161,7 +161,9 @@ const Projects = () => {
                   <div className="space-y-6">
                     <div className="flex items-center gap-4">
                       <div
-                        className={`p-3 rounded-xl bg-gradient-to-r ${project.gradient} text-white`}>
+                        className={` rounded-xl ${
+                          project?.id !== 1 ? "bg-gradient-to-r p-3" : ""
+                        } ${project.gradient} text-white`}>
                         {project.icon}
                       </div>
                       <div>
@@ -288,5 +290,14 @@ const Projects = () => {
     </div>
   );
 };
-
+const FirsttripLogo = () => (
+  <Image
+    src={"/images/firsttripLogo.png"}
+    alt="logo"
+    priority
+    width={56}
+    height={56}
+    className="rounded-lg"
+  />
+);
 export default Projects;
