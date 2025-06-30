@@ -10,7 +10,6 @@ export const menueProperties = [
     altText: "Combined projects(Office/partnership)",
     link: "/projects",
   },
-  { id: 3, image: "code", altText: "Personal Code", link: "/personalProjects" },
   { id: 4, image: "github", altText: "Github preview", link: "/gitHub" },
   { id: 5, image: "blog", altText: "Blogs written by me", link: "/blogs" },
   { id: 6, image: "contact", altText: "contact information", link: "/contact" },
@@ -29,7 +28,6 @@ export const MenuProperties = [
   { id: 2, icon: "html", text: "about.html" },
   { id: 3, icon: "css", text: "contact.css" },
   { id: 4, icon: "tsx", text: "projects.tsx" },
-  { id: 5, icon: "react", text: "personalProjects.jsx" },
   { id: 6, icon: "json", text: "blogs.json" },
   { id: 7, icon: "md", text: "gitHub.md" },
 ];
@@ -39,12 +37,6 @@ export const sideMenuProperties = [
   { id: 2, icon: "html", text: "about.html", pageLink: "/about" },
   { id: 3, icon: "css", text: "contact.css", pageLink: "/contact" },
   { id: 4, icon: "tsx", text: "projects.tsx", pageLink: "/projects" },
-  {
-    id: 5,
-    icon: "react",
-    text: "personalProjects.jsx",
-    pageLink: "/personalProjects",
-  },
   { id: 6, icon: "json", text: "blogs.json", pageLink: "/blogs" },
   { id: 7, icon: "md", text: "gitHub.md", pageLink: "/gitHub" },
 ];
