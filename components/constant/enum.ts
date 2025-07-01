@@ -278,3 +278,16 @@ export const ImageGalleryList = [
   "/images/onlinePresence/5.jpg",
   "/images/onlinePresence/6.jpg",
 ];
+
+export const GitHubInfo = {
+  githubLink: "https://github.com/rafaswe",
+  personalInfo: {
+    imageUrl: "/images/personal.png",
+    name: "Mahiya Rahman Rafa",
+    userName: "rafaswe",
+    tag: "A learner",
+    followersCount: 4,
+    followingCount: 4,
+    address: "Emran Tower, House-KA-145-23A, Nayanagar, Khilkhet",
+  },
+};

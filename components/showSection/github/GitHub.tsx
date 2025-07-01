@@ -1,4 +1,6 @@
 "use client";
+import { GitHubInfo } from "@/components/constant/enum";
+import { GitPersonalInfo } from "@/components/constant/type";
 import { motion } from "framer-motion";
 import {
   Award,
@@ -18,10 +20,12 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const GitHubProfile = () => {
   const [selectedYear, setSelectedYear] = useState("2025");
+  const { personalInfo, githubLink } = GitHubInfo;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -180,53 +184,7 @@ const GitHubProfile = () => {
           className="flex flex-col lg:flex-row gap-6 mb-8"
           variants={itemVariants}>
           {/* Profile Card */}
-          <div className="bg-gray-900 rounded-lg p-6 lg:w-80 border border-gray-800">
-            <div className="flex flex-col items-center text-center">
-              <motion.div
-                className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-gray-700"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}>
-                <Image
-                  src="/api/placeholder/128/128"
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                  width={128}
-                  height={128}
-                />
-              </motion.div>
-
-              <h1 className="text-2xl font-bold mb-2">Mahiya Rahman Rafa</h1>
-              <p className="text-gray-400 mb-2">rafaswe</p>
-              <p className="text-sm text-gray-500 mb-4">A learner</p>
-
-              <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                <span className="flex items-center gap-1">
-                  <Users className="w-4 h-4" />4 followers
-                </span>
-                <span className="flex items-center gap-1">
-                  <Users className="w-4 h-4" />4 following
-                </span>
-              </div>
-
-              <div className="flex items-center gap-1 text-sm text-gray-400 mb-4">
-                <MapPin className="w-4 h-4" />
-                <span>15 No block, Shamim Bag, Matuail</span>
-              </div>
-
-              <div className="flex gap-2 mb-4">
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                  <Award className="w-4 h-4" />
-                </div>
-                <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
-                  <Shield className="w-4 h-4" />
-                </div>
-              </div>
-
-              <button className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition-colors">
-                Edit profile
-              </button>
-            </div>
-          </div>
+          <ProfileCard githubLink={githubLink} personalInfo={personalInfo} />
 
           {/* Main Content */}
           <div className="flex-1 space-y-6">
@@ -530,6 +488,73 @@ const GitHubProfile = () => {
           </div>
         </motion.div>
       </motion.div>
+    </div>
+  );
+};
+const ProfileCard = ({
+  githubLink,
+  personalInfo,
+}: {
+  githubLink: string;
+  personalInfo: GitPersonalInfo;
+}) => {
+  const {
+    imageUrl,
+    name,
+    followersCount,
+    followingCount,
+    userName,
+    tag,
+    address,
+  } = personalInfo;
+  return (
+    <div className="bg-gray-900 rounded-lg p-6 lg:w-80 border border-gray-800">
+      <div className="flex flex-col items-center text-center">
+        {/* //Image section  */}
+        <motion.div
+          className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-gray-700"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.3 }}>
+          <Image
+            src={imageUrl}
+            alt="Profile"
+            className="w-full h-full object-cover"
+            width={128}
+            height={128}
+            priority
+          />
+        </motion.div>
+        <h1 className="text-2xl font-bold mb-2">{name}</h1>
+        <Link href={githubLink} target="_blank" className="text-gray-400 mb-2">
+          {userName}
+        </Link>
+        <p className="text-sm text-gray-500 mb-4">{tag}</p>
+        <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
+          <span className="flex items-center gap-1">
+            <Users className="w-4 h-4" />
+            {followersCount} followers
+          </span>
+          <span className="flex items-center gap-1">
+            <Users className="w-4 h-4" />
+            {followingCount} following
+          </span>
+        </div>
+        <div className="flex items-start gap-1 text-sm text-gray-400 text-start mb-4">
+          <MapPin className="w-6 h-6" />
+          <span>{address}</span>
+        </div>
+        <div className="flex gap-2 mb-4">
+          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+            <Award className="w-4 h-4" />
+          </div>
+          <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+            <Shield className="w-4 h-4" />
+          </div>
+        </div>
+        <button className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition-colors">
+          Show profile
+        </button>
+      </div>
     </div>
   );
 };

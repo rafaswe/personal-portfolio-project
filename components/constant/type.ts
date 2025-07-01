@@ -6,3 +6,12 @@ export type OnlinePresence = {
   description: string;
   url: string;
 };
+export type GitPersonalInfo = {
+  imageUrl: string;
+  name: string;
+  userName: string;
+  tag: string;
+  followersCount: number;
+  followingCount: number;
+  address: string;
+};
