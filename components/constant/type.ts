@@ -14,4 +14,6 @@ export type GitPersonalInfo = {
   followersCount: number;
   followingCount: number;
   address: string;
+  addressLink: string;
+  position: string;
 };

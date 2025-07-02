@@ -1,4 +1,5 @@
 "use client";
+import { ContactInfo } from "@/components/constant/enum";
 import { CheckCheck, Copy } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -81,29 +82,6 @@ const VSCodeContactForm = () => {
     reset();
   };
 
-  const contactInfo = [
-    {
-      label: "Email",
-      value: "mahiyarahmanrafa@gmail.com",
-      link: "mailto:mahiyarahmanrafa@gmail.com",
-    },
-    {
-      label: "Discord",
-      value: "rafamahiya_20616",
-      link: "https://discordapp.com/users/rafamahiya_20616",
-    },
-    {
-      label: "WhatsApp",
-      value: "Mahiya Rahman Rafa",
-      link: "https://wa.me/1631907601",
-    },
-    {
-      label: "GitHub",
-      value: "rafaswe",
-      link: "https://github.com/rafaswe",
-    },
-  ];
-
   const contactInfoJSON = {
     email: "mahiyarahmanrafa@gmail.com",
     discord: "rafamahiya_20616",
@@ -142,7 +120,7 @@ const VSCodeContactForm = () => {
             </div>
 
             <div className="ml-8 space-y-1">
-              {contactInfo.map((item, index) => {
+              {ContactInfo.map((item, index) => {
                 return (
                   <div key={index} className="flex items-center">
                     <div className="flex items-center flex-1">
@@ -156,7 +134,7 @@ const VSCodeContactForm = () => {
                         {`"${item.value}"`}
                       </Link>
                       <span className="text-white">
-                        {index < contactInfo.length - 1 ? "," : ""}
+                        {index < ContactInfo.length - 1 ? "," : ""}
                       </span>
                     </div>
                   </div>

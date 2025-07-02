@@ -1,3 +1,12 @@
+import {
+  Disc2,
+  Facebook,
+  GitCompareArrows,
+  Globe,
+  Headset,
+  Instagram,
+  Mail,
+} from "lucide-react";
 import { ExperienceSectionType } from "./interface";
 
 export const FAQ_HIGHEST_LIMIT = 3 as number;
@@ -279,6 +288,33 @@ export const ImageGalleryList = [
   "/images/onlinePresence/6.jpg",
 ];
 
+export const ContactInfo = [
+  {
+    label: "Email",
+    value: "mahiyarahmanrafa@gmail.com",
+    link: "mailto:mahiyarahmanrafa@gmail.com",
+    icon: Mail,
+  },
+  {
+    label: "Discord",
+    value: "rafamahiya_20616",
+    link: "https://discordapp.com/users/rafamahiya_20616",
+    icon: Disc2,
+  },
+  {
+    label: "WhatsApp",
+    value: "Mahiya Rahman Rafa",
+    link: "https://wa.me/1631907601",
+    icons: Headset,
+  },
+  {
+    label: "GitHub",
+    value: "rafaswe",
+    link: "https://github.com/rafaswe",
+    icons: GitCompareArrows,
+  },
+];
+
 export const GitHubInfo = {
   githubLink: "https://github.com/rafaswe",
   personalInfo: {
@@ -288,6 +324,67 @@ export const GitHubInfo = {
     tag: "A learner",
     followersCount: 4,
     followingCount: 4,
-    address: "Emran Tower, House-KA-145-23A, Nayanagar, Khilkhet",
+    address: "Nayanagar, Khilkhet",
+    addressLink: "https://maps.app.goo.gl/91kS6KwVpTtX4nxt5",
+    position: "Frontend Developer",
   },
+  techStack: [
+    { name: "JavaScript", color: "bg-yellow-500" },
+    { name: "React", color: "bg-blue-500" },
+    { name: "NextJS", color: "bg-green-500" },
+    { name: "CSS5", color: "bg-blue-600" },
+    { name: "TypeScript", color: "bg-orange-500" },
+    { name: "Tailwind", color: "bg-blue-400" },
+    { name: "Git", color: "bg-red-500" },
+    { name: "Bootstrap", color: "bg-green-600" },
+    { name: "Sass", color: "bg-gray-600" },
+  ],
+  links: [
+    {
+      label: "🔭 All of my projects are available at",
+      link: "https://github.com/rafaswe",
+      tag: "https://github.com/rafaswe",
+    },
+    {
+      label: "📝 I regularly write articles on",
+      link: "https://medium.com/@rahmanmahiya99",
+      tag: "https://medium.com/@rahmanmahiya99",
+    },
+    {
+      label: "💬 Ask me about",
+      link: "#",
+      tag: "Javascript, TypeScript, React, NextJS, Tailwind, Bootstrap",
+    },
+    {
+      label: "📫 How to reach me",
+      link: "mailto:mahiyarahmanrafa@gmail.com",
+      tag: "mahiyarahmanrafa@gmail.com",
+    },
+    {
+      label: "⚡ Know about my experiences",
+      link: PDFLink,
+      tag: "https://drive.google.com",
+    },
+  ],
+  socialLinks: [
+    {
+      icon: Globe,
+      label: "LinkedIn",
+      value: "LinkedIn",
+      link: "https://bd.linkedin.com/in/mahiya-rahman-rafa",
+    },
+    {
+      icon: Instagram,
+      label: "Instagram",
+      value: "Instagram",
+      link: "https://www.instagram.com/mahiya_rahman_rafa/",
+    },
+    {
+      icon: Facebook,
+      label: "Facebook",
+      value: "Facebook",
+      link: "https://www.facebook.com/odhorajaman.sporshika",
+    },
+    ...ContactInfo,
+  ],
 };

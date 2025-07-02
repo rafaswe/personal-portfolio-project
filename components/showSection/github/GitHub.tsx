@@ -6,22 +6,16 @@ import {
   Award,
   BookOpen,
   ChevronDown,
-  Code,
   GitFork,
-  Github,
-  Globe,
-  Instagram,
-  Linkedin,
-  Mail,
   MapPin,
   Shield,
   Star,
-  Twitter,
   Users,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import GitHubHeader from "./helper/Header";
 
 const GitHubProfile = () => {
   const [selectedYear, setSelectedYear] = useState("2025");
@@ -37,7 +31,6 @@ const GitHubProfile = () => {
       },
     },
   };
-
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -46,21 +39,6 @@ const GitHubProfile = () => {
       transition: { duration: 0.5 },
     },
   };
-
-  const techStack = [
-    { name: "JavaScript", color: "bg-yellow-500" },
-    { name: "React", color: "bg-blue-500" },
-    { name: "Node.js", color: "bg-green-500" },
-    { name: "Python", color: "bg-blue-600" },
-    { name: "HTML", color: "bg-orange-500" },
-    { name: "CSS", color: "bg-blue-400" },
-    { name: "Git", color: "bg-red-500" },
-    { name: "MongoDB", color: "bg-green-600" },
-    { name: "Express", color: "bg-gray-600" },
-    { name: "Vue.js", color: "bg-green-400" },
-    { name: "TypeScript", color: "bg-blue-700" },
-    { name: "Firebase", color: "bg-yellow-600" },
-  ];
 
   const repositories = [
     {
@@ -189,85 +167,7 @@ const GitHubProfile = () => {
           {/* Main Content */}
           <div className="flex-1 space-y-6">
             {/* Intro Section */}
-            <motion.div
-              className="bg-gray-900 rounded-lg p-6 border border-gray-800"
-              variants={itemVariants}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-yellow-400 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">🐱</span>
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold">
-                    {`Hi 👋, I'm Mahiya Rahman Rafa`}
-                  </h2>
-                  <p className="text-gray-400">I am a Frontend Developer</p>
-                </div>
-              </div>
-
-              <div className="space-y-2 text-sm">
-                <p>
-                  🔭 All of my projects are available at{" "}
-                  <a href="#" className="text-blue-400 hover:underline">
-                    https://rafaswe.github.io/Portfolio-project/
-                  </a>
-                </p>
-                <p>
-                  📝 I regularly write articles on{" "}
-                  <a href="#" className="text-blue-400 hover:underline">
-                    https://medium.com/@mahiyarahmanrafa59
-                  </a>
-                </p>
-                <p>
-                  💬 Ask me about{" "}
-                  <span className="text-blue-400">C++,Python,MERN stack</span>
-                </p>
-                <p>
-                  📫 How to reach me{" "}
-                  <a href="#" className="text-blue-400 hover:underline">
-                    mahiyarahmanrafa59@gmail.com
-                  </a>
-                </p>
-                <p>
-                  ⚡ Know about my experiences{" "}
-                  <a href="#" className="text-blue-400 hover:underline">
-                    https://drive.google.com/file/d/1Vf1LwtV1LIg_uoiLkGXNJoeTUAHRhAcg/view?usp=sharing
-                  </a>
-                </p>
-              </div>
-
-              <div className="mt-4">
-                <h3 className="font-semibold mb-2">Connect with me:</h3>
-                <div className="flex gap-2">
-                  {[Github, Linkedin, Twitter, Instagram, Globe, Mail].map(
-                    (Icon, index) => (
-                      <motion.a
-                        key={index}
-                        href="#"
-                        className="w-8 h-8 bg-gray-800 hover:bg-gray-700 rounded flex items-center justify-center transition-colors"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}>
-                        <Icon className="w-4 h-4" />
-                      </motion.a>
-                    )
-                  )}
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <h3 className="font-semibold mb-2">Languages and Tools:</h3>
-                <div className="flex flex-wrap gap-2">
-                  {techStack.map((tech, index) => (
-                    <motion.div
-                      key={index}
-                      className={`w-8 h-8 ${tech.color} rounded flex items-center justify-center`}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.2 }}>
-                      <Code className="w-4 h-4 text-white" />
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            <GitHubHeader itemVariants={itemVariants} gitHubInfo={GitHubInfo} />
 
             {/* GitHub Stats */}
             <motion.div
@@ -491,6 +391,8 @@ const GitHubProfile = () => {
     </div>
   );
 };
+
+//Profile portion
 const ProfileCard = ({
   githubLink,
   personalInfo,
@@ -506,6 +408,7 @@ const ProfileCard = ({
     userName,
     tag,
     address,
+    addressLink,
   } = personalInfo;
   return (
     <div className="bg-gray-900 rounded-lg p-6 lg:w-80 border border-gray-800">
@@ -524,8 +427,8 @@ const ProfileCard = ({
             priority
           />
         </motion.div>
-        <h1 className="text-2xl font-bold mb-2">{name}</h1>
-        <Link href={githubLink} target="_blank" className="text-gray-400 mb-2">
+        <h1 className="text-2xl font-bold">{name}</h1>
+        <Link href={githubLink} target="_blank" className="text-gray-400 my-2">
           {userName}
         </Link>
         <p className="text-sm text-gray-500 mb-4">{tag}</p>
@@ -539,10 +442,14 @@ const ProfileCard = ({
             {followingCount} following
           </span>
         </div>
-        <div className="flex items-start gap-1 text-sm text-gray-400 text-start mb-4">
-          <MapPin className="w-6 h-6" />
+        <Link
+          href={addressLink}
+          target="_blank"
+          className="flex items-center gap-1 text-sm text-gray-400 mb-4">
+          <MapPin className="w-4 h-4" />
           <span>{address}</span>
-        </div>
+        </Link>
+
         <div className="flex gap-2 mb-4">
           <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
             <Award className="w-4 h-4" />
@@ -551,9 +458,12 @@ const ProfileCard = ({
             <Shield className="w-4 h-4" />
           </div>
         </div>
-        <button className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition-colors">
+        <Link
+          href={githubLink}
+          target="_blank"
+          className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition-colors">
           Show profile
-        </button>
+        </Link>
       </div>
     </div>
   );
