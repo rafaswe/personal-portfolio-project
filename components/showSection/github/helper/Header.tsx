@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 const GitHubHeader = ({ itemVariants, gitHubInfo }) => {
   const { personalInfo, techStack, links, socialLinks } = gitHubInfo;
@@ -59,14 +59,21 @@ const GitHubHeader = ({ itemVariants, gitHubInfo }) => {
 
       <div className="mt-4">
         <h3 className="font-semibold mb-2">Languages and Tools:</h3>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3">
           {techStack.map((tech, index) => (
             <motion.div
               key={index}
               className={`w-8 h-8 ${tech.color} rounded flex items-center justify-center`}
               whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.2 }}>
-              <Code className="w-4 h-4 text-white" />
+              transition={{ duration: 0.2 }}
+              title={tech?.name}>
+              <Image
+                src={tech?.logo}
+                alt={tech?.name}
+                width={36}
+                height={36}
+                className="w-8 h-8"
+              />
             </motion.div>
           ))}
         </div>
