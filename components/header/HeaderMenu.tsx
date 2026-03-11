@@ -1,12 +1,17 @@
 "use client";
+
 import { cn } from "@/functions/cn";
 import useTerminalStore from "@/service/store/useTerminalStore";
 import Link from "next/link";
+import { useMediaQuery } from "usehooks-ts";
 
 const HeaderMenu = ({ className }: { className?: string }) => {
   const { toggleTerminal } = useTerminalStore();
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
-    <div className={cn("flex gap-3 ", className)}>
+    <div className={cn("flex gap-3", className)}>
       <Link href="/">File</Link>
       <Link href="/">Edit</Link>
       <Link href="/">Selection</Link>

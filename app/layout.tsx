@@ -5,12 +5,18 @@ import Navbar from "@/components/sideBar/navbar.component";
 import Sidebar from "@/components/sideBar/Sidebar";
 import { ReactNode } from "react";
 import "./globals.css";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+
 type RootLayoutProps = {
   children: ReactNode;
 };
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <head>
         <title>Mahiya Rahman Rafa</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
