@@ -5,11 +5,13 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { menueProperties } from "../constant/enum";
+import { menuProperties } from "../constant/enum";
 
 const SideOption = ({ className }: { className?: string }) => {
-  const sideMenu = menueProperties.slice(0, menueProperties.length - 2);
-  const personalInfoProperties = menueProperties.slice(-2);
+  const sideMenu = menuProperties.slice(0, menuProperties.length - 2);
+
+  const personalInfoProperties = menuProperties.slice(-2);
+
   const pathName = usePathname();
   const { toggleTerminal, isTerminalClicked } = useTerminalStore();
 
@@ -25,7 +27,7 @@ const SideOption = ({ className }: { className?: string }) => {
                 "border-tertiary": pathName === singleProperty.link,
                 "border-transparent": pathName !== singleProperty.link,
               },
-              { "cursor-not-allowed": !singleProperty?.link }
+              { "cursor-not-allowed": !singleProperty?.link },
             )}
             key={singleProperty.id}>
             <Image
@@ -34,7 +36,7 @@ const SideOption = ({ className }: { className?: string }) => {
               width={24}
               height={24}
               className={
-                pathName === singleProperty.link ? "opcaity-100" : "opacity-20"
+                pathName === singleProperty.link ? "opacity-100" : "opacity-20"
               }
             />
           </Link>
@@ -52,7 +54,7 @@ const SideOption = ({ className }: { className?: string }) => {
             alt={"terminal"}
             width={24}
             height={24}
-            className={isTerminalClicked ? "opcaity-100" : "opacity-20"}
+            className={isTerminalClicked ? "opacity-100" : "opacity-20"}
           />
         </button>
         {personalInfoProperties?.map((singleProperty) => (
@@ -64,7 +66,7 @@ const SideOption = ({ className }: { className?: string }) => {
                 "border-tertiary": pathName === singleProperty.link,
                 "border-transparent": pathName !== singleProperty.link,
               },
-              { "cursor-not-allowed": !singleProperty?.link }
+              { "cursor-not-allowed": !singleProperty?.link },
             )}
             key={singleProperty?.id}>
             <Image
@@ -73,7 +75,7 @@ const SideOption = ({ className }: { className?: string }) => {
               width={24}
               height={24}
               className={
-                pathName === singleProperty.link ? "opcaity-100" : "opacity-20"
+                pathName === singleProperty.link ? "opacity-100" : "opacity-20"
               }
             />
           </Link>

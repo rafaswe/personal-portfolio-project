@@ -1,6 +1,5 @@
-import TerminalComponent from "@/components/common/terminalComponent";
 import HomeComponent from "@/components/showSection/home/HomeComponent";
-import { Metadata } from "next";
+import type { Metadata } from "next/types";
 
 export const metadata: Metadata = {
   title: "Mahiya Rahman Rafa | Home",

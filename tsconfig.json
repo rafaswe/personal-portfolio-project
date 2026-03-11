@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -12,16 +16,21 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
-    "types": ["node"],
+    "types": [
+      "next",
+      "node"
+    ],
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "noImplicitAny": false
   },
@@ -33,7 +42,10 @@
     "app/image-crop/page.tsx",
     "app/flight-booking/old",
     "components/visa/packagesView/packagesBodySection/packageList/singlePackage/imageSection",
-    "components/common/FloatingIcons"
+    "components/common/FloatingIcons",
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

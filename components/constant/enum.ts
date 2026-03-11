@@ -10,7 +10,7 @@ import {
 import { ExperienceSectionType } from "./interface";
 
 export const FAQ_HIGHEST_LIMIT = 3 as number;
-export const menueProperties = [
+export const menuProperties = [
   { id: 0, image: "file", altText: "File", link: "/" },
   { id: 1, image: "searchIcon", altText: "Achievements", link: "/search" },
   {
