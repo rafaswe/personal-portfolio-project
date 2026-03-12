@@ -16,7 +16,8 @@ const SideOption = ({ className }: { className?: string }) => {
   const { toggleTerminal, isTerminalClicked } = useTerminalStore();
 
   return (
-    <div className={cn("flex flex-col w-18 justify-between", className)}>
+    <div
+      className={cn("flex flex-col w-10 md:w-12 justify-between", className)}>
       <div className="flex flex-col">
         {sideMenu?.map((singleProperty) => (
           <Link
@@ -36,7 +37,9 @@ const SideOption = ({ className }: { className?: string }) => {
               width={24}
               height={24}
               className={
-                pathName === singleProperty.link ? "opacity-100" : "opacity-20"
+                "w-24 h-24 " + pathName === singleProperty.link
+                  ? "opacity-100"
+                  : "opacity-20"
               }
             />
           </Link>

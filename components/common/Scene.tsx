@@ -1,52 +1,61 @@
 "use client";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FloatingIcons: React.FC<{ icons: string[]; centralImage?: string }> = ({
   icons,
   centralImage,
 }) => {
   const [positions, setPositions] = useState<{ x: number; y: number }[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Circle parameters
-  const radius = 200; // Radius of the circle
-  const centerX = 50; // Center x position (percentage)
-  const centerY = 50; // Center y position (percentage)
+  const centerX = 50;
+  const centerY = 50;
 
   useEffect(() => {
-    const newPositions = icons.map((_, index) => {
-      const angle = (index / icons.length) * 2 * Math.PI; // Calculate angle for each icon
-      return {
-        x: centerX + (radius * Math.cos(angle)) / 5, // Adjust for percentage
-        y: centerY + (radius * Math.sin(angle)) / 5, // Adjust for percentage
-      };
-    });
-    setPositions(newPositions);
+    const updatePositions = () => {
+      const isMobile = window.innerWidth < 768;
+      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
+      // Tighter radius on smaller screens
+      const radius = isMobile ? 130 : isTablet ? 160 : 200;
+
+      const newPositions = icons.map((_, index) => {
+        const angle = (index / icons.length) * 2 * Math.PI;
+        return {
+          x: centerX + (radius * Math.cos(angle)) / 5,
+          y: centerY + (radius * Math.sin(angle)) / 5,
+        };
+      });
+      setPositions(newPositions);
+    };
+
+    updatePositions();
+    window.addEventListener("resize", updatePositions);
+    return () => window.removeEventListener("resize", updatePositions);
   }, [icons]);
 
   return (
     <div
+      ref={containerRef}
+      className="relative w-full md:w-2/5 md:mr-12"
       style={{
-        position: "relative",
-        width: "40%",
-        height: "500px",
-        overflow: "hidden",
-      }}
-      className="mr-12">
+        height: "clamp(240px, 40vw, 500px)",
+        maxWidth: "clamp(240px, 50vw, 500px)",
+        margin: "0 auto",
+      }}>
       {/* Central image */}
       <motion.img
         src={centralImage}
         alt="Central Image"
+        className="absolute rounded-b-full object-cover"
         style={{
-          position: "absolute",
-          top: "57%", // Center vertically
-          left: "56%", // Center horizontally
-          transform: "translate(-50%, -50%)", // Adjust for image dimensions
-          width: "250px", // Set your desired central image width
-          height: "250px", // Set your desired central image height
-          objectFit: "cover", // Ensure the image covers its bounds
+          top: "57%",
+          left: "56%",
+          transform: "translate(-50%, -50%)",
+          width: "clamp(100px, 20vw, 250px)",
+          height: "clamp(100px, 20vw, 250px)",
         }}
-        className="rounded-b-full"
       />
 
       {/* Floating icons */}
@@ -55,21 +64,19 @@ const FloatingIcons: React.FC<{ icons: string[]; centralImage?: string }> = ({
           key={index}
           src={icon}
           alt={`Floating Icon ${index}`}
+          className="absolute object-contain"
           style={{
-            position: "absolute",
-            top: `${positions[index]?.y}%`,
-            left: `${positions[index]?.x}%`,
-            width: "50px", // Set your desired icon width
-            height: "50px", // Set your desired icon height
-            objectFit: "contain", // Ensure the icon fits within its bounds
+            top: `${positions[index]?.y ?? 50}%`,
+            left: `${positions[index]?.x ?? 50}%`,
+            width: "clamp(28px, 4vw, 50px)",
+            height: "clamp(28px, 4vw, 50px)",
           }}
-          animate={{
-            y: [0, 10, 0], // Up and down movement
-          }}
+          animate={{ y: [0, 10, 0] }}
           transition={{
-            duration: 2, // Duration of the animation
+            duration: 2,
             ease: "easeInOut",
-            repeat: Infinity, // Repeat the animation
+            repeat: Infinity,
+            delay: index * 0.1,
           }}
         />
       ))}
