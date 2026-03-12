@@ -9,7 +9,6 @@ import {
 } from "@/components/constant/enum";
 
 import { ExperienceSectionType } from "@/components/constant/interface";
-import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { Award, Code, Languages, ScrollText } from "lucide-react";
 import Image from "next/image";
@@ -36,7 +35,6 @@ const AboutMe = () => {
                   as a React/Next.js developer while also sharing insights
                   through blogging to benefit the community.
                 </p>
-                <Button>hello</Button>
               </P>
             </div>
           </div>
