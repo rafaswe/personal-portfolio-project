@@ -3,20 +3,19 @@ import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import Navbar from "@/components/sideBar/navbar.component";
 import Sidebar from "@/components/sideBar/Sidebar";
+import { cn } from "@/lib/utils";
+import { Geist } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
-import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 type RootLayoutProps = {
   children: ReactNode;
 };
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
+    <html lang="en" className={cn("dark", "font-sans", geist.variable)}>
       <head>
         <title>Mahiya Rahman Rafa</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -25,7 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Header />
         <div className="flex h-full">
           <Sidebar />
-          <div className="w-full flex flex-col  bg-secondary">
+          <div className="w-full flex flex-col  bg-primary">
             <Navbar />
             <div className="flex-1 h-full w-full overflow-hidden relative">
               {children}

@@ -7,11 +7,11 @@ import FloatingImages from "../../common/Scene";
 const HomeComponent = () => {
   return (
     <div className="px-4  h-full w-full  relative  ">
-      <div className="text-[152px] font-bold h-full flex items-center leading-[172px]">
+      <div className="text-[152px] absolute opacity-10 font-bold h-full flex items-center leading-43">
         I transform <br /> visions into
         <br /> code.
       </div>
-      <div className="absolute overflow-hidden h-full w-full px-4 right-0 bg-secondary top-0 opacity-[95%]">
+      <div className=" h-full w-full px-4 right-0 bg-secondary ">
         <div className="h-full items-center justify-between w-full flex">
           <div className="h-full flex flex-col items-start justify-center">
             <p className="text-[56px] font-bold ">Mahiya Rahman Rafa</p>

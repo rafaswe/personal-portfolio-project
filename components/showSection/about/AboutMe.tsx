@@ -9,6 +9,7 @@ import {
 } from "@/components/constant/enum";
 
 import { ExperienceSectionType } from "@/components/constant/interface";
+import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { Award, Code, Languages, ScrollText } from "lucide-react";
 import Image from "next/image";
@@ -35,6 +36,7 @@ const AboutMe = () => {
                   as a React/Next.js developer while also sharing insights
                   through blogging to benefit the community.
                 </p>
+                <Button>hello</Button>
               </P>
             </div>
           </div>
@@ -95,7 +97,7 @@ const ExperienceSection = () => {
 
   const calculateExperience = (
     joiningDate: string,
-    leavingDate?: string
+    leavingDate?: string,
   ): number => {
     const startDate = new Date(joiningDate);
     const endDate =
@@ -119,7 +121,7 @@ const ExperienceSection = () => {
         const { joiningDate, leavingDate } = position;
         const experienceInMonths = calculateExperience(
           joiningDate,
-          leavingDate
+          leavingDate,
         );
 
         if (!leavingDate) {
@@ -133,7 +135,7 @@ const ExperienceSection = () => {
       });
 
       experience.componayInfo.totalExperience = formatExperience(
-        totalExperienceInMonths
+        totalExperienceInMonths,
       );
       experience.positionInfo = updatedPositions;
 
@@ -210,7 +212,7 @@ const CVTooltip = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [settingTooltip, setSettingTooltip] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement>(null!);
 
   //tooltip open.
   const hideTooltip = () => {

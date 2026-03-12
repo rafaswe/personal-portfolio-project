@@ -5,7 +5,6 @@ const ShowSection = ({ className }: { className?: string }) => {
   return (
     <div className={cn(className)}>
       <NavBar />
-
     </div>
   );
 };
