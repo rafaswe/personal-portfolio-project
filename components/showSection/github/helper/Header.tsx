@@ -8,7 +8,7 @@ const GitHubHeader = ({ itemVariants, gitHubInfo }) => {
 
   return (
     <motion.div
-      className="bg-gray-900 rounded-lg p-6 border border-gray-800"
+      className="bg-gray-900 rounded-lg p-4 sm:p-6 border border-gray-800"
       variants={itemVariants}>
       <div className="flex items-center gap-3 mb-4">
         <div className="w-12 h-12 bg-yellow-400 rounded-lg flex items-center justify-center">
@@ -24,12 +24,12 @@ const GitHubHeader = ({ itemVariants, gitHubInfo }) => {
 
       <div className="space-y-2 text-sm">
         {links?.map((singleLink, index) => (
-          <p key={index}>
+          <p key={index} className="break-words">
             {singleLink?.label}{" "}
             <Link
               href={singleLink?.link}
               target="_blank"
-              className="text-blue-400 hover:underline">
+              className="text-blue-400 hover:underline break-all">
               {singleLink?.tag}
             </Link>
           </p>

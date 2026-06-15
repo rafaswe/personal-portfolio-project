@@ -226,12 +226,12 @@ const GitHubProfile = () => {
 
         {/* Contribution Graph */}
         <motion.div className="mb-8" variants={itemVariants}>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">
+          <div className="flex flex-wrap gap-2 justify-between items-center mb-4">
+            <h2 className="text-base sm:text-lg font-semibold">
               63 contributions in the last year
             </h2>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-gray-400 hidden sm:inline">
                 Contribution settings
               </span>
               <div className="relative">
@@ -352,7 +352,7 @@ const ProfileCard = ({
     addressLink,
   } = personalInfo;
   return (
-    <div className="bg-gray-900 rounded-lg p-6 lg:w-80 border border-gray-800">
+    <div className="bg-gray-900 rounded-lg p-4 sm:p-6 lg:w-80 border border-gray-800">
       <div className="flex flex-col items-center text-center">
         {/* //Image section  */}
         <motion.div

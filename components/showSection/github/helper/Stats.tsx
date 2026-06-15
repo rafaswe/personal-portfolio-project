@@ -13,7 +13,7 @@ const Stats = ({ itemVariants, stats, name }) => {
     <motion.div
       className="grid grid-cols-1 md:grid-cols-2 gap-6"
       variants={itemVariants}>
-      <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
+      <div className="bg-gray-900 rounded-lg p-4 sm:p-6 border border-gray-800">
         <h3 className="font-semibold mb-4">{`${name}'s GitHub Stats`}</h3>
         <div className="space-y-3">
           {logs?.map((stat, index) => (
@@ -25,7 +25,7 @@ const Stats = ({ itemVariants, stats, name }) => {
         </div>
       </div>
 
-      <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
+      <div className="bg-gray-900 rounded-lg p-4 sm:p-6 border border-gray-800">
         <div className="text-center">
           <div className="text-4xl font-bold mb-2">{totalContribution}</div>
           <div className="text-gray-400 text-sm mb-4">Total Contributions</div>

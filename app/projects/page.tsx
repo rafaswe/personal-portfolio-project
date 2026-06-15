@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 const ProjectsPage = () => {
   return (
-    <div className="w-full h-[88vh] overflow-y-auto hidden-scrollbar  bg-secondary">
+    <div className="w-full h-full overflow-y-auto hidden-scrollbar bg-secondary">
       <Projects />
     </div>
   );

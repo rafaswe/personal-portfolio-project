@@ -119,7 +119,7 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen  p-8">
+    <div className="min-h-full p-4 sm:p-8">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -155,8 +155,8 @@ const Projects = () => {
                 className={`absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-5`}
               />
 
-              <div className="relative p-8 lg:p-12">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="relative p-4 sm:p-8 lg:p-12">
+                <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
                   {/* Project Info */}
                   <div className="space-y-6">
                     <div className="flex items-center gap-4">
@@ -167,10 +167,10 @@ const Projects = () => {
                         {project.icon}
                       </div>
                       <div>
-                        <h2 className="text-3xl font-bold text-white">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white">
                           {project.title}
                         </h2>
-                        <p className="text-xl text-gray-400">
+                        <p className="text-lg sm:text-xl text-gray-400">
                           {project.subtitle}
                         </p>
                       </div>
@@ -183,7 +183,7 @@ const Projects = () => {
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-400 hover:text-blue-300 transition-colors underline">
+                          className="text-blue-400 hover:text-blue-300 transition-colors underline break-all text-sm sm:text-base">
                           {project.link}
                         </a>
                       </div>

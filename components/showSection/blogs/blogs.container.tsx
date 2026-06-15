@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const Blogs = () => {
   return (
-    <div className="w-full h-[88vh] flex justify-center py-4 overflow-y-auto hidden-scrollbar   bg-secondary ">
-      <div className="space-y-6 w-10/12">
+    <div className="w-full h-full flex justify-center px-3 sm:px-4 py-4 overflow-y-auto hidden-scrollbar bg-secondary">
+      <div className="space-y-6 w-full md:w-10/12">
         {/* Header */}
         <div className="border-b border-text-dark pb-4">
           <h1 className="text-2xl font-bold text-white mb-2">Blog Portfolio</h1>
@@ -85,24 +85,26 @@ const Blogs = () => {
 
         {/* Footer Stats */}
         <div className="border-t border-text-dark pt-6 mt-8">
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="bg-secondary rounded-lg p-4">
-              <div className="text-2xl font-bold text-quaternary">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+            <div className="bg-secondary rounded-lg p-2 sm:p-4">
+              <div className="text-xl sm:text-2xl font-bold text-quaternary">
                 {BlogsInfo.length}
               </div>
-              <div className="text-sm text-disabled">Total Articles</div>
+              <div className="text-xs sm:text-sm text-disabled">
+                Total Articles
+              </div>
             </div>
-            <div className="bg-secondary rounded-lg p-4">
-              <div className="text-2xl font-bold text-green-dark">
+            <div className="bg-secondary rounded-lg p-2 sm:p-4">
+              <div className="text-xl sm:text-2xl font-bold text-green-dark">
                 {BlogsInfo.reduce((sum, blog) => sum + blog.watchCount, 0)}
               </div>
-              <div className="text-sm text-disabled">Total Views</div>
+              <div className="text-xs sm:text-sm text-disabled">Total Views</div>
             </div>
-            <div className="bg-secondary rounded-lg p-4">
-              <div className="text-2xl font-bold text-tertiary">
+            <div className="bg-secondary rounded-lg p-2 sm:p-4">
+              <div className="text-xl sm:text-2xl font-bold text-tertiary">
                 {BlogsInfo.reduce((sum, blog) => sum + blog.likeCount, 0)}
               </div>
-              <div className="text-sm text-disabled">Total Likes</div>
+              <div className="text-xs sm:text-sm text-disabled">Total Likes</div>
             </div>
           </div>
         </div>

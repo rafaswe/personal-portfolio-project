@@ -62,10 +62,10 @@ export const LineNumberLayout: FC<LineNumberLayoutProps> = ({
   }, [windowSize, lineHeight, startingNumber]);
 
   return (
-    <div className={`flex h-[90vh] ${className}`}>
+    <div className={`flex h-full ${className}`}>
       {/* Line numbers container */}
       <div
-        className={`select-none px-4 border-x border-l-2 border-l-gray-700 border-r-[#569CD6] flex flex-col items-center text-gray-500 font-mono ${numberClassName}`}>
+        className={`select-none px-1.5 sm:px-4 shrink-0 border-x border-l-2 border-l-gray-700 border-r-[#569CD6] flex flex-col items-center text-gray-500 font-mono ${numberClassName}`}>
         {lineNumbers.map((num: number) => (
           <div
             key={num}
@@ -108,10 +108,10 @@ const ComponentLayout = ({
       lineHeight={24}
       startingNumber={1}
       numberClassName="text-blue-500">
-      <div className={cn("px-4 pt-2 flex  flex-col gap-2", className)}>
+      <div className={cn("px-2 sm:px-4 pt-2 flex min-w-0 flex-col gap-2", className)}>
         {title ? (
           <div className="w-fit">
-            <p className={cn(" text-2xl font-medium", titleClassName)}>
+            <p className={cn(" text-lg sm:text-2xl font-medium", titleClassName)}>
               <span className="text-[#569CD6]">const</span>{" "}
               <span className="text-[#DCDCAA]"> {`${validTitle}`} </span>{" "}
               <span>{`=`}</span> <span className="text-[#DCDCAA]">{`( )`}</span>{" "}
@@ -125,11 +125,11 @@ const ComponentLayout = ({
 
         {title ? (
           <div className="w-fit flex flex-col gap-2">
-            <p className={cn(" text-2xl font-medium", titleClassName)}>
+            <p className={cn(" text-lg sm:text-2xl font-medium", titleClassName)}>
               <span className="text-[#C586C0]">{`)`}</span>
               <span>{`;`}</span>
             </p>
-            <p className={cn("text-2xl", titleClassName)}>
+            <p className={cn("text-lg sm:text-2xl", titleClassName)}>
               <span className="text-[#C586C0]">{"export default "}</span>{" "}
               <span className="text-[#DCDCAA]"> {`${validTitle}`}</span>;
             </p>

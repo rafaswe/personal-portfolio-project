@@ -26,7 +26,7 @@ import Link from "next/link";
 
 const Search = () => {
   return (
-    <div className=" py-8 h-[90vh] overflow-y-auto hidden-scrollbar w-10/12 gap-y-4 flex flex-col mx-auto">
+    <div className="px-3 sm:px-0 py-6 sm:py-8 h-full overflow-y-auto hidden-scrollbar w-full sm:w-11/12 md:w-10/12 gap-y-4 flex flex-col mx-auto">
       {/* header section  */}
       <SearchHeaderSection />
       <SearchBodySection />
@@ -36,21 +36,24 @@ const Search = () => {
 
 const SearchHeaderSection = () => {
   return (
-    <div className="flex gap-8">
+    <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 items-center sm:items-start">
       {/* Icon section */}
-      <div className="w-1/12 flex items-center justify-center">
+      <div className="shrink-0 flex items-center justify-center">
         <Image
           src={"/images/onlinePresence/onlinePresence.svg"}
           alt="Online Presence"
           width={160}
           height={160}
+          className="w-20 h-20 sm:w-24 sm:h-24 lg:w-40 lg:h-40"
         />
       </div>
 
       {/* Details Section  */}
-      <div className="flex-1 flex flex-col justify-between">
-        <p className="text-4xl font-semibold">Online Presence</p>
-        <div className="flex gap-2 items-center">
+      <div className="flex-1 w-full flex flex-col gap-2 justify-between text-center sm:text-left">
+        <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
+          Online Presence
+        </p>
+        <div className="flex flex-wrap gap-2 items-center justify-center sm:justify-start text-sm">
           <p>Mahiya Rahman Rafa</p>
           <div className="w-0.5 h-3.5 mt-0.5 bg-white"></div>
           <div className="flex items-center gap-1.5">

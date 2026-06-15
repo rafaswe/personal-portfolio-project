@@ -20,11 +20,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <title>Mahiya Rahman Rafa</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       </head>
-      <body className="h-screen flex flex-col hidden-scrollbar justify-between">
+      <body className="h-screen flex flex-col hidden-scrollbar justify-between overflow-x-hidden">
         <Header />
-        <div className="flex h-full">
+        <div className="flex h-full min-w-0">
           <Sidebar />
-          <div className="w-full flex flex-col  bg-primary">
+          <div className="flex-1 min-w-0 flex flex-col bg-primary">
             <Navbar />
             <div className="flex-1 h-full w-full overflow-hidden relative">
               {children}

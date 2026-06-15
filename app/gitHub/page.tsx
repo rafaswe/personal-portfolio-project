@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 const GitHubPage = () => {
   return (
-    <div className="w-full h-[88vh] flex justify-center py-4 overflow-y-auto hidden-scrollbar   bg-secondary">
+    <div className="w-full h-full flex justify-center px-3 sm:px-4 py-4 overflow-y-auto hidden-scrollbar bg-secondary">
       <GitHubProfile />
     </div>
   );

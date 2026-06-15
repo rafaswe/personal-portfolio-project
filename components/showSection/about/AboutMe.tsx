@@ -22,9 +22,9 @@ const AboutMe = () => {
   return (
     <ComponentLayout
       title="About me"
-      className="w-full h-[88vh] overflow-y-auto hidden-scrollbar  bg-secondary">
+      className="w-full h-full overflow-y-auto hidden-scrollbar  bg-secondary">
       <div className="relative">
-        <div className="w-1/2 flex flex-col gap-2">
+        <div className="w-full lg:w-1/2 flex flex-col gap-2">
           <div className="break-words">
             <div>
               <P>
@@ -253,7 +253,7 @@ const CVTooltip = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="border transition-colors duration-300 ease-in-out  group-hover:bg-[#2d343a]  border-gray-700 bg-primary rounded-lg fixed bottom-8 right-2 w-[26.125rem] p-3">
+            className="border transition-colors duration-300 ease-in-out  group-hover:bg-[#2d343a]  border-gray-700 bg-primary rounded-lg fixed bottom-8 right-2 left-2 sm:left-auto w-auto sm:w-[26.125rem] max-w-[calc(100vw-1rem)] p-3 z-40">
             <div className="flex flex-col gap-4">
               <div className="flex relative  items-start gap-6">
                 <div className="flex items-start gap-2">

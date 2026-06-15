@@ -96,14 +96,14 @@ const VSCodeContactForm = () => {
     setTimeout(() => setCopied(false), 1000);
   };
   return (
-    <div className="w-full p-6 pb-0">
+    <div className="w-full p-3 sm:p-6 pb-0">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center mb-2">
           <span className="text-gray-500">{"// Contact Information"}</span>
         </div>
-        <div className="bg-gray-800 rounded-lg relative flex text-gray-100 border border-gray-700 p-6 pl-0 gap-4 pt-4 mb-6 font-mono">
+        <div className="bg-gray-800 rounded-lg relative flex text-gray-100 border border-gray-700 p-3 sm:p-6 pl-0 gap-2 sm:gap-4 pt-4 mb-6 font-mono overflow-x-auto text-xs sm:text-sm">
           {/* Line Numbers */}
-          <div className="h-full px-4 text-gray-600 font-semibold flex flex-col gap-1.5">
+          <div className="h-full px-2 sm:px-4 shrink-0 text-gray-600 font-semibold flex flex-col gap-1.5">
             {Array(6)
               .fill("")
               .map((_, index) => (
@@ -165,7 +165,7 @@ const VSCodeContactForm = () => {
         </div>
 
         {/* Form Section */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-5">
+        <div className="bg-gray-800 rounded-lg border border-gray-700 p-3 sm:p-5">
           <div className="mb-4">
             <h2 className="text-xl font-bold text-white ">Get In Touch</h2>
             <p className="text-gray-400 text-sm">
