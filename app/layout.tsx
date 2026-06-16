@@ -8,7 +8,12 @@ import { Geist } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+// NOTE: Geist is loaded but exposed as `--font-geist` (not `--font-sans`).
+// In Tailwind v4 the `font-sans` utility resolves to `var(--font-sans)`, so
+// naming the variable `--font-sans` would silently swap the whole site to
+// Geist. The original design rendered with the default system sans stack, so
+// we keep that by using a non-colliding variable name.
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 
 type RootLayoutProps = {
   children: ReactNode;
@@ -20,7 +25,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <title>Mahiya Rahman Rafa</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       </head>
-      <body className="h-screen flex flex-col hidden-scrollbar justify-between overflow-x-hidden">
+      <body
+        suppressHydrationWarning
+        className="h-screen flex flex-col hidden-scrollbar justify-between overflow-x-hidden">
         <Header />
         <div className="flex h-full min-w-0">
           <Sidebar />

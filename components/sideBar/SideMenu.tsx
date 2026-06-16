@@ -17,7 +17,7 @@ const SideMenu = ({ className }: { className?: string }) => {
   };
 
   return (
-    <div className={cn("text-[#efefef] py-2 text-sm", className)}>
+    <div className={cn("text-code-text py-2 text-sm", className)}>
       <h1 className="font-bold">EXPLORER</h1>
       <div className="w-full">
         <button
@@ -58,8 +58,8 @@ const SideMenu = ({ className }: { className?: string }) => {
                   <Link
                     href={menue?.pageLink}
                     key={menue.id}
-                    className={`flex gap-2.5 pl-4  py-0.5 items-cente w-full hover:bg-[#24292e] rounded-sm ${
-                      pathName === menue?.pageLink && "bg-[#24292e]"
+                    className={`flex gap-2.5 pl-4  py-0.5 items-cente w-full hover:bg-secondary rounded-sm ${
+                      pathName === menue?.pageLink && "bg-secondary"
                     }`}>
                     <Image
                       src={`/images/${menue.icon}.svg`}

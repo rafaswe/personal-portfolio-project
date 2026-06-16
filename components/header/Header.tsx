@@ -27,9 +27,9 @@ const Header = () => {
         </div>
       </div>
       <div className="flex gap-2 items-center">
-        <p className="w-2 h-2  md:w-3 md:h-3 bg-[#d7f484] rounded-full"></p>
-        <p className="w-2 h-2  md:w-3 md:h-3 bg-[#50fa7b] rounded-full"></p>
-        <p className="w-2 h-2  md:w-3 md:h-3 bg-[#f9826c] rounded-full"></p>
+        <p className="w-2 h-2  md:w-3 md:h-3 bg-green rounded-full"></p>
+        <p className="w-2 h-2  md:w-3 md:h-3 bg-status-green rounded-full"></p>
+        <p className="w-2 h-2  md:w-3 md:h-3 bg-tertiary rounded-full"></p>
       </div>
     </div>
   );

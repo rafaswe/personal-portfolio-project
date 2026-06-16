@@ -30,7 +30,7 @@ const HomeComponent = () => {
                   <p>{"  "}</p>
                 </div>
                 <motion.div
-                  className="absolute border-l-4 border-[#f9826c] h-full top-0 -right-1 bg-secondary"
+                  className="absolute border-l-4 border-tertiary h-full top-0 -right-1 bg-secondary"
                   initial={{ width: "100%" }}
                   animate={{
                     width: ["100%", "0%", "100%"],

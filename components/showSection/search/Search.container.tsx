@@ -94,7 +94,7 @@ const SearchBodySection = () => {
         <Tab.Item title="Details">
           {OnlinePresenceList?.map((singleItem, index) => (
             <div key={index} className="py-4 flex flex-col gap-2.5">
-              <div className="text-xl italic border-b border-[#717070] ">
+              <div className="text-xl italic border-b border-border-muted ">
                 {singleItem?.url ? (
                   <Link
                     href={singleItem.url}

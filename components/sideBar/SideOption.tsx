@@ -23,7 +23,7 @@ const SideOption = ({ className }: { className?: string }) => {
           <Link
             href={singleProperty.link}
             className={clsx(
-              "pr-3 pl-2.5 py-3 border-l-2 hover:bg-[#3b4252]",
+              "pr-3 pl-2.5 py-3 border-l-2 hover:bg-surface-hover",
               {
                 "border-tertiary": pathName === singleProperty.link,
                 "border-transparent": pathName !== singleProperty.link,
@@ -48,7 +48,7 @@ const SideOption = ({ className }: { className?: string }) => {
       <div className="flex flex-col">
         <button
           onClick={toggleTerminal}
-          className={clsx("pr-3 pl-2.5 py-3 border-l-2 hover:bg-[#3b4252]", {
+          className={clsx("pr-3 pl-2.5 py-3 border-l-2 hover:bg-surface-hover", {
             "border-tertiary": isTerminalClicked,
             "border-transparent": !isTerminalClicked,
           })}>
@@ -64,7 +64,7 @@ const SideOption = ({ className }: { className?: string }) => {
           <Link
             href={singleProperty?.link}
             className={clsx(
-              "pr-3 pl-2.5 py-3 border-l-2 hover:bg-[#3b4252]",
+              "pr-3 pl-2.5 py-3 border-l-2 hover:bg-surface-hover",
               {
                 "border-tertiary": pathName === singleProperty.link,
                 "border-transparent": pathName !== singleProperty.link,

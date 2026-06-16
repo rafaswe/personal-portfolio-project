@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2017",
     "lib": [
       "dom",
       "dom.iterable",
@@ -13,7 +13,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
@@ -39,10 +39,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/image-crop/page.tsx",
-    "app/flight-booking/old",
-    "components/visa/packagesView/packagesBodySection/packageList/singlePackage/imageSection",
-    "components/common/FloatingIcons",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [

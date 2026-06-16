@@ -28,7 +28,7 @@ const AboutMe = () => {
           <div className="break-words">
             <div>
               <P>
-                <p className="flex flex-col pl-4 text-[#ecad93]">
+                <p className="flex flex-col pl-4 text-code-string">
                   B.Sc. Software Engineering graduate, passionate about
                   problem-solving and development. Specializing in React/Next.js
                   with a focus on front-end technologies.Currently contributing
@@ -66,7 +66,7 @@ const SemiLayout = ({ title, children }) => {
     <div>
       <CommentSection title={title} className="ml-8" />
       <Div className="flex px-4 flex-col group gap-0.5">
-        <H2 className="text-[#ecad93]">
+        <H2 className="text-code-string">
           {title}
           {/* <AnimatedText text={title} /> */}
         </H2>
@@ -253,7 +253,7 @@ const CVTooltip = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="border transition-colors duration-300 ease-in-out  group-hover:bg-[#2d343a]  border-gray-700 bg-primary rounded-lg fixed bottom-8 right-2 left-2 sm:left-auto w-auto sm:w-[26.125rem] max-w-[calc(100vw-1rem)] p-3 z-40">
+            className="border transition-colors duration-300 ease-in-out  group-hover:bg-surface-muted  border-gray-700 bg-primary rounded-lg fixed bottom-8 right-2 left-2 sm:left-auto w-auto sm:w-[26.125rem] max-w-[calc(100vw-1rem)] p-3 z-40">
             <div className="flex flex-col gap-4">
               <div className="flex relative  items-start gap-6">
                 <div className="flex items-start gap-2">
@@ -296,7 +296,7 @@ const CVTooltip = () => {
                     className="absolute text-xs bg-secondary border-2 border-gray-600 rounded-lg right-8 top-4 w-fit p-1"
                     ref={ref}>
                     <button
-                      className="px-2 py-0.5 rounded-md hover:bg-[#569CD6]"
+                      className="px-2 py-0.5 rounded-md hover:bg-code-tag"
                       onClick={() =>
                         setIsVisible(false)
                       }>{`Don't show again, for this repository `}</button>
@@ -305,7 +305,7 @@ const CVTooltip = () => {
               </div>
               <div className="flex justify-end gap-2 text-sm font-medium items-center">
                 <button
-                  className="flex items-center gap-2 px-2 py-1 justify-center rounded-sm  transition-colors duration-300 ease-in-out  hover:bg-[#407fb3] bg-[#569CD6]"
+                  className="flex items-center gap-2 px-2 py-1 justify-center rounded-sm  transition-colors duration-300 ease-in-out  hover:bg-code-tag-hover bg-code-tag"
                   onClick={handleInstall}
                   disabled={isDownloading}>
                   {isDownloading ? "Downloading..." : "Download"}
@@ -321,7 +321,7 @@ const CVTooltip = () => {
                 </button>
                 <Link
                   href={PDFLink}
-                  className="px-2 py-1 hover:bg-secondary  transition-colors duration-300 ease-in-out  bg-[#3c454d] rounded-sm"
+                  className="px-2 py-1 hover:bg-secondary  transition-colors duration-300 ease-in-out  bg-surface-raised rounded-sm"
                   target="_blank">
                   Show Curriculum Vitae
                 </Link>
@@ -378,7 +378,7 @@ const SkillSet = () => (
     {skillName?.map((skill) => (
       <p
         key={skill?.id}
-        className="w-fit font-medium text-sm px-4 py-2 rounded-md bg-[#3c454d]">
+        className="w-fit font-medium text-sm px-4 py-2 rounded-md bg-surface-raised">
         {skill?.name}
       </p>
     ))}

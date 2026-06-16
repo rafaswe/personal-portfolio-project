@@ -1,11 +1,147 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Theme tokens (Tailwind v4 CSS-first config).
+   Migrated 1:1 from the previous tailwind.config.ts so every existing
+   utility keeps its exact value. New tokens at the bottom replace the
+   hard-coded hex colors that used to live in the components.
+------------------------------------------------------------------ */
+@theme {
+  /* The old config set `fontSize`/`fontWeight` to empty objects, which
+     removed the default scales — so named utilities like `text-lg` or
+     `font-bold` produced NO css. Clearing these namespaces keeps that
+     behavior, leaving the rendered output identical. (Arbitrary values
+     such as `text-[32px]` still work.) */
+  --text-*: initial;
+  --font-weight-*: initial;
+
+  /* Brand palette (verbatim from tailwind.config.ts) */
+  --color-primary: #1f2428;
+  --color-secondary: #24292e;
+  --color-quaternary: #049d70;
+  --color-tertiary: #f9826c;
+  --color-disabled: #c1c1c1;
+  --color-background: #fafafa;
+  /* In the old config `green` was a flat color, which REPLACED Tailwind's
+     default green scale. So `green-400/500/…` produced no css (e.g. the
+     GitHub contribution graph squares render with no green today). We keep
+     that exact behavior: clear the green scale, expose only flat `green`
+     and the separate `green-dark` token. */
+  --color-green-*: initial;
+  --color-green: #d7f484;
+  --color-green-dark: #52d794;
+  --color-white: #ffffff;
+  --color-price-bg: #efdbff;
+  --color-details-top: #ffebf2;
+  --color-text-dark: #4d4d4d;
+
+  /* Design tokens backed by CSS variables (verbatim from tailwind.config.ts) */
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+
+  /* Editor / syntax-highlight palette (was hard-coded hex in components) */
+  --color-code-tag: #569cd6;
+  --color-code-tag-hover: #407fb3;
+  --color-code-function: #dcdcaa;
+  --color-code-keyword: #c586c0;
+  --color-code-comment: #6a9955;
+  --color-code-string: #ecad93;
+  --color-code-text: #efefef;
+
+  /* Dark UI surfaces (was hard-coded hex in components) */
+  --color-surface-hover: #3b4252;
+  --color-surface-raised: #3c454d;
+  --color-surface-terminal: #333b42;
+  --color-surface-muted: #2d343a;
+
+  /* Status / accent dots & borders (was hard-coded hex in components) */
+  --color-status-green: #50fa7b;
+  --color-terminal-success: #38dd51;
+  --color-border-muted: #717070;
+
+  /* Default Tailwind palette pinned to the v3 values used in this project.
+     Tailwind v4 recomputed its defaults in oklch, which shifts these a hair;
+     pinning keeps every existing `*-gray-*`, `*-blue-*`, … utility identical. */
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+
+  --color-yellow-300: #fde047;
+  --color-yellow-400: #facc15;
+  --color-yellow-500: #eab308;
+
+  --color-purple-400: #c084fc;
+  --color-purple-500: #a855f7;
+
+  --color-orange-300: #fdba74;
+  --color-orange-400: #fb923c;
+  --color-orange-500: #f97316;
+
+  --color-pink-400: #f472b6;
+  --color-pink-500: #ec4899;
+
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+
+  --color-emerald-500: #10b981;
+}
+
+/* ------------------------------------------------------------------
+   Tailwind v4 compatibility: restore the v3 Preflight defaults that
+   this design relied on, so borders and placeholders look unchanged.
+------------------------------------------------------------------ */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  ::placeholder {
+    opacity: 1;
+    color: var(--color-gray-400);
+  }
+}
 
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  /* Colors referenced directly (inline styles / styled-components) rather
+     than through a Tailwind utility. They live in :root — not @theme — so
+     Tailwind v4 always emits them (it tree-shakes unused @theme tokens). */
+  --color-overlay: rgba(0, 0, 0, 0.85);
+  --color-search-textbox: #334444;
 }
 
 @media (prefers-color-scheme: dark) {

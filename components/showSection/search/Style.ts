@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const Box = styled(motion.div)`
   border-radius: 5px;
-  background: #fff;
+  background: var(--color-white);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -37,9 +37,9 @@ export const ImageBox = styled(motion.div)<ImageBoxProps>`
 `;
 
 export const TextBox = styled(motion.div)`
-  color: #fff;
+  color: var(--color-white);
   padding: 1rem;
-  background: #344;
+  background: var(--color-search-textbox);
   overflow: hidden;
   z-index: 2;
 `;

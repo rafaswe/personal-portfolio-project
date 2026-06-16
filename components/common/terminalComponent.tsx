@@ -77,7 +77,7 @@ const TerminalComponent = () => {
             <Image src="/images/cross.svg" width={14} height={14} alt="Cross" />
           </button>
         </div>
-        <div className="px-3 py-1 text-xs bg-[#333b42] flex justify-between items-center">
+        <div className="px-3 py-1 text-xs bg-surface-terminal flex justify-between items-center">
           <p className="font-medium w-fit">TERMINAL</p>
           <div className="flex items-center gap-1.5">
             <div className="flex items-center gap-1">
@@ -97,7 +97,7 @@ const TerminalComponent = () => {
         <div className="flex flex-col gap-1.5">
           <div className="px-3 pt-2">
             <p className="font-medium">
-              <span className="text-[#38dd51]">
+              <span className="text-terminal-success">
                 mahiyaRafa@Mahiya-Rahman-Rafa
               </span>{" "}
               <span className="text-pink-400">MINGW64</span>
@@ -109,7 +109,7 @@ const TerminalComponent = () => {
           </div>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1">
-              <div className="w-2 h-2 border-2 bg-[#333b42] rounded-full ml-1.5"></div>
+              <div className="w-2 h-2 border-2 bg-surface-terminal rounded-full ml-1.5"></div>
               <Image
                 src={"/images/doller.svg"}
                 alt="doller"

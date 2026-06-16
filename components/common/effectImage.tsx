@@ -80,7 +80,7 @@ const EffectImage = (props: EffectImageProps) => {
                 content: {
                   inset: "0px",
                   padding: "1rem",
-                  backgroundColor: "rgba(0,0,0,0.85)",
+                  backgroundColor: "var(--color-overlay)",
                   overflow: "auto",
                   display: "flex",
                   justifyContent: "center",

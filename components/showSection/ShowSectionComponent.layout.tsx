@@ -65,7 +65,7 @@ export const LineNumberLayout: FC<LineNumberLayoutProps> = ({
     <div className={`flex h-full min-w-0 ${className}`}>
       {/* Line numbers container */}
       <div
-        className={`select-none px-1.5 sm:px-4 shrink-0 border-x border-l-2 border-l-gray-700 border-r-[#569CD6] flex flex-col items-center text-gray-500 font-mono ${numberClassName}`}>
+        className={`select-none px-1.5 sm:px-4 shrink-0 border-x border-l-2 border-l-gray-700 border-r-code-tag flex flex-col items-center text-gray-500 font-mono ${numberClassName}`}>
         {lineNumbers.map((num: number) => (
           <div
             key={num}
@@ -112,11 +112,11 @@ const ComponentLayout = ({
         {title ? (
           <div className="w-fit">
             <p className={cn(" text-lg sm:text-2xl font-medium", titleClassName)}>
-              <span className="text-[#569CD6]">const</span>{" "}
-              <span className="text-[#DCDCAA]"> {`${validTitle}`} </span>{" "}
-              <span>{`=`}</span> <span className="text-[#DCDCAA]">{`( )`}</span>{" "}
-              <span className="text-[#569CD6]">{`=>`}</span>{" "}
-              <span className="text-[#C586C0]">{`(`}</span>
+              <span className="text-code-tag">const</span>{" "}
+              <span className="text-code-function"> {`${validTitle}`} </span>{" "}
+              <span>{`=`}</span> <span className="text-code-function">{`( )`}</span>{" "}
+              <span className="text-code-tag">{`=>`}</span>{" "}
+              <span className="text-code-keyword">{`(`}</span>
             </p>
           </div>
         ) : null}
@@ -126,12 +126,12 @@ const ComponentLayout = ({
         {title ? (
           <div className="w-fit flex flex-col gap-2">
             <p className={cn(" text-lg sm:text-2xl font-medium", titleClassName)}>
-              <span className="text-[#C586C0]">{`)`}</span>
+              <span className="text-code-keyword">{`)`}</span>
               <span>{`;`}</span>
             </p>
             <p className={cn("text-lg sm:text-2xl", titleClassName)}>
-              <span className="text-[#C586C0]">{"export default "}</span>{" "}
-              <span className="text-[#DCDCAA]"> {`${validTitle}`}</span>;
+              <span className="text-code-keyword">{"export default "}</span>{" "}
+              <span className="text-code-function"> {`${validTitle}`}</span>;
             </p>
           </div>
         ) : null}
