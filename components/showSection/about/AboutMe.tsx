@@ -186,7 +186,7 @@ const ExperienceSection = () => {
                       className={`flex flex-col gap-1 ${
                         index === positionInfo.length - 1 ? "" : "pb-4"
                       }`}>
-                      <p className="leading-none flex items-center gap-2  text-sm">
+                      <p className="leading-none flex flex-wrap items-center gap-x-2 gap-y-1  text-sm">
                         <span>
                           {position?.joiningDate} - {position?.leavingDate}
                         </span>

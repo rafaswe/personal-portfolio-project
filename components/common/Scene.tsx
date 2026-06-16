@@ -38,7 +38,7 @@ const FloatingIcons: React.FC<{ icons: string[]; centralImage?: string }> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full md:w-2/5 md:mr-12"
+      className="relative w-full lg:w-2/5 lg:mr-12"
       style={{
         height: "clamp(240px, 40vw, 500px)",
         maxWidth: "clamp(240px, 50vw, 500px)",

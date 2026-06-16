@@ -5,22 +5,22 @@ import FloatingImages from "../../common/Scene";
 
 const HomeComponent = () => {
   return (
-    <div className="md:px-4 h-full w-full relative">
-      {/* Background text — desktop only */}
-      <div className="hidden md:flex md:text-[152px] font-bold h-full items-center md:leading-[172px]">
+    <div className="lg:px-4 h-full w-full relative">
+      {/* Background text — large screens only */}
+      <div className="hidden lg:flex lg:text-[110px] xl:text-[152px] font-bold h-full items-center lg:leading-[130px] xl:leading-[172px]">
         I transform <br /> visions into
         <br /> code.
       </div>
 
       {/* Overlay panel */}
       <div className="absolute overflow-hidden h-full w-full px-4 right-0 bg-secondary top-0 opacity-[95%]">
-        <div className="h-full flex flex-col md:flex-row md:items-center md:justify-between w-full">
-          {/* Mobile: full height centered layout */}
-          <div className="flex flex-col items-start justify-center flex-1 md:flex-none md:h-full pt-8 md:pt-0">
-            <p className="text-[32px] sm:text-[40px] md:text-[56px] font-bold leading-tight">
+        <div className="h-full flex flex-col lg:flex-row lg:items-center lg:justify-between w-full">
+          {/* Mobile/tablet: full height centered layout */}
+          <div className="flex flex-col items-start justify-center flex-1 lg:flex-none lg:h-full pt-8 lg:pt-0">
+            <p className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] font-bold leading-tight">
               Mahiya Rahman Rafa
             </p>
-            <div className="flex flex-col gap-2 mt-2 md:mt-0">
+            <div className="flex flex-col gap-2 mt-2 lg:mt-0">
               <div className="relative w-fit overflow-hidden">
                 <div className="flex gap-1">
                   <p></p>

@@ -62,7 +62,7 @@ export const LineNumberLayout: FC<LineNumberLayoutProps> = ({
   }, [windowSize, lineHeight, startingNumber]);
 
   return (
-    <div className={`flex h-full ${className}`}>
+    <div className={`flex h-full min-w-0 ${className}`}>
       {/* Line numbers container */}
       <div
         className={`select-none px-1.5 sm:px-4 shrink-0 border-x border-l-2 border-l-gray-700 border-r-[#569CD6] flex flex-col items-center text-gray-500 font-mono ${numberClassName}`}>
@@ -82,7 +82,7 @@ export const LineNumberLayout: FC<LineNumberLayoutProps> = ({
       {/* Content container */}
       <div
         ref={contentRef}
-        className="flex-1 overflow-auto"
+        className="flex-1 min-w-0 overflow-auto"
         style={{ lineHeight: `${lineHeight}px` }}>
         {children}
       </div>
