@@ -8,8 +8,8 @@ export const Div = ({ children, className = "" }: Props) => {
     <div className={cn("flex flex-col gap-0.5", className)}>
       <p className="ml-4 text-lg text-[#569CD6] font-medium">{`<div>`}</p>
       <div className="flex ">
-        <div className="w-6 border-r border-gray-700"></div>
-        <div className="flex-1">{children}</div>
+        <div className="w-6 shrink-0 border-r border-gray-700"></div>
+        <div className="flex-1 min-w-0">{children}</div>
       </div>
       <p className="ml-4 text-lg text-[#569CD6] font-medium">{`</div>`}</p>
     </div>
