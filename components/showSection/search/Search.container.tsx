@@ -12,7 +12,7 @@ import Link from "next/link";
 
 const Search = () => {
   return (
-    <div className="px-3 sm:px-0 py-6 sm:py-8 h-full overflow-y-auto hidden-scrollbar w-full sm:w-11/12 md:w-10/12 gap-y-4 flex flex-col mx-auto">
+    <div className="flex h-full w-full flex-col gap-y-4 overflow-y-auto hidden-scrollbar px-3 py-6 sm:px-4 sm:py-8">
       {/* header section  */}
       <SearchHeaderSection />
       <SearchBodySection />

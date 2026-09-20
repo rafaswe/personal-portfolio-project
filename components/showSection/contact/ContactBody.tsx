@@ -87,7 +87,7 @@ const VSCodeContactForm = () => {
 
   return (
     <div className="w-full p-3 pb-0 sm:p-6">
-      <div className="mx-auto max-w-4xl">
+      <div className="w-full">
         <div className="mb-2 flex items-center">
           <span className="text-gray-500">{"// Contact Information"}</span>
         </div>

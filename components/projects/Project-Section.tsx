@@ -18,7 +18,7 @@ const Projects = () => {
 
   return (
     <div className="min-h-full p-4 sm:p-8">
-      <div className="mx-auto max-w-7xl">
+      <div className="w-full">
         {/* Hero Section */}
         <div className="mb-12 text-center animate-rise">
           <div className="inline-flex items-center justify-center gap-3 bg-gray-800/50 backdrop-blur-sm px-6 py-3 rounded-full border border-gray-700/50 mb-8">

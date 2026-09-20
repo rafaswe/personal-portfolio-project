@@ -135,7 +135,7 @@ const GitHubProfile = () => {
 
   return (
     <div className="h-full">
-      <div className="mx-auto max-w-6xl">
+      <div className="w-full">
         {/* Header Section */}
         <div className="mb-8 flex flex-col gap-6 animate-rise lg:flex-row">
           {/* Profile Card */}

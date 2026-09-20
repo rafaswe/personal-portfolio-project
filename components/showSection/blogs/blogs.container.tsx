@@ -4,8 +4,8 @@ import Link from "next/link";
 
 const Blogs = () => {
   return (
-    <div className="w-full h-full flex justify-center px-3 sm:px-4 py-4 overflow-y-auto hidden-scrollbar bg-secondary">
-      <div className="space-y-6 w-full md:w-10/12">
+    <div className="h-full w-full overflow-y-auto hidden-scrollbar bg-secondary px-3 py-4 sm:px-4">
+      <div className="w-full space-y-6">
         {/* Header */}
         <div className="border-b border-text-dark pb-4">
           <h1 className="text-2xl font-bold text-white mb-2">Blog Portfolio</h1>

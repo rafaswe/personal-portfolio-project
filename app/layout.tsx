@@ -88,11 +88,14 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={cn("dark", "font-sans", geist.variable)}>
-      {/* `h-dvh` rather than `h-screen`: on mobile browsers `100vh` ignores the
-          collapsing URL bar, which pushed the footer below the fold. */}
+      {/* The shell is locked to the viewport: `h-dvh` (not `h-screen`, which
+          ignores a mobile browser's collapsing URL bar) plus `overflow-hidden`,
+          so the document itself never scrolls. Only the content pane scrolls,
+          which keeps the header, activity bar, tab strip and status bar fixed
+          the way a real editor does. */}
       <body
         suppressHydrationWarning
-        className="h-dvh flex flex-col hidden-scrollbar justify-between overflow-x-hidden">
+        className="h-dvh overflow-hidden flex flex-col hidden-scrollbar">
         <script
           type="application/ld+json"
           // Static object defined in this file, not user input.
@@ -105,13 +108,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             Skip to content
           </a>
           <Header />
-          <div className="flex h-full min-w-0">
+          <div className="flex min-h-0 min-w-0 flex-1">
             <Sidebar />
-            <div className="flex-1 min-w-0 flex flex-col bg-primary">
+            <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-primary">
               <Navbar />
               <main
                 id="main-content"
-                className="flex-1 h-full w-full overflow-hidden relative">
+                className="relative min-h-0 w-full flex-1 overflow-hidden">
                 {children}
                 <TerminalComponent />
               </main>
