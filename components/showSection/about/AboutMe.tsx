@@ -625,12 +625,12 @@ const PortfolioSection = () => {
   return (
     <div className="min-h-[370px] rounded-lg bg-gray-900 p-4 text-white shadow-2xl sm:p-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="gap-0">
-        <TabsList className="h-auto w-full justify-start gap-2 overflow-x-auto rounded-none bg-transparent p-0 pb-2 hidden-scrollbar sm:gap-4">
+        <TabsList className="h-auto w-full flex-wrap justify-start gap-2 rounded-none bg-transparent p-0 pb-2 group-data-[orientation=horizontal]/tabs:h-auto">
           {TABS.map(({ id, icon: Icon, label }) => (
             <TabsTrigger
               key={id}
               value={id}
-              className="shrink-0 gap-2 rounded-lg border-0 px-3 py-2 text-gray-300 shadow-none transition-all hover:bg-gray-700 data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-none sm:px-4">
+              className="flex-none shrink-0 gap-2 rounded-lg border-0 px-3 py-2 text-gray-300 shadow-none transition-all hover:bg-gray-700 data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:bg-blue-500 dark:data-[state=active]:text-white sm:px-4">
               <Icon size={18} aria-hidden="true" />
               <span>{label}</span>
             </TabsTrigger>

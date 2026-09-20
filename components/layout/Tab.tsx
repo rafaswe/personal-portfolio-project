@@ -44,12 +44,12 @@ const Tab: React.FC<TabProps> & { Item: React.FC<TabItemProps> } = ({
 
   return (
     <Tabs defaultValue={valueOf(0)} className={className}>
-      <TabsList className="h-auto w-full justify-start gap-4 rounded-none border-b border-primary bg-transparent p-0">
+      <TabsList className="h-auto w-full justify-start gap-4 rounded-none border-b border-primary bg-transparent p-0 group-data-[orientation=horizontal]/tabs:h-auto">
         {items.map((item, i) => (
           <TabsTrigger
             key={valueOf(i)}
             value={valueOf(i)}
-            className="relative rounded-none border-0 bg-transparent px-0 pb-2 pt-0 text-current shadow-none transition-colors after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-green-dark after:opacity-0 after:transition-opacity hover:text-white data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:opacity-100">
+            className="relative flex-none rounded-none border-0 bg-transparent px-1 pb-2 pt-0 text-current shadow-none transition-colors after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-green-dark after:opacity-0 after:transition-opacity hover:text-white data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:opacity-100 dark:data-[state=active]:border-transparent dark:data-[state=active]:bg-transparent dark:data-[state=active]:text-white">
             {item.props.title}
           </TabsTrigger>
         ))}
