@@ -1,82 +1,80 @@
 "use client";
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { sideMenuProperties } from "../constant/enum";
 
 const SideMenu = ({ className }: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(true);
   const pathName = usePathname();
-
-  const toggleDropdown = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const listId = useId();
 
   return (
-    <div className={cn("text-code-text py-2 text-sm", className)}>
-      <h1 className="font-bold">EXPLORER</h1>
+    <nav aria-label="Explorer" className={cn("text-code-text py-2 text-sm", className)}>
+      <h2 className="px-4 font-bold tracking-wide">EXPLORER</h2>
+
       <div className="w-full">
         <button
-          onClick={toggleDropdown}
-          className="my-2 pl-4  w-full flex items-center gap-1">
-          <Image
-            src="/images/arrow.svg"
-            alt="down Arrow"
-            height={12}
-            width={12}
-            className={clsx("mt-0.5 transform transition-transform", {
+          type="button"
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-expanded={isOpen}
+          aria-controls={listId}
+          className="my-2 flex w-full items-center gap-1 rounded-sm pl-4 pr-2 py-0.5 transition-colors hover:bg-secondary">
+          <ChevronRight
+            size={14}
+            aria-hidden="true"
+            className={cn("transition-transform duration-200", {
               "rotate-90": isOpen,
-              "rotate-0": !isOpen,
             })}
           />
-          <p>PORTFOLIO</p>
+          <span>PORTFOLIO</span>
         </button>
 
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {isOpen && (
             <motion.div
+              id={listId}
               className="overflow-hidden"
-              initial={{
-                height: 0,
-                opacity: 0,
-              }}
-              animate={{
-                height: "auto",
-                opacity: 1,
-              }}
-              exit={{
-                height: 0,
-                opacity: 0,
-              }}
-              transition={{ duration: 0.3 }}>
-              <div className="flex flex-col ">
-                {sideMenuProperties.map((menue) => (
-                  <Link
-                    href={menue?.pageLink}
-                    key={menue.id}
-                    className={`flex gap-2.5 pl-4  py-0.5 items-cente w-full hover:bg-secondary rounded-sm ${
-                      pathName === menue?.pageLink && "bg-secondary"
-                    }`}>
-                    <Image
-                      src={`/images/${menue.icon}.svg`}
-                      alt={menue.text}
-                      height={15}
-                      width={15}
-                      className="mt-1 w-[15px] h-[15px]"
-                    />
-                    <p>{menue.text}</p>
-                  </Link>
-                ))}
-              </div>
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}>
+              <ul className="flex flex-col">
+                {sideMenuProperties.map((menue) => {
+                  const isActive = pathName === menue?.pageLink;
+                  return (
+                    <li key={menue.id}>
+                      <Link
+                        href={menue?.pageLink}
+                        aria-current={isActive ? "page" : undefined}
+                        className={cn(
+                          // was `items-cente` — a typo, so nothing aligned
+                          "flex w-full items-center gap-2.5 rounded-sm py-0.5 pl-4 transition-colors hover:bg-secondary",
+                          { "bg-secondary": isActive }
+                        )}>
+                        <Image
+                          src={`/images/${menue.icon}.svg`}
+                          alt=""
+                          aria-hidden="true"
+                          height={15}
+                          width={15}
+                          className="h-[15px] w-[15px] shrink-0"
+                        />
+                        <span className="truncate">{menue.text}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </nav>
   );
 };
 

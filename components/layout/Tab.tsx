@@ -1,87 +1,72 @@
 "use client";
-// Tab.tsx
-import React, {
-  Children,
-  cloneElement,
-  createContext,
-  isValidElement,
-  ReactNode,
-  useContext,
-  useState,
-} from "react";
 
-// Define context
-type TabContextType = {
-  activeIndex: number;
-  setActiveIndex: (index: number) => void;
-};
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, { Children, isValidElement, ReactNode, useId } from "react";
 
-const TabContext = createContext<TabContextType | undefined>(undefined);
-
-// Hook to use context
-const useTabContext = () => {
-  const context = useContext(TabContext);
-  if (!context) throw new Error("Tab.Item must be used within a Tab");
-  return context;
-};
-
-// Tab.Item component
+/**
+ * Compound tab component.
+ *
+ * The public API (`<Tab><Tab.Item title="…">…</Tab.Item></Tab>`) is unchanged,
+ * but it is now backed by Radix tabs. The previous hand-rolled version rendered
+ * plain buttons with no `role="tab"`, no `aria-selected`, and no arrow-key
+ * navigation, so it was invisible to screen readers and unreachable by keyboard
+ * beyond tabbing through every trigger.
+ */
 type TabItemProps = {
   title: string;
   children: ReactNode;
-  index?: number; // will be injected
   tabClassName?: string;
 };
 
-const TabItem: React.FC<TabItemProps> = ({ children, index, tabClassName }) => {
-  const { activeIndex } = useTabContext();
-  return index === activeIndex ? (
-    <div className={tabClassName}>{children}</div>
-  ) : null;
-};
+const TabItem: React.FC<TabItemProps> = ({ children, tabClassName }) => (
+  <div className={tabClassName}>{children}</div>
+);
 
-// Tab main component
 type TabProps = {
   children: ReactNode;
+  className?: string;
 };
 
-const Tab: React.FC<TabProps> & {
-  Item: React.FC<TabItemProps>;
-} = ({ children }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const Tab: React.FC<TabProps> & { Item: React.FC<TabItemProps> } = ({
+  children,
+  className,
+}) => {
+  const uid = useId();
 
-  const titles: string[] = [];
+  const items = Children.toArray(children).filter(
+    (child): child is React.ReactElement<TabItemProps> =>
+      isValidElement<TabItemProps>(child)
+  );
 
-  const items = Children.map(children, (child, index) => {
-    if (isValidElement<TabItemProps>(child)) {
-      titles.push(child.props.title);
-      return cloneElement(child, { index });
-    }
-    return null;
-  });
+  if (items.length === 0) return null;
+
+  const valueOf = (index: number) => `${uid}-tab-${index}`;
 
   return (
-    <TabContext.Provider value={{ activeIndex, setActiveIndex }}>
-      <div className="flex flex-col gap-2.5">
-        <div className="tab-header border-b border-primary flex gap-4">
-          {titles.map((title, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIndex(i)}
-              className={`relative pb-2 transition-all after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-0.5 after:h-[2px] after:bg-green-dark after:transition-all ${
-                activeIndex === i ? "after:opacity-100" : "after:opacity-0"
-              }`}>
-              {title}
-            </button>
-          ))}
-        </div>
-        <div className="tab-content">{items}</div>
-      </div>
-    </TabContext.Provider>
+    <Tabs defaultValue={valueOf(0)} className={className}>
+      <TabsList className="h-auto w-full justify-start gap-4 rounded-none border-b border-primary bg-transparent p-0">
+        {items.map((item, i) => (
+          <TabsTrigger
+            key={valueOf(i)}
+            value={valueOf(i)}
+            className="relative rounded-none border-0 bg-transparent px-0 pb-2 pt-0 text-current shadow-none transition-colors after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-green-dark after:opacity-0 after:transition-opacity hover:text-white data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:opacity-100">
+            {item.props.title}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+
+      {items.map((item, i) => (
+        <TabsContent
+          key={valueOf(i)}
+          value={valueOf(i)}
+          className="mt-2.5 focus-visible:outline-none">
+          {item}
+        </TabsContent>
+      ))}
+    </Tabs>
   );
 };
 
-// Attach Item as a static subcomponent
 Tab.Item = TabItem;
 
 export default Tab;

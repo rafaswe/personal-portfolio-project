@@ -1,100 +1,80 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Expand, X } from "lucide-react";
 import Image, { ImageProps, StaticImageData } from "next/image";
 import { useState } from "react";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
 
-interface EffectImageProps extends ImageProps {}
+type EffectImageProps = ImageProps;
 
-const preloadImage = (src: string) =>
-  new Promise<void>((resolve, reject) => {
-    const img = new window.Image();
-    img.src = src;
-    img.onload = () => resolve();
-    img.onerror = () => reject();
-  });
-
+/**
+ * Thumbnail that opens its own full-size view.
+ *
+ * Previously backed by `react-image-lightbox`, which peers on React 16/17 and
+ * is unmaintained. The shadcn Dialog (Radix) replaces it and brings the things
+ * the old lightbox never did here: focus trapping, Escape to close, restoring
+ * focus to the trigger, and `aria-modal` semantics.
+ */
 const EffectImage = (props: EffectImageProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const imageUrl =
     typeof props.src === "string"
       ? props.src
       : (props.src as StaticImageData).src || "";
 
-  const openLightbox = async () => {
-    setIsLoading(true);
-    try {
-      await preloadImage(imageUrl);
-    } catch {
-      // ignore errors, still open lightbox
-    }
-    setIsLoading(false);
-    setIsExpanded(true);
-  };
+  const caption = typeof props.title === "string" ? props.title : "Image";
 
   return (
-    <div className="relative w-fit">
-      <motion.div
-        className="cursor-pointer"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.1 }}>
-        <Image {...props} alt="EffectImage" />
-        {isHovered && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
-            exit={{ opacity: 0 }}
-            className="absolute flex justify-end p-2 top-0 h-8 w-full bg-primary">
-            <button onClick={openLightbox} disabled={isLoading}>
-              <Image
-                src="/images/expand.svg"
-                alt="Expand"
-                width={16}
-                height={16}
-              />
-            </button>
-          </motion.div>
-        )}
-      </motion.div>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <div className="group relative w-fit">
+        <Image {...props} alt={props.alt ?? caption} />
 
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            transition={{ duration: 0.25 }}>
-            <Lightbox
-              mainSrc={imageUrl}
-              onCloseRequest={() => setIsExpanded(false)}
-              enableZoom={true}
-              imageTitle={props.title || "Image"}
-              reactModalStyle={{
-                content: {
-                  inset: "0px",
-                  padding: "1rem",
-                  backgroundColor: "var(--color-overlay)",
-                  overflow: "auto",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                },
-                overlay: {
-                  zIndex: 50,
-                },
-              }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        {/* Overlay is CSS-hover driven rather than React state, so it also
+            appears on keyboard focus within the group. */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 flex h-8 items-center justify-end bg-primary/0 p-2 opacity-0 transition-opacity duration-200 group-hover:bg-primary/60 group-hover:opacity-100 group-focus-within:bg-primary/60 group-focus-within:opacity-100">
+          <DialogTrigger asChild>
+            <button
+              type="button"
+              aria-label={`Expand image: ${caption}`}
+              className="pointer-events-auto rounded-sm p-0.5 transition-transform duration-200 hover:scale-110">
+              <Expand size={16} aria-hidden="true" />
+            </button>
+          </DialogTrigger>
+        </div>
+      </div>
+
+      <DialogContent
+        showCloseButton={false}
+        className="w-[calc(100vw-2rem)] max-w-5xl border-border bg-card p-3 sm:p-4">
+        <DialogTitle className="pr-8 text-sm font-normal text-muted-foreground">
+          {caption}
+        </DialogTitle>
+
+        <div className="relative max-h-[75vh] overflow-auto rounded-md">
+          {/* eslint-disable-next-line @next/next/no-img-element -- the source is
+              an arbitrary runtime URL shown at its natural size inside a
+              scrollable dialog, so next/image's sizing model does not apply. */}
+          <img
+            src={imageUrl}
+            alt={caption}
+            className="mx-auto h-auto w-full object-contain"
+          />
+        </div>
+
+        <DialogClose
+          aria-label="Close image"
+          className="absolute right-3 top-3 rounded-sm p-1 opacity-70 transition-opacity hover:opacity-100">
+          <X size={18} aria-hidden="true" />
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
   );
 };
 

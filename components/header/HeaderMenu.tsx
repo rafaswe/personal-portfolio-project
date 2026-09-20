@@ -1,82 +1,106 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import useTerminalStore from "@/service/store/useTerminalStore";
+import { Menu } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-import { useMediaQuery, useOnClickOutside } from "usehooks-ts";
+import { useState } from "react";
 
+const MENU_LINKS = [
+  "File",
+  "Edit",
+  "Selection",
+  "View",
+  "Go",
+  "Run",
+  "Help",
+] as const;
+
+/**
+ * The editor menu bar.
+ *
+ * The mobile variant used to be a `useMediaQuery` branch rendering an absolutely
+ * positioned div with a click-outside listener — no focus trap, no Escape, and
+ * a hydration mismatch risk because `useMediaQuery` resolves to `false` on the
+ * server and flips on mount. It is now a Radix Sheet, and the breakpoint is
+ * handled in CSS so both variants render identically on server and client.
+ */
 const HeaderMenu = ({ className }: { className?: string }) => {
   const { toggleTerminal } = useTerminalStore();
-
-  const isMobile = useMediaQuery("(max-width: 768px)");
-
-  const [open, setOpen] = React.useState(false);
-  const menuRef = React.useRef<HTMLDivElement>(null);
-
-  useOnClickOutside(menuRef as React.RefObject<HTMLDivElement>, () =>
-    setOpen(false),
-  );
-
-  const menuItems = (
-    <>
-      <Link href="/" onClick={() => setOpen(false)}>
-        File
-      </Link>
-      <Link href="/" onClick={() => setOpen(false)}>
-        Edit
-      </Link>
-      <Link href="/" onClick={() => setOpen(false)}>
-        Selection
-      </Link>
-      <Link href="/" onClick={() => setOpen(false)}>
-        View
-      </Link>
-      <Link href="/" onClick={() => setOpen(false)}>
-        Go
-      </Link>
-      <Link href="/" onClick={() => setOpen(false)}>
-        Run
-      </Link>
-      <button
-        onClick={() => {
-          toggleTerminal();
-          setOpen(false);
-        }}
-        className="text-start md:text-center">
-        Terminal
-      </button>
-      <Link href="/" onClick={() => setOpen(false)}>
-        Help
-      </Link>
-    </>
-  );
+  const [open, setOpen] = useState(false);
 
   return (
     <div className={cn("relative", className)}>
-      {isMobile ? (
-        <div className="flex items-center">
-          <button
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-            className="p-2 focus:outline-none">
-            {/* simple hamburger icon */}
-            <span className="block w-6 h-0.5 bg-current mb-1"></span>
-            <span className="block w-6 h-0.5 bg-current mb-1"></span>
-            <span className="block w-6 h-0.5 bg-current"></span>
-          </button>
-        </div>
-      ) : (
-        <div className={cn("flex gap-3", className)}>{menuItems}</div>
-      )}
+      {/* Desktop: inline menu bar */}
+      <nav aria-label="Editor menu" className="hidden gap-3 md:flex">
+        {MENU_LINKS.map((label) => (
+          <Link
+            key={label}
+            href="/"
+            className="rounded-sm px-1 transition-colors hover:text-white hover:underline underline-offset-4">
+            {label}
+          </Link>
+        ))}
+        <button
+          type="button"
+          onClick={toggleTerminal}
+          className="rounded-sm px-1 transition-colors hover:text-white hover:underline underline-offset-4">
+          Terminal
+        </button>
+      </nav>
 
-      {isMobile && open && (
-        <div
-          className="absolute top-full left-0 mt-2 border w-30 z-50 bg-primary shadow-lg flex flex-col gap-2 p-2"
-          ref={menuRef}>
-          {menuItems}
-        </div>
-      )}
+      {/* Mobile: sheet */}
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Open menu"
+            className="size-8 md:hidden">
+            <Menu size={18} aria-hidden="true" />
+          </Button>
+        </SheetTrigger>
+
+        <SheetContent
+          side="left"
+          className="w-64 border-border bg-primary p-0 text-current">
+          <SheetHeader className="border-b border-border">
+            <SheetTitle className="text-left text-sm font-semibold tracking-wide">
+              MENU
+            </SheetTitle>
+          </SheetHeader>
+
+          <nav aria-label="Editor menu" className="flex flex-col p-2">
+            {MENU_LINKS.map((label) => (
+              <SheetClose asChild key={label}>
+                <Link
+                  href="/"
+                  className="rounded-sm px-3 py-2 text-sm transition-colors hover:bg-surface-hover">
+                  {label}
+                </Link>
+              </SheetClose>
+            ))}
+            <button
+              type="button"
+              onClick={() => {
+                toggleTerminal();
+                setOpen(false);
+              }}
+              className="rounded-sm px-3 py-2 text-left text-sm transition-colors hover:bg-surface-hover">
+              Terminal
+            </button>
+          </nav>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };

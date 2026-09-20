@@ -237,3 +237,26 @@
     outline-offset: 2px;
   }
 }
+
+/* ------------------------------------------------------------------
+   Reduced motion.
+
+   framer-motion is handled separately by `<MotionConfig reducedMotion="user">`
+   in app/providers.tsx. This covers the CSS-driven animations and transitions
+   that MotionConfig cannot reach.
+------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .line-animation {
+    width: 60%;
+    animation: none;
+  }
+}

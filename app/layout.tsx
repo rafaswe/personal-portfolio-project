@@ -3,10 +3,13 @@ import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import Navbar from "@/components/sideBar/navbar.component";
 import Sidebar from "@/components/sideBar/Sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
+import { Providers } from "./providers";
 
 // NOTE: Geist is loaded but exposed as `--font-geist` (not `--font-sans`).
 // In Tailwind v4 the `font-sans` utility resolves to `var(--font-sans)`, so
@@ -15,31 +18,80 @@ import "./globals.css";
 // we keep that by using a non-colliding variable name.
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 
-type RootLayoutProps = {
-  children: ReactNode;
+const SITE_DESCRIPTION =
+  "Portfolio of Mahiya Rahman Rafa — frontend developer working in React and Next.js. Projects, experience, writing and contact, presented as a code editor.";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://mahiyarahmanrafa.com"),
+  title: {
+    default: "Mahiya Rahman Rafa",
+    template: "%s | Mahiya Rahman Rafa",
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: "Mahiya Rahman Rafa — Portfolio",
+  authors: [{ name: "Mahiya Rahman Rafa" }],
+  creator: "Mahiya Rahman Rafa",
+  keywords: [
+    "Mahiya Rahman Rafa",
+    "frontend developer",
+    "React developer",
+    "Next.js developer",
+    "portfolio",
+    "Bangladesh",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: "Mahiya Rahman Rafa",
+    title: "Mahiya Rahman Rafa — Frontend Developer",
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mahiya Rahman Rafa — Frontend Developer",
+    description: SITE_DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
+  icons: { icon: "/favicon.ico" },
 };
+
+export const viewport: Viewport = {
+  themeColor: "#1f2428",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={cn("dark", "font-sans", geist.variable)}>
-      <head>
-        <title>Mahiya Rahman Rafa</title>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-      </head>
+      {/* `h-dvh` rather than `h-screen`: on mobile browsers `100vh` ignores the
+          collapsing URL bar, which pushed the footer below the fold. */}
       <body
         suppressHydrationWarning
-        className="h-screen flex flex-col hidden-scrollbar justify-between overflow-x-hidden">
-        <Header />
-        <div className="flex h-full min-w-0">
-          <Sidebar />
-          <div className="flex-1 min-w-0 flex flex-col bg-primary">
-            <Navbar />
-            <div className="flex-1 h-full w-full overflow-hidden relative">
-              {children}
-              <TerminalComponent />
+        className="h-dvh flex flex-col hidden-scrollbar justify-between overflow-x-hidden">
+        <Providers>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-100 focus:rounded-md focus:bg-accent focus:px-3 focus:py-2 focus:text-accent-foreground">
+            Skip to content
+          </a>
+          <Header />
+          <div className="flex h-full min-w-0">
+            <Sidebar />
+            <div className="flex-1 min-w-0 flex flex-col bg-primary">
+              <Navbar />
+              <main
+                id="main-content"
+                className="flex-1 h-full w-full overflow-hidden relative">
+                {children}
+                <TerminalComponent />
+              </main>
             </div>
           </div>
-        </div>
-        <Footer />
+          <Footer />
+          <Toaster position="top-right" />
+        </Providers>
       </body>
     </html>
   );

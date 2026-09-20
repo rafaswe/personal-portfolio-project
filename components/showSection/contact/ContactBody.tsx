@@ -1,10 +1,14 @@
 "use client";
 import { ContactInfo } from "@/components/constant/enum";
-import { CheckCheck, Copy } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { CheckCheck, Copy, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type Inputs = {
   name: string;
@@ -13,73 +17,52 @@ type Inputs = {
   message: string;
 };
 
+const FIELD_CLASS =
+  "bg-gray-900 border-gray-600 text-gray-100 placeholder:text-gray-500 focus-visible:ring-blue-500 aria-invalid:border-red-500";
+
 const VSCodeContactForm = () => {
   const {
     register,
     handleSubmit,
-    control,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<Inputs>();
-
-  const [toastVisible, setToastVisible] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [isToastError, setIsToastError] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [copied, setCopied] = useState(false);
 
-  const showToast = (message: string, isError: boolean = false) => {
-    setToastMessage(message);
-    setIsToastError(isError);
-    setToastVisible(true);
-    setTimeout(() => setToastVisible(false), 3000);
-  };
-
   const onSubmit = async (data: Inputs) => {
-    setIsSubmitting(true);
+    const formId = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID;
 
-    // Replace 'YOUR_FORMSPREE_ID' with your actual Formspree form ID
-    const formId =
-      process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID || "YOUR_FORMSPREE_ID";
+    if (!formId) {
+      toast.error("The contact form is not configured yet.");
+      return;
+    }
 
     try {
       const emailBody = `${data.message}\n\nRegards,\n${data.name}\n${data.email}`;
 
       const response = await fetch(`https://formspree.io/f/${formId}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: data.name,
           email: data.email,
-          _replyto: data.email, // This sets the reply-to address
-          _subject: data.subject, // This sets the email subject
+          _replyto: data.email,
+          _subject: data.subject,
           message: emailBody,
-          // Additional Formspree fields
-          _gotcha: "", // Honeypot field for spam protection
+          _gotcha: "",
         }),
       });
 
       if (response.ok) {
-        showToast("Thank you for your message. It has been sent.");
+        toast.success("Thank you for your message. It has been sent.");
         reset();
       } else {
-        const errorData = await response.json();
-        console.error("Formspree error:", errorData);
-        showToast("Something went wrong. Please try again.", true);
+        toast.error("Something went wrong. Please try again.");
       }
-    } catch (error) {
-      console.error("Error sending the form data:", error);
-      showToast("Failed to send message. Please try again.", true);
-    } finally {
-      setIsSubmitting(false);
+    } catch {
+      toast.error("Failed to send message. Please try again.");
     }
-  };
-
-  const handleReset = () => {
-    reset();
   };
 
   const contactInfoJSON = {
@@ -90,118 +73,133 @@ const VSCodeContactForm = () => {
   };
 
   const handleCopy = async () => {
-    const text = JSON.stringify(contactInfoJSON, null, 2);
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1000);
+    try {
+      await navigator.clipboard.writeText(
+        JSON.stringify(contactInfoJSON, null, 2)
+      );
+      setCopied(true);
+      toast.success("Contact details copied.");
+      setTimeout(() => setCopied(false), 1200);
+    } catch {
+      toast.error("Could not copy to clipboard.");
+    }
   };
+
   return (
-    <div className="w-full p-3 sm:p-6 pb-0">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center mb-2">
+    <div className="w-full p-3 pb-0 sm:p-6">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-2 flex items-center">
           <span className="text-gray-500">{"// Contact Information"}</span>
         </div>
-        <div className="bg-gray-800 rounded-lg relative flex text-gray-100 border border-gray-700 p-3 sm:p-6 pl-0 gap-2 sm:gap-4 pt-4 mb-6 font-mono overflow-x-auto text-xs sm:text-sm">
-          {/* Line Numbers */}
-          <div className="h-full px-2 sm:px-4 shrink-0 text-gray-600 font-semibold flex flex-col gap-1.5">
-            {Array(6)
-              .fill("")
-              .map((_, index) => (
-                <p key={index}>{index + 1}</p>
-              ))}
+
+        <div className="relative mb-6 flex gap-2 overflow-x-auto rounded-lg border border-gray-700 bg-gray-800 p-3 pl-0 pt-4 font-mono text-xs text-gray-100 sm:gap-4 sm:p-6 sm:pl-0 sm:text-sm">
+          <div
+            aria-hidden="true"
+            className="flex h-full shrink-0 flex-col gap-1.5 px-2 font-semibold text-gray-600 sm:px-4">
+            {Array.from({ length: 6 }, (_, index) => (
+              <p key={index}>{index + 1}</p>
+            ))}
           </div>
-          {/* Contact Information Display - JSON Format */}
+
           <div className="flex-1">
-            <div className="flex items-center mb-2">
+            <div className="mb-2 flex items-center">
               <span className="text-purple-400">const</span>
-              <span className="text-blue-300 ml-2">contactInfo</span>
-              <span className="text-white ml-2">=</span>
-              <span className="text-yellow-400 ml-2">{`{`}</span>
+              <span className="ml-2 text-blue-300">contactInfo</span>
+              <span className="ml-2 text-white">=</span>
+              <span className="ml-2 text-yellow-400">{`{`}</span>
             </div>
 
             <div className="ml-8 space-y-1">
-              {ContactInfo.map((item, index) => {
-                return (
-                  <div key={index} className="flex items-center">
-                    <div className="flex items-center flex-1">
-                      <span className="text-green-400">{`"${item.label.toLowerCase()}"`}</span>
-                      <span className="text-white mx-2">:</span>
-                      <Link
-                        href={item.link}
-                        className="text-orange-400 hover:text-orange-300 transition-all hover:underline hover:cursor-pointer duration-300"
-                        target="_blank"
-                        rel="noreferrer">
-                        {`"${item.value}"`}
-                      </Link>
-                      <span className="text-white">
-                        {index < ContactInfo.length - 1 ? "," : ""}
-                      </span>
-                    </div>
+              {ContactInfo.map((item, index) => (
+                <div key={index} className="flex items-center">
+                  <div className="flex flex-1 items-center">
+                    <span className="text-green-400">{`"${item.label.toLowerCase()}"`}</span>
+                    <span className="mx-2 text-white">:</span>
+                    <Link
+                      href={item.link}
+                      className="rounded-sm text-orange-400 transition-colors duration-300 hover:text-orange-300 hover:underline"
+                      target="_blank"
+                      rel="noreferrer">
+                      {`"${item.value}"`}
+                    </Link>
+                    <span className="text-white">
+                      {index < ContactInfo.length - 1 ? "," : ""}
+                    </span>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
 
-            <div className="flex items-center mt-2">
+            <div className="mt-2 flex items-center">
               <span className="text-yellow-400">{`};`}</span>
             </div>
           </div>
 
           <button
-            className={`absolute right-4 top-4 transition-transform duration-300 ${
+            type="button"
+            onClick={handleCopy}
+            aria-label="Copy contact details"
+            className={`absolute right-4 top-4 rounded-sm p-1 transition-transform duration-300 hover:bg-white/10 ${
               copied ? "scale-110" : "scale-100"
-            }`}
-            onClick={handleCopy}>
-            {copied ? <CheckCheck size={16} /> : <Copy size={16} />}
+            }`}>
+            {copied ? (
+              <CheckCheck size={16} aria-hidden="true" />
+            ) : (
+              <Copy size={16} aria-hidden="true" />
+            )}
           </button>
         </div>
 
-        <div className="mb-1">
-          <div className="flex items-center space-x-2">
-            <span className="text-gray-500 text-sm">
-              {"// Contact Form Component"}
-            </span>
-          </div>
+        <div className="mb-1 flex items-center gap-2">
+          <span className="text-sm text-gray-500">
+            {"// Contact Form Component"}
+          </span>
         </div>
 
-        {/* Form Section */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-3 sm:p-5">
+        <div className="rounded-lg border border-gray-700 bg-gray-800 p-3 sm:p-5">
           <div className="mb-4">
-            <h2 className="text-xl font-bold text-white ">Get In Touch</h2>
-            <p className="text-gray-400 text-sm">
+            <h2 className="text-xl font-bold text-white">Get In Touch</h2>
+            <p className="text-sm text-gray-400">
               {"Fill out the form below and I'll get back to you soon."}
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3.5">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-300 uppercase tracking-wide">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3.5" noValidate>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="space-y-1.5">
+                <Label
+                  htmlFor="contact-name"
+                  className="text-xs uppercase tracking-wide text-gray-300">
                   Name
-                </label>
-                <input
-                  {...register("name", {
-                    required: "Name is required",
-                    minLength: { value: 1, message: "Name is required" },
-                  })}
-                  type="text"
-                  className={`w-full px-3 py-2 bg-gray-900 border ${
-                    errors.name ? "border-red-500" : "border-gray-600"
-                  } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-100`}
+                </Label>
+                <Input
+                  id="contact-name"
+                  className={FIELD_CLASS}
                   placeholder="Enter your name"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "contact-name-error" : undefined}
+                  {...register("name", { required: "Name is required" })}
                 />
                 {errors.name && (
-                  <div className="text-red-400 text-xs font-semibold">
+                  <p id="contact-name-error" role="alert" className="text-xs font-semibold text-red-400">
                     {errors.name.message}
-                  </div>
+                  </p>
                 )}
               </div>
 
-              <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-300 uppercase tracking-wide">
+              <div className="space-y-1.5">
+                <Label
+                  htmlFor="contact-email"
+                  className="text-xs uppercase tracking-wide text-gray-300">
                   Email
-                </label>
-                <input
+                </Label>
+                <Input
+                  id="contact-email"
+                  type="email"
+                  className={FIELD_CLASS}
+                  placeholder="Enter your email"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "contact-email-error" : undefined}
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
@@ -209,103 +207,84 @@ const VSCodeContactForm = () => {
                       message: "Enter a valid email address",
                     },
                   })}
-                  type="email"
-                  className={`w-full px-3 py-2 bg-gray-900 border ${
-                    errors.email ? "border-red-500" : "border-gray-600"
-                  } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-100`}
-                  placeholder="Enter your email"
                 />
                 {errors.email && (
-                  <div className="text-red-400 text-xs font-semibold">
+                  <p id="contact-email-error" role="alert" className="text-xs font-semibold text-red-400">
                     {errors.email.message}
-                  </div>
+                  </p>
                 )}
               </div>
             </div>
 
-            <div className="space-y-1">
-              <label className="block text-sm font-medium text-gray-300 uppercase tracking-wide">
+            <div className="space-y-1.5">
+              <Label
+                htmlFor="contact-subject"
+                className="text-xs uppercase tracking-wide text-gray-300">
                 Subject
-              </label>
-              <input
-                {...register("subject", {
-                  required: "Subject is required",
-                  minLength: { value: 1, message: "Subject is required" },
-                })}
-                type="text"
-                className={`w-full px-3 py-2 bg-gray-900 border ${
-                  errors.subject ? "border-red-500" : "border-gray-600"
-                } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-100`}
+              </Label>
+              <Input
+                id="contact-subject"
+                className={FIELD_CLASS}
                 placeholder="Enter subject"
+                aria-invalid={!!errors.subject}
+                aria-describedby={errors.subject ? "contact-subject-error" : undefined}
+                {...register("subject", { required: "Subject is required" })}
               />
               {errors.subject && (
-                <div className="text-red-400 text-xs font-semibold">
+                <p id="contact-subject-error" role="alert" className="text-xs font-semibold text-red-400">
                   {errors.subject.message}
-                </div>
+                </p>
               )}
             </div>
 
-            <div className="space-y-1">
-              <label className="block text-sm font-medium text-gray-300 uppercase tracking-wide">
+            <div className="space-y-1.5">
+              <Label
+                htmlFor="contact-message"
+                className="text-xs uppercase tracking-wide text-gray-300">
                 Message
-              </label>
-              <Controller
-                name="message"
-                control={control}
-                rules={{
+              </Label>
+              <Textarea
+                id="contact-message"
+                rows={6}
+                className={`${FIELD_CLASS} resize-none`}
+                placeholder="Enter your message"
+                aria-invalid={!!errors.message}
+                aria-describedby={errors.message ? "contact-message-error" : undefined}
+                {...register("message", {
                   required: "Message is required",
-                  validate: {
-                    minLength: (value: string) =>
-                      value.trim().length >= 1 || "Message is required",
-                  },
-                }}
-                render={({ field: { onChange, value } }) => (
-                  <textarea
-                    onChange={onChange}
-                    value={value || ""}
-                    rows={6}
-                    className={`w-full px-3 py-2 bg-gray-900 border ${
-                      errors.message ? "border-red-500" : "border-gray-600"
-                    } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-100 resize-none`}
-                    placeholder="Enter your message"
-                  />
-                )}
+                  validate: (value) =>
+                    value.trim().length > 0 || "Message is required",
+                })}
               />
               {errors.message && (
-                <div className="text-red-400 text-xs font-semibold">
+                <p id="contact-message-error" role="alert" className="text-xs font-semibold text-red-400">
                   {errors.message.message}
-                </div>
+                </p>
               )}
             </div>
 
-            <div className="flex space-x-4">
-              <button
+            <div className="flex gap-4">
+              <Button
                 type="button"
-                onClick={handleReset}
+                variant="secondary"
+                onClick={() => reset()}
                 disabled={isSubmitting}
-                className="px-6 py-2 bg-gray-700 text-gray-100 font-semibold hover:bg-gray-600 transition-colors border border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed">
+                className="border border-gray-600 bg-gray-700 text-gray-100 hover:bg-gray-600">
                 Reset
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-6 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                className="bg-blue-600 text-white hover:bg-blue-700">
+                {isSubmitting && (
+                  <Loader2 className="animate-spin" aria-hidden="true" />
+                )}
                 {isSubmitting ? "Sending..." : "Submit"}
-              </button>
+              </Button>
             </div>
           </form>
         </div>
       </div>
-
-      {/* Toast Notification */}
-      {toastVisible && (
-        <div
-          className={`fixed top-4 right-4 px-4 py-2 shadow-lg ${
-            isToastError ? "bg-red-600" : "bg-green-600"
-          } text-white z-50 border border-gray-700`}>
-          {toastMessage}
-        </div>
-      )}
     </div>
   );
 };
