@@ -1,6 +1,8 @@
 const SideDesign = () => {
   return (
-    <div className="hidden lg:block pointer-events-none fixed right-0 opacity-40 top-1/2">
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed right-0 top-1/2 hidden overflow-hidden opacity-40 lg:block">
       <div className="relative ">
         <div className="absolute right-24 -top-[250px] bg-green w-32 h-32 rounded-full"></div>
         <div className="absolute right-72 bg-tertiary -top-[100px]  w-24 h-24 rounded-full"></div>

@@ -15,6 +15,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import SideDesign from "../../common/SideDesign";
 import ComponentLayout from "../ShowSectionComponent.layout";
 
@@ -388,19 +394,6 @@ const SkillSet = () => (
 const PortfolioSection = () => {
   const [activeTab, setActiveTab] = useState("thesis");
 
-  const TabButton = ({ id, icon: Icon, label }) => (
-    <button
-      onClick={() => setActiveTab(id)}
-      className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
-        activeTab === id
-          ? "bg-blue-500 text-white"
-          : "hover:bg-gray-700 text-gray-300"
-      }`}>
-      <Icon size={18} />
-      <span>{label}</span>
-    </button>
-  );
-
   const ContentSection = ({ title, items, className = "" }) => (
     <div className={`space-y-2 flex flex-col h-full ${className}`}>
       <h3 className="text-xl font-semibold text-blue-400">{title}</h3>
@@ -590,27 +583,47 @@ const PortfolioSection = () => {
     />
   );
 
-  return (
-    <div className="min-h-[370px] shadow-2xl rounded-lg bg-gray-900 text-white p-6">
-      <div className="flex flex-col">
-        <div className="flex gap-4 overflow-x-auto pb-2">
-          <TabButton id="thesis" icon={Code} label="Thesis" />
-          <TabButton id="honors" icon={Award} label="Honors" />
-          <TabButton
-            id="certifications"
-            icon={ScrollText}
-            label="Certifications"
-          />
-          <TabButton id="languages" icon={Languages} label="Languages" />
-        </div>
+  const TABS = [
+    { id: "thesis", icon: Code, label: "Thesis", content: thesisContent },
+    { id: "honors", icon: Award, label: "Honors", content: honorsContent },
+    {
+      id: "certifications",
+      icon: ScrollText,
+      label: "Certifications",
+      content: certificationsContent,
+    },
+    {
+      id: "languages",
+      icon: Languages,
+      label: "Languages",
+      content: languagesContent,
+    },
+  ];
 
-        <div className="p-4 flex-1 h-full bg-gray-800 rounded-lg">
-          {activeTab === "thesis" && thesisContent}
-          {activeTab === "honors" && honorsContent}
-          {activeTab === "certifications" && certificationsContent}
-          {activeTab === "languages" && languagesContent}
-        </div>
-      </div>
+  return (
+    <div className="min-h-[370px] rounded-lg bg-gray-900 p-4 text-white shadow-2xl sm:p-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="gap-0">
+        <TabsList className="h-auto w-full justify-start gap-2 overflow-x-auto rounded-none bg-transparent p-0 pb-2 hidden-scrollbar sm:gap-4">
+          {TABS.map(({ id, icon: Icon, label }) => (
+            <TabsTrigger
+              key={id}
+              value={id}
+              className="shrink-0 gap-2 rounded-lg border-0 px-3 py-2 text-gray-300 shadow-none transition-all hover:bg-gray-700 data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-none sm:px-4">
+              <Icon size={18} aria-hidden="true" />
+              <span>{label}</span>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        {TABS.map(({ id, content }) => (
+          <TabsContent
+            key={id}
+            value={id}
+            className="h-full flex-1 rounded-lg bg-gray-800 p-3 animate-fade-in focus-visible:outline-none sm:p-4">
+            {content}
+          </TabsContent>
+        ))}
+      </Tabs>
     </div>
   );
 };

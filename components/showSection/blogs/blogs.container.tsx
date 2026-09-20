@@ -29,9 +29,9 @@ const Blogs = () => {
               <div
                 className="h-48 relative overflow-hidden bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${blog.imageURL})` }}>
-                <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                <div className="absolute inset-0 bg-black/20"></div>
                 <div className="absolute bottom-4 left-4 right-4">
-                  <div className="text-white text-xs bg-black bg-opacity-50 px-2 py-1 rounded">
+                  <div className="text-white text-xs bg-black/50 px-2 py-1 rounded">
                     blog#{index + 1}
                   </div>
                 </div>

@@ -86,7 +86,7 @@ const TerminalComponent = () => {
             type="button"
             onClick={toggleTerminal}
             aria-label="Close terminal"
-            className="shrink-0 rounded-sm p-1 transition-colors hover:bg-surface-hover">
+            className="grid size-6 shrink-0 place-items-center rounded-sm transition-colors hover:bg-surface-hover">
             <X size={14} aria-hidden="true" />
           </button>
         </div>
@@ -102,7 +102,7 @@ const TerminalComponent = () => {
               type="button"
               onClick={toggleTerminal}
               aria-label="Kill terminal"
-              className="rounded-sm p-0.5 transition-colors hover:bg-surface-hover">
+              className="grid size-6 place-items-center rounded-sm transition-colors hover:bg-surface-hover">
               <Image src="/images/del.svg" alt="" aria-hidden="true" width={14} height={16} />
             </button>
           </div>

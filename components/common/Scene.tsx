@@ -1,85 +1,96 @@
 "use client";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
+/**
+ * Ring of skill icons orbiting a portrait.
+ *
+ * The previous version positioned icons with `centre + (radius * cos) / 5` in
+ * percentage units, which collapsed the ring to a ~±4% spread and stacked every
+ * icon on top of the portrait. Positions are now a plain polar layout in
+ * percent, with the radius tightening on narrow screens.
+ *
+ * Centring lives on a static wrapper rather than on the animated element:
+ * framer-motion owns `transform` on anything it animates, so a `translate(-50%)`
+ * set there is overwritten the moment a scale or y animation starts.
+ */
 const FloatingIcons: React.FC<{ icons: string[]; centralImage?: string }> = ({
   icons,
   centralImage,
 }) => {
-  const [positions, setPositions] = useState<{ x: number; y: number }[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const centerX = 50;
-  const centerY = 50;
+  const [radius, setRadius] = useState(42);
 
   useEffect(() => {
-    const updatePositions = () => {
-      const isMobile = window.innerWidth < 768;
-      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
-
-      // Tighter radius on smaller screens
-      const radius = isMobile ? 130 : isTablet ? 160 : 200;
-
-      const newPositions = icons.map((_, index) => {
-        const angle = (index / icons.length) * 2 * Math.PI;
-        return {
-          x: centerX + (radius * Math.cos(angle)) / 5,
-          y: centerY + (radius * Math.sin(angle)) / 5,
-        };
-      });
-      setPositions(newPositions);
+    const update = () => {
+      const w = window.innerWidth;
+      setRadius(w < 640 ? 40 : w < 1024 ? 43 : 45);
     };
 
-    updatePositions();
-    window.addEventListener("resize", updatePositions);
-    return () => window.removeEventListener("resize", updatePositions);
-  }, [icons]);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   return (
     <div
-      ref={containerRef}
-      className="relative w-full lg:w-2/5 lg:mr-12"
+      aria-hidden="true"
+      className="relative mx-auto w-full lg:mr-12 lg:w-2/5"
       style={{
-        height: "clamp(240px, 40vw, 500px)",
-        maxWidth: "clamp(240px, 50vw, 500px)",
-        margin: "0 auto",
+        height: "clamp(260px, 42vw, 500px)",
+        maxWidth: "clamp(260px, 50vw, 500px)",
       }}>
-      {/* Central image */}
-      <motion.img
-        src={centralImage}
-        alt="Central Image"
-        className="absolute rounded-b-full object-cover"
-        style={{
-          top: "57%",
-          left: "56%",
-          transform: "translate(-50%, -50%)",
-          width: "clamp(100px, 20vw, 250px)",
-          height: "clamp(100px, 20vw, 250px)",
-        }}
-      />
-
-      {/* Floating icons */}
-      {icons.map((icon, index) => (
+      {/* Portrait */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <motion.img
-          key={index}
-          src={icon}
-          alt={`Floating Icon ${index}`}
-          className="absolute object-contain"
+          src={centralImage}
+          alt=""
+          className="rounded-b-full object-cover"
           style={{
-            top: `${positions[index]?.y ?? 50}%`,
-            left: `${positions[index]?.x ?? 50}%`,
-            width: "clamp(28px, 4vw, 50px)",
-            height: "clamp(28px, 4vw, 50px)",
+            width: "clamp(96px, 19vw, 230px)",
+            height: "clamp(96px, 19vw, 230px)",
           }}
-          animate={{ y: [0, 10, 0] }}
-          transition={{
-            duration: 2,
-            ease: "easeInOut",
-            repeat: Infinity,
-            delay: index * 0.1,
-          }}
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         />
-      ))}
+      </div>
+
+      {/* Orbiting icons */}
+      {icons.map((icon, index) => {
+        // Start at the top of the ring rather than at 3 o'clock.
+        const angle = (index / icons.length) * 2 * Math.PI - Math.PI / 2;
+        const x = 50 + radius * Math.cos(angle);
+        const y = 50 + radius * Math.sin(angle);
+
+        return (
+          <div
+            key={icon}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ top: `${y}%`, left: `${x}%` }}>
+            <motion.img
+              src={icon}
+              alt=""
+              className="object-contain"
+              style={{
+                width: "clamp(24px, 3.6vw, 46px)",
+                height: "clamp(24px, 3.6vw, 46px)",
+              }}
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1, y: [0, -8, 0] }}
+              transition={{
+                opacity: { duration: 0.4, delay: index * 0.05 },
+                scale: { duration: 0.4, delay: index * 0.05 },
+                y: {
+                  duration: 3,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  delay: index * 0.15,
+                },
+              }}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };

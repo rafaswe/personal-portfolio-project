@@ -5,54 +5,52 @@ import FloatingImages from "../../common/Scene";
 
 const HomeComponent = () => {
   return (
-    <div className="lg:px-4 h-full w-full relative">
-      {/* Background text — large screens only */}
-      <div className="hidden lg:flex lg:text-[110px] xl:text-[152px] font-bold h-full items-center lg:leading-[130px] xl:leading-[172px]">
+    <div className="relative h-full w-full lg:px-4">
+      {/* Oversized background wordmark — large screens only. */}
+      <div
+        aria-hidden="true"
+        className="hidden h-full items-center font-bold lg:flex lg:text-[110px] lg:leading-[130px] xl:text-[152px] xl:leading-[172px]">
         I transform <br /> visions into
         <br /> code.
       </div>
 
-      {/* Overlay panel */}
-      <div className="absolute overflow-hidden h-full w-full px-4 right-0 bg-secondary top-0 opacity-[95%]">
-        <div className="h-full flex flex-col lg:flex-row lg:items-center lg:justify-between w-full">
-          {/* Mobile/tablet: full height centered layout */}
-          <div className="flex flex-col items-start justify-center flex-1 lg:flex-none lg:h-full pt-8 lg:pt-0">
-            <p className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] font-bold leading-tight">
+      <div className="absolute right-0 top-0 h-full w-full overflow-y-auto overflow-x-hidden hidden-scrollbar bg-secondary px-4 opacity-[95%]">
+        <div className="flex min-h-full w-full flex-col justify-center gap-4 py-6 lg:flex-row lg:items-center lg:justify-between lg:gap-4 lg:py-0">
+          <div className="flex flex-col items-start justify-center lg:h-full lg:flex-1">
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="text-[clamp(1.9rem,7vw,3.5rem)] font-bold leading-tight">
               Mahiya Rahman Rafa
-            </p>
-            <div className="flex flex-col gap-2 mt-2 lg:mt-0">
+            </motion.h1>
+
+            <div className="mt-2 flex flex-col gap-2 lg:mt-0">
               <div className="relative w-fit overflow-hidden">
-                <div className="flex gap-1">
-                  <p></p>
-                  <p className="text-2xl sm:text-3xl md:text-4xl">
-                    Frontend Developer
-                  </p>
-                  <p>{"  "}</p>
-                </div>
+                <p className="text-[clamp(1.25rem,4.5vw,2.25rem)]">
+                  Frontend Developer
+                </p>
+                {/* One-pass typing reveal. This used to loop every 8s, which
+                    meant the job title spent much of its time hidden behind
+                    the wipe. */}
                 <motion.div
-                  className="absolute border-l-4 border-tertiary h-full top-0 -right-1 bg-secondary"
+                  aria-hidden="true"
+                  className="absolute -right-1 top-0 h-full border-l-4 border-tertiary bg-secondary"
                   initial={{ width: "100%" }}
-                  animate={{
-                    width: ["100%", "0%", "100%"],
-                    transition: {
-                      duration: 8,
-                      ease: "easeInOut",
-                      repeat: Infinity,
-                    },
-                  }}
+                  animate={{ width: "0%" }}
+                  transition={{ duration: 1.6, ease: "easeInOut", delay: 0.3 }}
                 />
               </div>
+
               <motion.p
-                initial={{ y: 100, opacity: 0 }}
+                initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 3, duration: 1 }}
-                className="text-base sm:text-lg pl-1">
+                transition={{ delay: 1.8, duration: 0.6 }}
+                className="pl-1 text-base sm:text-lg">
                 ReactJs/Next Js Developer
               </motion.p>
             </div>
           </div>
-
-          {/* Floating icons — scaled down on mobile/tablet */}
 
           <FloatingImages
             icons={SkillIconList}

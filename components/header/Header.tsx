@@ -15,7 +15,7 @@ const Header = () => {
         <HeaderMenu />
       </div>
       <div className="flex-1 ">
-        <div className="flex bg-secondary items-center gap-1 w-fit px-2 md:px-0 md:w-1/2 mx-auto justify-center py-0.5 rounded-lg">
+        <div className="mx-auto flex w-fit items-center justify-center gap-1 rounded-lg bg-secondary px-2 py-0.5 md:w-1/2 md:px-0">
           <Image
             src="/images/searchIcon.svg"
             alt="search Icon"
@@ -23,7 +23,7 @@ const Header = () => {
             height={16}
             className="mt-1 "
           />
-          <p className="text-[12px]">Mahiya Rahman Rafa</p>
+          <p className="whitespace-nowrap text-[12px]">Mahiya Rahman Rafa</p>
         </div>
       </div>
       <div className="flex gap-2 items-center">

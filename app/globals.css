@@ -101,6 +101,32 @@
   --color-cyan-500: #06b6d4;
 
   --color-emerald-500: #10b981;
+
+  /* Animations. `animate-fadeIn` was referenced by AboutMe but had no
+     keyframes behind it, so it was a no-op. */
+  --animate-fade-in: fade-in 0.35s ease-out both;
+  --animate-fadeIn: fade-in 0.35s ease-out both;
+  --animate-rise: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ------------------------------------------------------------------
@@ -222,13 +248,6 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-  }
-
-  /* TODO(phase 3): this universal rule forces every element to pure white and
-     blocks colour inheritance from any ancestor. Kept for now so this pass
-     stays visually identical; removing it needs a screenshot diff. */
-  * {
-    color: oklch(100% 0.00011 271.152);
   }
 
   /* Visible keyboard focus. The app previously had none. */

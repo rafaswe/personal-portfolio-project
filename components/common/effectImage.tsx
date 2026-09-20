@@ -43,7 +43,7 @@ const EffectImage = (props: EffectImageProps) => {
             <button
               type="button"
               aria-label={`Expand image: ${caption}`}
-              className="pointer-events-auto rounded-sm p-0.5 transition-transform duration-200 hover:scale-110">
+              className="pointer-events-auto grid size-6 place-items-center rounded-sm transition-transform duration-200 hover:scale-110">
               <Expand size={16} aria-hidden="true" />
             </button>
           </DialogTrigger>
@@ -70,7 +70,7 @@ const EffectImage = (props: EffectImageProps) => {
 
         <DialogClose
           aria-label="Close image"
-          className="absolute right-3 top-3 rounded-sm p-1 opacity-70 transition-opacity hover:opacity-100">
+          className="absolute right-3 top-3 grid size-7 place-items-center rounded-sm opacity-70 transition-opacity hover:opacity-100">
           <X size={18} aria-hidden="true" />
         </DialogClose>
       </DialogContent>
