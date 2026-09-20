@@ -1,4 +1,4 @@
-import { cn } from "@/functions/cn";
+import { cn } from "@/lib/utils";
 import SideMenu from "./SideMenu";
 import SideOption from "./SideOption";
 

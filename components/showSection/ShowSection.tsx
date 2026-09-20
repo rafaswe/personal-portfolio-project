@@ -1,4 +1,4 @@
-import { cn } from "@/functions/cn";
+import { cn } from "@/lib/utils";
 import NavBar from "./NavBarSection/navBar";
 
 const ShowSection = ({ className }: { className?: string }) => {

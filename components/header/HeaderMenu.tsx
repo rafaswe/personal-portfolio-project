@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/functions/cn";
+import { cn } from "@/lib/utils";
 import useTerminalStore from "@/service/store/useTerminalStore";
 import Link from "next/link";
 import React from "react";

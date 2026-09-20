@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/functions/cn";
+import { cn } from "@/lib/utils";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";

@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/functions/cn";
+import { cn } from "@/lib/utils";
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
 import { Div } from "../common/elements";

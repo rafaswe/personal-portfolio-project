@@ -21,7 +21,7 @@
   --color-quaternary: #049d70;
   --color-tertiary: #f9826c;
   --color-disabled: #c1c1c1;
-  --color-background: #fafafa;
+  /* `--color-background` is now a semantic token (see `@theme inline`). */
   /* In the old config `green` was a flat color, which REPLACED Tailwind's
      default green scale. So `green-400/500/…` produced no css (e.g. the
      GitHub contribution graph squares render with no green today). We keep
@@ -35,20 +35,10 @@
   --color-details-top: #ffebf2;
   --color-text-dark: #4d4d4d;
 
-  /* Design tokens backed by CSS variables (verbatim from tailwind.config.ts) */
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
+  /* Semantic (shadcn) tokens are NOT declared here on purpose. A plain
+     `@theme` resolves var() at declaration time, so a later `.dark { --border: … }`
+     would never reach the `border-border` utility. They live in the
+     `@theme inline` block at the bottom instead. */
 
   /* Editor / syntax-highlight palette (was hard-coded hex in components) */
   --color-code-tag: #569cd6;
@@ -174,58 +164,76 @@
   scrollbar-width: none;
 }
 
+/* ------------------------------------------------------------------
+   Semantic (shadcn/ui) tokens, mapped onto the editor palette above so
+   shadcn components inherit the VS Code look instead of the stock
+   neutral theme. Values are the same hexes the editor chrome uses.
+------------------------------------------------------------------ */
+:root {
+  --background: #24292e; /* --color-secondary  : content surface */
+  --foreground: #efefef; /* --color-code-text                    */
+  --card: #1f2428; /* --color-primary    : raised chrome   */
+  --card-foreground: #efefef;
+  --popover: #2d343a; /* --color-surface-muted                */
+  --popover-foreground: #efefef;
+  --primary-foreground: #ffffff; /* pairs with --color-primary   #1f2428 */
+  --secondary-foreground: #efefef; /* pairs with --color-secondary #24292e */
+  --muted: #3c454d; /* --color-surface-raised               */
+  --muted-foreground: #c1c1c1; /* --color-disabled                     */
+  --accent: #3b4252; /* --color-surface-hover                */
+  --accent-foreground: #ffffff;
+  --destructive: #f9826c; /* --color-tertiary                     */
+  --destructive-foreground: #1f2428;
+  --border: #3c454d;
+  --input: #3c454d;
+  --ring: #569cd6; /* --color-code-tag : focus ring is the
+                                        editor's tag blue                  */
+  --radius: 0.5rem;
+}
+
+/* `inline` is required: it defers var() resolution to use time, which is what
+   lets a `.dark` / `[data-theme]` override actually repaint the utilities.
+   NOTE: the Tailwind radius scale is deliberately NOT remapped here — doing so
+   would shift every existing `rounded-md`/`rounded-lg` in the app. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
 @layer base {
-  :root {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(1 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --radius: 0.625rem;
+  /* Was `oklch(var(--foreground))` / `oklch(var(--background))`, i.e. an
+     oklch() wrapped around an already-complete oklch() value: invalid, dropped.
+     The tokens are plain colours, so they are used directly. */
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
   }
 
-  .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(1 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-  }
-
+  /* TODO(phase 3): this universal rule forces every element to pure white and
+     blocks colour inheritance from any ancestor. Kept for now so this pass
+     stays visually identical; removing it needs a screenshot diff. */
   * {
-    border-color: hsl(var(--border));
-    outline-color: hsl(var(--ring) / 0.5);
     color: oklch(100% 0.00011 271.152);
   }
 
-  body {
-    background-color: oklch(var(--background));
-    color: oklch(var(--foreground));
+  /* Visible keyboard focus. The app previously had none. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }

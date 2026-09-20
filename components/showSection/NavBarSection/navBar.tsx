@@ -1,6 +1,6 @@
 "use client";
 import { MenuProperties } from "@/components/constant/enum";
-import { cn } from "@/functions/cn";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 
