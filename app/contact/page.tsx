@@ -2,7 +2,14 @@ import { ContactContainer } from "@/components/showSection/contact/Contact.conta
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Mahiya Rahman Rafa | Contact",
+  title: "Contact",
+  description: "Get in touch with Mahiya Rahman Rafa by email, Discord, WhatsApp or GitHub.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact | Mahiya Rahman Rafa",
+    description: "Get in touch with Mahiya Rahman Rafa by email, Discord, WhatsApp or GitHub.",
+    url: "/contact",
+  },
 };
 
 const ContactPage = () => {

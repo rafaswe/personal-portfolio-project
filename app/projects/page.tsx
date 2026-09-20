@@ -2,7 +2,14 @@ import Projects from "@/components/projects/Project-Section";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Mahiya Rahman Rafa | Projects",
+  title: "Projects",
+  description: "Selected frontend projects built with React, Next.js, TypeScript and Redux by Mahiya Rahman Rafa.",
+  alternates: { canonical: "/projects" },
+  openGraph: {
+    title: "Projects | Mahiya Rahman Rafa",
+    description: "Selected frontend projects built with React, Next.js, TypeScript and Redux by Mahiya Rahman Rafa.",
+    url: "/projects",
+  },
 };
 const ProjectsPage = () => {
   return (

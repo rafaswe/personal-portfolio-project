@@ -13,7 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Award, Code, Languages, ScrollText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import {
   Tabs,
@@ -84,11 +84,14 @@ const SemiLayout = ({ title, children }) => {
 };
 
 const ExperienceSection = () => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  // Marks the first client render so durations that depend on "now" are not
+  // computed during SSR, where they would mismatch the client. `useSyncExternalStore`
+  // expresses this without a synchronous setState inside an effect.
+  const isClient = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const formatExperience = (months: number): string => {
     const years = Math.floor(months / 12);
     const remainingMonths = months % 12;
@@ -277,8 +280,10 @@ const CVTooltip = () => {
                 </div>
                 <div className="flex gap-1.5 pr-1">
                   <button
+                    type="button"
                     onClick={() => setSettingTooltip(true)}
-                    title="More Action...">
+                    aria-label="More actions"
+                    className="grid size-6 place-items-center rounded-sm transition-colors hover:bg-surface-hover">
                     <Image
                       src="/images/settings.svg"
                       alt="icon"
@@ -287,8 +292,10 @@ const CVTooltip = () => {
                     />
                   </button>
                   <button
+                    type="button"
                     onClick={hideTooltip}
-                    title="Clear Notification (Delete)">
+                    aria-label="Clear notification"
+                    className="grid size-6 place-items-center rounded-sm transition-colors hover:bg-surface-hover">
                     <Image
                       src="/images/cross.svg"
                       alt="icon"
@@ -391,23 +398,38 @@ const SkillSet = () => (
   </div>
 );
 
+/**
+ * A titled list inside one of the portfolio tabs.
+ *
+ * Defined at module scope rather than inside PortfolioSection: a component
+ * declared during render is a new type on every render, so React throws the
+ * previous subtree away and rebuilds it instead of updating it.
+ */
+const ContentSection = ({
+  title,
+  items,
+  className = "",
+}: {
+  title: string;
+  items: { key: string | number; content: React.ReactNode }[];
+  className?: string;
+}) => (
+  <div className={`flex h-full flex-col space-y-2 ${className}`}>
+    <h3 className="text-xl font-semibold text-blue-400">{title}</h3>
+    <div className="flex-1 space-y-2">
+      {items.map((item) => (
+        <div
+          key={item.key}
+          className="cursor-pointer rounded-lg bg-gray-800 p-2 transition-all hover:bg-gray-700">
+          {item.content}
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 const PortfolioSection = () => {
   const [activeTab, setActiveTab] = useState("thesis");
-
-  const ContentSection = ({ title, items, className = "" }) => (
-    <div className={`space-y-2 flex flex-col h-full ${className}`}>
-      <h3 className="text-xl font-semibold text-blue-400">{title}</h3>
-      <div className="space-y-2 flex-1">
-        {items.map((item) => (
-          <div
-            key={item.key}
-            className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all cursor-pointer">
-            {item.content}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 
   const thesisContent = (
     <div className="space-y-2 h-full animate-fadeIn">

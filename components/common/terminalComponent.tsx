@@ -145,7 +145,7 @@ const TerminalComponent = () => {
                 setHasError(false);
               }}
               onKeyDown={handleKeyDown}
-              className="h-5 w-full bg-transparent outline-none placeholder:text-gray-600"
+              className="h-6 w-full bg-transparent outline-none placeholder:text-gray-600"
             />
           </div>
 

@@ -118,7 +118,12 @@ const GitHubProfile = () => {
     for (let month = 0; month < 12; month++) {
       for (let week = 0; week < 4; week++) {
         for (let day = 0; day < 7; day++) {
-          const contributions = Math.floor(Math.random() * 5);
+          // Was Math.random(), which is impure during render: the graph
+          // redrew differently on every re-render and did not match between
+          // server and client. A hash of the cell's own coordinates keeps the
+          // scattered look while staying stable.
+          const seed = (month * 31 + week * 7 + day) * 2654435761;
+          const contributions = Math.floor(((seed >>> 16) % 1000) / 200);
           data.push({
             month: months[month],
             week,

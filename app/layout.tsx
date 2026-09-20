@@ -6,6 +6,7 @@ import Sidebar from "@/components/sideBar/Sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
+import { SITE_URL } from "./sitemap";
 import { Geist } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
@@ -22,7 +23,7 @@ const SITE_DESCRIPTION =
   "Portfolio of Mahiya Rahman Rafa — frontend developer working in React and Next.js. Projects, experience, writing and contact, presented as a code editor.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mahiyarahmanrafa.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Mahiya Rahman Rafa",
     template: "%s | Mahiya Rahman Rafa",
@@ -55,6 +56,28 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.ico" },
 };
 
+
+const PERSON_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Mahiya Rahman Rafa",
+  url: SITE_URL,
+  jobTitle: "Frontend Developer",
+  description: SITE_DESCRIPTION,
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "JavaScript",
+    "Redux",
+    "Tailwind CSS",
+  ],
+  sameAs: [
+    "https://github.com/rafaswe",
+    "https://medium.com/@rahmanrafa",
+  ],
+};
+
 export const viewport: Viewport = {
   themeColor: "#1f2428",
   width: "device-width",
@@ -70,6 +93,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body
         suppressHydrationWarning
         className="h-dvh flex flex-col hidden-scrollbar justify-between overflow-x-hidden">
+        <script
+          type="application/ld+json"
+          // Static object defined in this file, not user input.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
+        />
         <Providers>
           <a
             href="#main-content"
