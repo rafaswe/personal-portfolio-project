@@ -1,7 +1,7 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import useTerminalStore from "@/service/store/useTerminalStore";
-import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,6 +14,14 @@ const TerminalComponent = () => {
   const { isTerminalClicked, toggleTerminal } = useTerminalStore();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
+
+  // Focus the prompt when the panel opens. This used to hang off
+  // framer-motion's onAnimationComplete callback.
+  useEffect(() => {
+    if (!isTerminalClicked) return;
+    const id = window.setTimeout(() => inputRef.current?.focus(), 500);
+    return () => window.clearTimeout(id);
+  }, [isTerminalClicked]);
 
   // Escape closes the panel from anywhere, matching the editor it imitates.
   useEffect(() => {
@@ -54,19 +62,20 @@ const TerminalComponent = () => {
   const hint = sideMenuProperties.map(({ text }) => text.split(".")[0]).join(", ");
 
   return (
-    <motion.section
+    <section
       aria-label="Terminal"
       // `inert` keeps the hidden panel out of the tab order and the
       // accessibility tree; previously it stayed focusable off-screen.
       inert={!isTerminalClicked}
       aria-hidden={!isTerminalClicked}
-      initial={{ y: "200%" }}
-      animate={{ y: isTerminalClicked ? "40%" : "200%" }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-      onAnimationComplete={() => {
-        if (isTerminalClicked) inputRef.current?.focus();
-      }}
-      className="absolute bottom-0 left-0 right-0 z-50 h-1/2 border border-border bg-primary text-white shadow-lg">
+      // Slide driven by a CSS transform rather than framer-motion: this panel
+      // is mounted by the root layout, so importing the library here costs
+      // every route its bundle.
+      className={cn(
+        "absolute bottom-0 left-0 right-0 z-50 h-1/2 border border-border bg-primary text-white shadow-lg",
+        "transition-transform duration-500 ease-in-out will-change-transform motion-reduce:transition-none",
+        isTerminalClicked ? "translate-y-[40%]" : "translate-y-[200%]"
+      )}>
       <div className="text-xs">
         <div className="flex items-center justify-between px-3 py-1.5">
           <div className="flex items-center gap-2.5 overflow-x-auto hidden-scrollbar">
@@ -156,7 +165,7 @@ const TerminalComponent = () => {
           )}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-const Stats = ({ itemVariants, stats, name }) => {
+const Stats = ({ stats, name }) => {
   const { logs, totalContribution, gitOpenDays } = stats;
 
   const today = new Date();
@@ -10,9 +9,7 @@ const Stats = ({ itemVariants, stats, name }) => {
   const formatted = today.toLocaleDateString("en-US", options);
 
   return (
-    <motion.div
-      className="grid grid-cols-1 md:grid-cols-2 gap-6"
-      variants={itemVariants}>
+    <div className="grid grid-cols-1 gap-6 animate-rise md:grid-cols-2">
       <div className="bg-gray-900 rounded-lg p-4 sm:p-6 border border-gray-800">
         <h3 className="font-semibold mb-4">{`${name}'s GitHub Stats`}</h3>
         <div className="space-y-3">
@@ -50,7 +47,7 @@ const Stats = ({ itemVariants, stats, name }) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -1,5 +1,3 @@
-"use client";
-import { motion } from "framer-motion";
 import {
   Code,
   Database,
@@ -13,44 +11,16 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { ProjectList } from "@/components/constant/content/projects";
-import { useState } from "react";
 
 const Projects = () => {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const projects = ProjectList;
 
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
   return (
     <div className="min-h-full p-4 sm:p-8">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="max-w-7xl mx-auto">
+      <div className="mx-auto max-w-7xl">
         {/* Hero Section */}
-        <motion.div variants={itemVariants} className="text-center mb-12">
+        <div className="mb-12 text-center animate-rise">
           <div className="inline-flex items-center justify-center gap-3 bg-gray-800/50 backdrop-blur-sm px-6 py-3 rounded-full border border-gray-700/50 mb-8">
             <Code className="w-5 h-5 text-blue-400" />
             <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent ">
@@ -62,18 +32,15 @@ const Projects = () => {
             Showcasing modern web applications built with cutting-edge
             technologies
           </p>
-        </motion.div>
+        </div>
 
         {/* Projects Grid */}
-        <motion.div variants={itemVariants} className="space-y-12">
+        <div className="space-y-12">
           {projects.map((project, index) => (
-            <motion.div
+            <div
               key={project.id}
-              className={`relative overflow-hidden rounded-2xl ${project.bgColor} ${project.borderColor} border backdrop-blur-sm`}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}>
+              style={{ animationDelay: `${index * 120}ms` }}
+              className={`group relative overflow-hidden rounded-2xl ${project.bgColor} ${project.borderColor} border backdrop-blur-sm transition-transform duration-300 animate-rise hover:scale-[1.02]`}>
               {/* Background Gradient */}
               <div
                 className={`absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-5`}
@@ -121,13 +88,11 @@ const Projects = () => {
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {project.tech.map((tech, techIndex) => (
-                          <motion.span
+                          <span
                             key={techIndex}
-                            className="px-3 py-1 bg-gray-700/50 text-gray-300 rounded-full text-sm font-medium border border-gray-600/50"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ type: "spring", stiffness: 300 }}>
+                            className="rounded-full border border-gray-600/50 bg-gray-700/50 px-3 py-1 text-sm font-medium text-gray-300 transition-transform duration-200 hover:scale-105">
                             {tech}
-                          </motion.span>
+                          </span>
                         ))}
                       </div>
                     </div>
@@ -160,17 +125,15 @@ const Projects = () => {
                     <div className="space-y-3">
                       {project.responsibilities.map(
                         (responsibility, respIndex) => (
-                          <motion.div
+                          <div
                             key={respIndex}
-                            className="flex gap-3 p-4 bg-gray-800/30 rounded-xl border border-gray-700/50"
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: respIndex * 0.1 }}>
+                            style={{ animationDelay: `${respIndex * 100}ms` }}
+                            className="flex gap-3 rounded-xl border border-gray-700/50 bg-gray-800/30 p-4 animate-rise">
                             <div className="w-2 h-2 bg-gradient-to-r from-white to-blue-300 rounded-full mt-2 flex-shrink-0"></div>
                             <p className="text-gray-300 text-sm leading-relaxed">
                               {responsibility}
                             </p>
-                          </motion.div>
+                          </div>
                         )
                       )}
                     </div>
@@ -178,22 +141,16 @@ const Projects = () => {
                 </div>
 
                 {/* Hover Effect */}
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-0 pointer-events-none`}
-                  animate={{
-                    opacity: hoveredProject === project.id ? 0.03 : 0,
-                  }}
-                  transition={{ duration: 0.3 }}
+                <div
+                  className={`pointer-events-none absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-[0.03]`}
                 />
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Bottom Stats */}
-        <motion.div
-          variants={itemVariants}
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 animate-rise">
           <div className="text-center p-6 bg-gray-800/30 rounded-xl border border-gray-700/50">
             <Server className="w-8 h-8 text-blue-400 mx-auto mb-3" />
             <div className="text-2xl font-bold text-white mb-1">3</div>
@@ -209,8 +166,8 @@ const Projects = () => {
             <div className="text-2xl font-bold text-white mb-1">100%</div>
             <div className="text-gray-400">Responsive</div>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 };

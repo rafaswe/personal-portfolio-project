@@ -18,7 +18,7 @@ type TabItemProps = {
   tabClassName?: string;
 };
 
-const TabItem: React.FC<TabItemProps> = ({ children, tabClassName }) => (
+export const TabItem: React.FC<TabItemProps> = ({ children, tabClassName }) => (
   <div className={tabClassName}>{children}</div>
 );
 
@@ -67,6 +67,10 @@ const Tab: React.FC<TabProps> & { Item: React.FC<TabItemProps> } = ({
   );
 };
 
+// `Tab.Item` is kept for existing client-side call sites, but a server
+// component that imports `Tab` receives a client reference proxy, and static
+// properties hung off a component do not survive that boundary — `Tab.Item`
+// reads back as undefined. Server callers must use the named `TabItem` export.
 Tab.Item = TabItem;
 
 export default Tab;

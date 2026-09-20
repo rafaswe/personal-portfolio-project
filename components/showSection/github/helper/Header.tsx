@@ -1,15 +1,10 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-const GitHubHeader = ({ itemVariants, gitHubInfo }) => {
+const GitHubHeader = ({ gitHubInfo }) => {
   const { personalInfo, techStack, links, socialLinks } = gitHubInfo;
 
   return (
-    <motion.div
-      className="bg-gray-900 rounded-lg p-4 sm:p-6 border border-gray-800"
-      variants={itemVariants}>
+    <div className="rounded-lg border border-gray-800 bg-gray-900 p-4 animate-rise sm:p-6">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-12 h-12 bg-yellow-400 rounded-lg flex items-center justify-center">
           <span className="text-2xl">🐱</span>
@@ -44,14 +39,15 @@ const GitHubHeader = ({ itemVariants, gitHubInfo }) => {
             const Icon = icon;
             if (!Icon) return null; // Prevents undefined icon render error
             return (
-              <motion.a
+              <a
                 key={index}
                 href={singleValue.link}
-                className="w-8 h-8 bg-gray-800 hover:bg-gray-700 rounded flex items-center justify-center transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}>
-                <Icon className="w-4 h-4 text-white" />
-              </motion.a>
+                target="_blank"
+                rel="noreferrer"
+                aria-label={singleValue.name ?? "Social link"}
+                className="flex h-8 w-8 items-center justify-center rounded bg-gray-800 transition-all duration-200 hover:scale-110 hover:bg-gray-700 active:scale-95">
+                <Icon className="h-4 w-4 text-white" />
+              </a>
             );
           })}
         </div>
@@ -61,11 +57,9 @@ const GitHubHeader = ({ itemVariants, gitHubInfo }) => {
         <h3 className="font-semibold mb-2">Languages and Tools:</h3>
         <div className="flex flex-wrap gap-3">
           {techStack.map((tech, index) => (
-            <motion.div
+            <div
               key={index}
-              className={`w-8 h-8 ${tech.color} rounded flex items-center justify-center`}
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.2 }}
+              className={`h-8 w-8 ${tech.color} flex items-center justify-center rounded transition-transform duration-200 hover:scale-110`}
               title={tech?.name}>
               <Image
                 src={tech?.logo}
@@ -74,11 +68,11 @@ const GitHubHeader = ({ itemVariants, gitHubInfo }) => {
                 height={36}
                 className="w-8 h-8"
               />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

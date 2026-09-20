@@ -1,6 +1,5 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,15 +33,17 @@ const SideMenu = ({ className }: { className?: string }) => {
           <span>PORTFOLIO</span>
         </button>
 
-        <AnimatePresence initial={false}>
-          {isOpen && (
-            <motion.div
-              id={listId}
-              className="overflow-hidden"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}>
+        {/* Collapse animated with a 0fr -> 1fr grid row rather than
+            framer-motion. This component renders in the root layout, so any
+            library it imports is loaded on every route; CSS keeps the same
+            height transition at no bundle cost. */}
+        <div
+          id={listId}
+          className={cn(
+            "grid overflow-hidden transition-all duration-250 ease-in-out motion-reduce:transition-none",
+            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          )}>
+          <div className="min-h-0">
               <ul className="flex flex-col">
                 {sideMenuProperties.map((menue) => {
                   const isActive = pathName === menue?.pageLink;
@@ -70,9 +71,8 @@ const SideMenu = ({ className }: { className?: string }) => {
                   );
                 })}
               </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          </div>
+        </div>
       </div>
     </nav>
   );

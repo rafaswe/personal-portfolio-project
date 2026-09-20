@@ -7,7 +7,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import { ZoomIn } from "lucide-react";
 import Image from "next/image";
 import React, { useMemo, useState } from "react";
@@ -26,24 +25,6 @@ interface ImageGalleryProps {
  */
 const RATIOS = [0.72, 1.0, 1.28, 0.86, 1.12, 0.66, 1.34, 0.94];
 const ratioFor = (index: number) => RATIOS[index % RATIOS.length];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.06, delayChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 24, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { type: "spring" as const, stiffness: 120, damping: 14 },
-  },
-};
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({
   images,
@@ -65,19 +46,16 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
     setLoadedImages((prev) => new Set(prev).add(src));
 
   return (
-    <motion.ul
+    <ul
       className={cn(
         "columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3 xl:columns-4",
         className
-      )}
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible">
+      )}>
       {imageItems.map((item, index) => (
-        <motion.li
+        <li
           key={item.id}
-          className="mb-4 break-inside-avoid"
-          variants={itemVariants}>
+          style={{ animationDelay: `${index * 60}ms` }}
+          className="mb-4 break-inside-avoid animate-rise">
           <Dialog>
             <DialogTrigger asChild>
               <button
@@ -137,9 +115,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
               />
             </DialogContent>
           </Dialog>
-        </motion.li>
+        </li>
       ))}
-    </motion.ul>
+    </ul>
   );
 };
 

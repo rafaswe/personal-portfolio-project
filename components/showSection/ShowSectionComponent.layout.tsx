@@ -1,19 +1,25 @@
-"use client";
 import { cn } from "@/lib/utils";
-import { FC, ReactNode, useEffect, useMemo, useRef, useState } from "react";
-import { useWindowSize } from "usehooks-ts";
+import { FC, ReactNode } from "react";
 import { Div } from "../common/elements";
+
+const LINE_HEIGHT = 24;
+const LINE_GAP = 12;
+
+/**
+ * Enough gutter numbers to cover any realistic viewport.
+ *
+ * The previous version measured the window with `useWindowSize`, recomputed the
+ * count in an effect and re-ran it from a ResizeObserver, which forced this
+ * layout — and therefore the whole About page inside it — to be a client
+ * component. The column is clipped by `overflow-hidden`, so rendering a fixed
+ * run of numbers and letting the surplus be cut off gives the same picture with
+ * no measurement, no effect and no client JavaScript.
+ * 80 lines * 36px covers 2880px of height.
+ */
+const LINE_COUNT = 80;
 
 interface LineNumberLayoutProps {
   children: ReactNode;
-  lineHeight?: number; // Optional prop to customize line height
-  startingNumber?: number; // Optional prop to start from a different number
-  className?: string; // Optional class name for the container
-  numberClassName?: string; // Optional class name for the line numbers
-}
-
-interface LineNumberLayoutProps {
-  children: React.ReactNode;
   lineHeight?: number;
   startingNumber?: number;
   className?: string;
@@ -22,73 +28,36 @@ interface LineNumberLayoutProps {
 
 export const LineNumberLayout: FC<LineNumberLayoutProps> = ({
   children,
-  lineHeight = 24, // Default line height
+  lineHeight = LINE_HEIGHT,
   startingNumber = 1,
   className = "",
   numberClassName = "",
-}) => {
-  const contentRef = useRef<HTMLDivElement | null>(null);
-  const [lineNumbers, setLineNumbers] = useState<number[]>([]);
-
-  // Use the useWindowSize hook to get window dimensions
-  const windowSize = useWindowSize();
-
-  useEffect(() => {
-    const calculateLines = (): void => {
-      if (contentRef.current) {
-        // Use viewport height for calculation
-        const viewportHeight = windowSize.height;
-        // Calculate how many lines would fit in the viewport with 10px gaps
-        const effectiveLineHeight = lineHeight + 10; // Adding 10px gap between lines
-        const lineCount = Math.ceil(viewportHeight / effectiveLineHeight);
-
-        setLineNumbers(
-          Array.from({ length: lineCount }, (_, i) => i + startingNumber)
-        );
-      }
-    };
-
-    calculateLines();
-
-    // Add resize observer for content changes
-    const resizeObserver = new ResizeObserver(calculateLines);
-    if (contentRef.current) {
-      resizeObserver.observe(contentRef.current);
-    }
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [windowSize, lineHeight, startingNumber]);
-
-  return (
-    <div className={`flex h-full min-w-0 ${className}`}>
-      {/* Line numbers container */}
-      <div
-        className={`select-none px-1.5 sm:px-4 shrink-0 border-x border-l-2 border-l-gray-700 border-r-code-tag flex flex-col items-center text-gray-500 font-mono ${numberClassName}`}>
-        {lineNumbers.map((num: number) => (
-          <div
-            key={num}
-            className="leading-6"
-            style={{
-              height: `${lineHeight}px`,
-              marginBottom: "12px", // Adding 10px gap between line numbers
-            }}>
-            {num}
-          </div>
-        ))}
-      </div>
-
-      {/* Content container */}
-      <div
-        ref={contentRef}
-        className="flex-1 min-w-0 overflow-auto"
-        style={{ lineHeight: `${lineHeight}px` }}>
-        {children}
-      </div>
+}) => (
+  <div className={cn("flex h-full min-w-0 overflow-hidden", className)}>
+    <div
+      aria-hidden="true"
+      className={cn(
+        "flex shrink-0 select-none flex-col items-center border-x border-l-2 border-l-gray-700 border-r-code-tag px-1.5 font-mono text-gray-500 sm:px-4",
+        numberClassName
+      )}>
+      {Array.from({ length: LINE_COUNT }, (_, i) => (
+        <div
+          key={i}
+          className="leading-6"
+          style={{ height: `${lineHeight}px`, marginBottom: `${LINE_GAP}px` }}>
+          {i + startingNumber}
+        </div>
+      ))}
     </div>
-  );
-};
+
+    <div
+      className="min-w-0 flex-1 overflow-auto"
+      style={{ lineHeight: `${lineHeight}px` }}>
+      {children}
+    </div>
+  </div>
+);
+
 const ComponentLayout = ({
   title,
   className,
@@ -100,18 +69,14 @@ const ComponentLayout = ({
   className?: string;
   titleClassName?: string;
 }) => {
-  const validTitle = useMemo(() => {
-    return title?.split(" ").join("_");
-  }, [title]);
+  const validTitle = title?.split(" ").join("_");
+
   return (
-    <LineNumberLayout
-      lineHeight={24}
-      startingNumber={1}
-      numberClassName="text-blue-500">
-      <div className={cn("px-2 sm:px-4 pt-2 flex min-w-0 flex-col gap-2", className)}>
+    <LineNumberLayout numberClassName="text-blue-500">
+      <div className={cn("flex min-w-0 flex-col gap-2 px-2 pt-2 sm:px-4", className)}>
         {title ? (
           <div className="w-fit">
-            <p className={cn(" text-lg sm:text-2xl font-medium", titleClassName)}>
+            <p className={cn("text-lg font-medium sm:text-2xl", titleClassName)}>
               <span className="text-code-tag">const</span>{" "}
               <span className="text-code-function"> {`${validTitle}`} </span>{" "}
               <span>{`=`}</span> <span className="text-code-function">{`( )`}</span>{" "}
@@ -124,8 +89,8 @@ const ComponentLayout = ({
         <Div>{children}</Div>
 
         {title ? (
-          <div className="w-fit flex flex-col gap-2">
-            <p className={cn(" text-lg sm:text-2xl font-medium", titleClassName)}>
+          <div className="flex w-fit flex-col gap-2">
+            <p className={cn("text-lg font-medium sm:text-2xl", titleClassName)}>
               <span className="text-code-keyword">{`)`}</span>
               <span>{`;`}</span>
             </p>

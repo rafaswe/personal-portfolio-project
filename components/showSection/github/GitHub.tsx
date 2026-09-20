@@ -1,7 +1,5 @@
-"use client";
 import { GitHubInfo } from "@/components/constant/enum";
 import { GitPersonalInfo } from "@/components/constant/type";
-import { motion } from "framer-motion";
 import {
   Award,
   BookOpen,
@@ -14,32 +12,11 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import GitHubHeader from "./helper/Header";
 import Stats from "./helper/Stats";
 
 const GitHubProfile = () => {
-  const [selectedYear, setSelectedYear] = useState("2025");
   const { personalInfo, githubLink, stats } = GitHubInfo;
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
 
   const repositories = [
     {
@@ -158,34 +135,24 @@ const GitHubProfile = () => {
 
   return (
     <div className="h-full">
-      <motion.div
-        className="max-w-6xl mx-auto"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible">
+      <div className="mx-auto max-w-6xl">
         {/* Header Section */}
-        <motion.div
-          className="flex flex-col lg:flex-row gap-6 mb-8"
-          variants={itemVariants}>
+        <div className="mb-8 flex flex-col gap-6 animate-rise lg:flex-row">
           {/* Profile Card */}
           <ProfileCard githubLink={githubLink} personalInfo={personalInfo} />
 
           {/* Main Content */}
           <div className="flex-1 space-y-6">
             {/* Intro Section */}
-            <GitHubHeader itemVariants={itemVariants} gitHubInfo={GitHubInfo} />
+            <GitHubHeader gitHubInfo={GitHubInfo} />
 
             {/* GitHub Stats */}
-            <Stats
-              itemVariants={itemVariants}
-              stats={stats}
-              name={personalInfo?.name}
-            />
+            <Stats stats={stats} name={personalInfo?.name} />
           </div>
-        </motion.div>
+        </div>
 
         {/* Popular Repositories */}
-        <motion.div className="mb-8" variants={itemVariants}>
+        <div className="mb-8 animate-rise">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">Popular repositories</h2>
             <button className="text-blue-400 hover:underline text-sm">
@@ -195,11 +162,9 @@ const GitHubProfile = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {repositories.map((repo, index) => (
-              <motion.div
+              <div
                 key={index}
-                className="bg-gray-900 rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition-colors"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}>
+                className="rounded-lg border border-gray-800 bg-gray-900 p-4 transition-all duration-200 hover:scale-[1.02] hover:border-gray-700">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold text-blue-400 hover:underline cursor-pointer">
                     {repo.name}
@@ -224,13 +189,13 @@ const GitHubProfile = () => {
                     <span>{repo.forks}</span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Contribution Graph */}
-        <motion.div className="mb-8" variants={itemVariants}>
+        <div className="mb-8 animate-rise">
           <div className="flex flex-wrap gap-2 justify-between items-center mb-4">
             <h2 className="text-base sm:text-lg font-semibold">
               63 contributions in the last year
@@ -242,8 +207,8 @@ const GitHubProfile = () => {
               <div className="relative">
                 <select
                   className="bg-gray-800 border border-gray-700 rounded px-3 py-1 text-sm appearance-none pr-8"
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(e.target.value)}>
+                  defaultValue="2025"
+                  aria-label="Contribution year">
                   <option value="2025">2025</option>
                   <option value="2024">2024</option>
                   <option value="2023">2023</option>
@@ -271,13 +236,11 @@ const GitHubProfile = () => {
 
             <div className=" flex flex-wrap gap-1 mb-2">
               {contributionData.map((day, index) => (
-                <motion.div
+                <div
                   key={index}
-                  className={`w-3 h-3  rounded-sm ${getContributionColor(
+                  className={`h-3 w-3 rounded-sm transition-transform duration-100 hover:scale-125 ${getContributionColor(
                     day.intensity
                   )}`}
-                  whileHover={{ scale: 1.2 }}
-                  transition={{ duration: 0.1 }}
                   title={`${day.contributions} contributions`}
                 />
               ))}
@@ -298,10 +261,10 @@ const GitHubProfile = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Contribution Activity */}
-        <motion.div variants={itemVariants}>
+        <div className="animate-rise">
           <h2 className="text-lg font-semibold mb-4">Contribution activity</h2>
           <div className="bg-gray-900 rounded-lg p-4 border border-gray-800">
             <div className="text-sm text-gray-400 mb-4">June 2025</div>
@@ -332,8 +295,8 @@ const GitHubProfile = () => {
               </button>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -360,10 +323,7 @@ const ProfileCard = ({
     <div className="bg-gray-900 rounded-lg p-4 sm:p-6 lg:w-80 border border-gray-800">
       <div className="flex flex-col items-center text-center">
         {/* //Image section  */}
-        <motion.div
-          className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-gray-700"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.3 }}>
+        <div className="mb-4 h-32 w-32 overflow-hidden rounded-full border-4 border-gray-700 transition-transform duration-300 hover:scale-105">
           <Image
             src={imageUrl}
             alt="Profile"
@@ -372,7 +332,7 @@ const ProfileCard = ({
             height={128}
             priority
           />
-        </motion.div>
+        </div>
         <h1 className="text-2xl font-bold">{name}</h1>
         <Link href={githubLink} target="_blank" className="text-gray-400 my-2">
           {userName}

@@ -1,6 +1,4 @@
-"use client";
 import { BlogsInfo } from "@/components/constant/enum";
-import { motion } from "framer-motion";
 import { ExternalLink, Eye, Heart, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
@@ -19,12 +17,13 @@ const Blogs = () => {
         {/* Blog Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {BlogsInfo.map((blog, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.2 }}
-              className="bg-secondary rounded-lg border border-text-dark overflow-hidden hover:border-disabled transition-all duration-300 group">
+              // Entry animation in CSS rather than framer-motion: it is a
+              // one-shot reveal with no interaction, so it does not justify
+              // making this whole subtree a client component.
+              style={{ animationDelay: `${index * 120}ms` }}
+              className="group overflow-hidden rounded-lg border border-text-dark bg-secondary transition-all duration-300 animate-rise hover:border-disabled">
               {/* Blog Image */}
               <div
                 className="h-48 relative overflow-hidden bg-cover bg-center bg-no-repeat"
@@ -79,7 +78,7 @@ const Blogs = () => {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
