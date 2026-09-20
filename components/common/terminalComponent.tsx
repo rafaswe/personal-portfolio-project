@@ -74,7 +74,10 @@ const TerminalComponent = () => {
       className={cn(
         "absolute bottom-0 left-0 right-0 z-50 h-1/2 border border-border bg-primary text-white shadow-lg",
         "transition-transform duration-500 ease-in-out will-change-transform motion-reduce:transition-none",
-        isTerminalClicked ? "translate-y-[40%]" : "translate-y-[200%]"
+        // Docked flush with the bottom of the pane. The old 40% offset left
+        // roughly two fifths of the panel below the clip, so the lower part of
+        // the terminal was simply unreachable.
+        isTerminalClicked ? "translate-y-0" : "translate-y-full"
       )}>
       <div className="text-xs">
         <div className="flex items-center justify-between px-3 py-1.5">
